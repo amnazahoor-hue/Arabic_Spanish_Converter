@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Al-Andalus Translate
 
-## Getting Started
+Free Arabic ↔ Spanish translator and marketing site built with Next.js App Router, Tailwind CSS v4, and the Al-Andalus design system.
 
-First, run the development server:
+## Quick start
 
 ```bash
+cd arabic-spanish-translator
+cp .env.example .env.local
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Set `NEXT_PUBLIC_SITE_URL` to your production URL before deploy (canonical URLs, sitemap, Open Graph, shares).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run start` | Serve production build |
+| `npm run lint` | ESLint |
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+See `.env.example` for all variables. Key entries:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_SITE_URL` | Public site URL (SEO, sitemap, WhatsApp share) |
+| `TRANSLATE_PROVIDER` | `mymemory` (default) or `azure` |
+| `TRANSLATE_API_KEY` | Optional MyMemory private key |
+| `NEXT_PUBLIC_SOCIAL_*` | Footer social profile URLs |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 (optional) |
+| `NEXT_PUBLIC_CLARITY_ID` | Microsoft Clarity (optional) |
+| `CONTACT_WEBHOOK_URL` | Contact form webhook (optional) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+MyMemory free tier: 500 UTF-8 bytes per request (auto-chunked), ~5000 characters per day.
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+  app/              Routes, API, global styles, OG image
+  components/       UI, layout, sections, translator, SEO
+  content/          FAQ and legal copy
+  hooks/            Translator and scroll-spy
+  lib/              Translation, SEO, share, PDF export
+  styles/           Viewport-specific CSS (e.g. Nest Hub hero)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Homepage: Hero → Translator → How it works → Features → FAQ. Legal pages under `app/(legal)/`.
+
+## Deploy (Vercel)
+
+1. Set root directory to `arabic-spanish-translator`
+2. Add environment variables from `.env.example`
+3. Build command: `npm run build`
+
+Security headers are configured in `next.config.ts`.
+
+## SEO
+
+- Per-page metadata via `buildMetadata()` in `src/lib/seo.ts`
+- Dynamic Open Graph image: `src/app/opengraph-image.tsx`
+- `sitemap.xml` and `robots.txt`
+- JSON-LD: Organization, WebSite, FAQPage, breadcrumbs on legal pages
+
+After deploy, submit `https://your-domain.com/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
+
+## License
+
+Private — all rights reserved unless stated otherwise.
