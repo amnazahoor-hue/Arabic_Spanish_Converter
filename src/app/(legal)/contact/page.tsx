@@ -4,6 +4,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { articleSchema, breadcrumbSchema, buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
+  
   title: "Contact",
   description:
     "Contact Al-Andalus Translate: technical support, general inquiries, partnerships, and privacy questions.",
