@@ -37,6 +37,7 @@ export function Section({
       id={id}
       className={cn(
         toneClasses[tone],
+        id && "scroll-mt-[calc(var(--header-height)+0.75rem)]",
         tight ? "pt-8 pb-10 md:pt-10 md:pb-12" : "pt-10 pb-12 md:pt-14 md:pb-18",
         className,
       )}

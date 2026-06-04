@@ -60,9 +60,10 @@ export function Footer() {
             href={`/#${SECTION_IDS.translator}`}
             className={cn(
               "inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3",
-              "bg-secondary font-semibold text-heading shadow-md",
-              "hover:bg-accent transition-colors",
+              "bg-secondary font-semibold text-white shadow-md",
+              "hover:bg-accent hover:text-white transition-colors",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
+              "[&_svg]:text-white",
             )}
           >
             Start translating

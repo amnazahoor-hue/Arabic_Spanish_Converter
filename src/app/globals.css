@@ -1,5 +1,7 @@
 @import "tailwindcss";
+@import "../styles/hero.css";
 @import "../styles/hero-nest-hub.css";
+@import "../styles/hero-large.css";
 
 :root {
   --color-primary: #1a6b6b;
@@ -276,6 +278,10 @@
   .font-arabic {
     font-family: var(--font-arabic);
   }
+
+  .font-display {
+    font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  }
 }
 
 @keyframes hero-shimmer {
@@ -297,5 +303,14 @@
   50% {
     opacity: 0.55;
     transform: scale(1.02);
+  }
+}
+
+@keyframes hero-flow {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(420%);
   }
 }

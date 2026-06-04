@@ -2,8 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-export function useScrollSpy(sectionIds: readonly string[], offset = 120) {
-  const [activeId, setActiveId] = useState<string | null>(sectionIds[0] ?? null);
+function getScrollOffset() {
+  const header = document.querySelector("header");
+  const headerHeight = header?.getBoundingClientRect().height ?? 67;
+  return headerHeight + 12;
+}
+
+export function useScrollSpy(sectionIds: readonly string[]) {
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
     const elements = sectionIds
@@ -12,21 +18,39 @@ export function useScrollSpy(sectionIds: readonly string[], offset = 120) {
 
     if (elements.length === 0) return;
 
-    const onScroll = () => {
-      let current: string | null = sectionIds[0] ?? null;
+    const update = () => {
+      const offset = getScrollOffset();
+      const scrollLine = window.scrollY + offset;
+      const firstTop = elements[0]?.offsetTop ?? 0;
+
+      if (scrollLine < firstTop) {
+        setActiveId(null);
+        return;
+      }
+
+      let current: string | null = null;
       for (const el of elements) {
-        const top = el.getBoundingClientRect().top;
-        if (top - offset <= 0) {
+        if (scrollLine >= el.offsetTop) {
           current = el.id;
         }
       }
+
       setActiveId(current);
     };
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [sectionIds, offset]);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
+    ro?.observe(document.body);
+
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      ro?.disconnect();
+    };
+  }, [sectionIds]);
 
   return activeId;
 }

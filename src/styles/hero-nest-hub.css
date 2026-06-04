@@ -12,17 +12,22 @@
     flex: 1;
     min-height: 0;
     height: 100%;
+    width: 100%;
+    max-width: 100%;
     flex-direction: column;
     justify-content: flex-start;
     padding-block: 0.5rem;
+    padding-inline: 1.25rem;
   }
 
   [data-hero] .hero-grid {
     flex: 1;
     min-height: 0;
     height: 100%;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: stretch !important;
-    column-gap: 1.5rem;
+    column-gap: 1.25rem;
     row-gap: 0;
   }
 
@@ -36,7 +41,7 @@
     height: 100%;
     align-items: flex-start !important;
     justify-content: center;
-    gap: 1.125rem !important;
+    gap: 0.875rem !important;
     padding-block: 0;
   }
 
@@ -77,7 +82,7 @@
   [data-hero] .hero-title-block {
     flex: 0 0 auto;
     justify-content: flex-start;
-    gap: 0.875rem !important;
+    gap: 0.5rem !important;
     width: 100%;
   }
 
@@ -146,58 +151,41 @@
   }
 
   [data-hero] .hero-illustration__ring--1 {
-    inset: -0.5rem;
-    border-color: color-mix(in srgb, var(--color-secondary) 30%, transparent);
+    inset: -0.375rem;
   }
 
-  [data-hero] .hero-illustration__ring--2 {
-    inset: -1rem;
-    border-color: color-mix(in srgb, var(--color-primary) 18%, transparent);
+  [data-hero] .hero-illustration__chrome {
+    padding-block: 0.5rem;
+    padding-inline: 0.75rem;
   }
 
-  [data-hero] .hero-illustration__ring--3 {
-    inset: -1.5rem;
-    opacity: 0.9;
+  [data-hero] .hero-illustration__exchange {
+    min-height: 0;
+    flex: 1;
+    padding: 0.5rem 0.625rem;
   }
 
-  [data-hero] .hero-illustration__stage {
-    padding: 1rem;
+  [data-hero] .hero-illustration__progress {
+    margin-top: 0.5rem;
+    padding-block: 0.5rem;
   }
 
   [data-hero] .hero-illustration__device {
-    aspect-ratio: auto;
-    height: 88%;
+    max-width: none;
     width: 100%;
-    max-width: 16rem;
-    max-height: none;
+    min-height: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
-  [data-hero] .hero-illustration__chip {
-    padding: 0.375rem 0.625rem;
+  [data-hero] .hero-illustration__stage {
+    flex: 1;
+    min-height: 0;
   }
 
-  [data-hero] .hero-illustration__chip--ar {
-    left: 0;
-    top: 8%;
-  }
-
-  [data-hero] .hero-illustration__chip--instant {
-    right: 0;
-    top: 15%;
-  }
-
-  [data-hero] .hero-illustration__chip--arabic {
-    left: 0.25rem;
-    bottom: 22%;
-  }
-
-  [data-hero] .hero-illustration__chip--spanish {
-    right: 0.25rem;
-    bottom: 24%;
-  }
-
-  [data-hero] .hero-illustration__live {
-    bottom: 0.5rem;
-    padding: 0.375rem 1rem;
+  [data-hero] .hero-illustration__frame {
+    height: 100%;
+    min-height: 0;
   }
 }

@@ -45,6 +45,7 @@ export function NavLinks({
                 <li key={item.href}>
                   <a
                     href={sectionHref(item.href, onHome)}
+                    aria-current={isActive ? "location" : undefined}
                     className={cn(
                       "flex items-center rounded-[var(--radius)] px-3 py-2.5 text-nav font-medium transition-colors",
                       isActive
@@ -135,6 +136,7 @@ export function NavLinks({
               )}
               <a
                 href={sectionHref(item.href, onHome)}
+                aria-current={isActive ? "location" : undefined}
                 className={cn(
                   "relative z-10 block rounded-full px-3.5 py-2 text-nav-mobile xl:text-nav font-medium transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
