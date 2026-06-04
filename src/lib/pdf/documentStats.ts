@@ -23,3 +23,12 @@ export function formatGeneratedAt(date: Date = new Date()): string {
     timeStyle: "short",
   });
 }
+
+/** jsPDF Helvetica only supports WinAnsi — keep footer text ASCII-only. */
+export function formatPdfFooterDirection(sourceLabel: string, targetLabel: string): string {
+  return `${sourceLabel} to ${targetLabel}`;
+}
+
+export function formatPdfFooterStats(chars: number, words: number): string {
+  return `${chars.toLocaleString()} chars, ${words.toLocaleString()} words`;
+}

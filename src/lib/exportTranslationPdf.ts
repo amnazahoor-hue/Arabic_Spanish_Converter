@@ -4,7 +4,10 @@ import {
   countWords,
   createDocumentReference,
   formatGeneratedAt,
+  formatPdfFooterDirection,
+  formatPdfFooterStats,
 } from "@/lib/pdf/documentStats";
+import { PDF_OFFICIAL_LOGO_HTML } from "@/lib/pdf/pdfBrandLogo";
 import { getPublicSiteUrl } from "@/lib/publicSiteUrl";
 
 export type PdfExportPayload = {
@@ -27,7 +30,7 @@ const BRAND = {
   footerBg: "#f4ecdd",
 } as const;
 
-const PDF_FOOTER_HEIGHT_MM = 22;
+const PDF_FOOTER_HEIGHT_MM = 26;
 
 function escapeHtml(text: string): string {
   return text
@@ -55,6 +58,10 @@ function buildExportElement(payload: PdfExportPayload): {
     sourceStats: string;
     outputStats: string;
     siteLine: string;
+    footerDirection: string;
+    footerStatsLine: string;
+    footerSiteName: string;
+    footerSiteUrl: string | null;
   };
 } {
   const { sourceLang, targetLang, input, output } = payload;
@@ -73,6 +80,8 @@ function buildExportElement(payload: PdfExportPayload): {
   const sourceStats = `${sourceChars.toLocaleString()} characters · ${sourceWords.toLocaleString()} words`;
   const outputStats = `${outputChars.toLocaleString()} characters · ${outputWords.toLocaleString()} words`;
   const siteLine = publicSiteUrl ? `${SITE_CONFIG.name} · ${publicSiteUrl}` : SITE_CONFIG.name;
+  const footerDirection = formatPdfFooterDirection(from.label, to.label);
+  const footerStatsLine = `Source: ${formatPdfFooterStats(sourceChars, sourceWords)}  |  Output: ${formatPdfFooterStats(outputChars, outputWords)}`;
 
   const root = document.createElement("div");
   root.setAttribute("aria-hidden", "true");
@@ -88,23 +97,15 @@ function buildExportElement(payload: PdfExportPayload): {
   ].join(";");
 
   root.innerHTML = `
-    <div style="background:${BRAND.bg};padding:40px 48px 32px;box-sizing:border-box;min-height:1050px;">
+    <div style="background:${BRAND.bg};padding:40px 48px 96px;box-sizing:border-box;min-height:1050px;">
       <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
         <tr>
-          <td style="vertical-align:middle;width:56px;">
-            <div style="width:52px;height:52px;border-radius:12px;background:${BRAND.primary};display:flex;align-items:center;justify-content:center;">
-              <span style="color:#fff;font-size:22px;font-family:Georgia,serif;line-height:1;">ع</span>
-            </div>
-          </td>
-          <td style="vertical-align:middle;padding-left:16px;">
+          <td style="vertical-align:middle;padding-right:20px;">
             <div style="font-size:24px;font-weight:700;color:${BRAND.heading};letter-spacing:-0.02em;line-height:1.2;">${SITE_CONFIG.name}</div>
             <div style="font-size:13px;color:${BRAND.muted};margin-top:4px;">Official translation record</div>
           </td>
-          <td style="vertical-align:top;text-align:right;">
-            <div style="display:inline-block;background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:10px;padding:10px 14px;text-align:left;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:${BRAND.secondary};">Document ID</div>
-              <div style="font-size:13px;font-weight:600;color:${BRAND.heading};margin-top:4px;font-family:ui-monospace,monospace;">${documentId}</div>
-            </div>
+          <td style="vertical-align:middle;text-align:right;width:240px;">
+            <div style="display:inline-block;line-height:0;">${PDF_OFFICIAL_LOGO_HTML}</div>
           </td>
         </tr>
       </table>
@@ -112,6 +113,7 @@ function buildExportElement(payload: PdfExportPayload): {
       <div style="background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:12px;padding:16px 20px;margin-bottom:28px;">
         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:${BRAND.primary};margin-bottom:12px;">Document summary</div>
         <table style="width:100%;border-collapse:collapse;">
+          ${metaRow("Document ID", documentId)}
           ${metaRow("Generated", generatedAt)}
           ${metaRow("Language direction", direction)}
           ${metaRow("Source text", sourceStats)}
@@ -156,70 +158,93 @@ function buildExportElement(payload: PdfExportPayload): {
       sourceStats,
       outputStats,
       siteLine,
+      footerDirection,
+      footerStatsLine,
+      footerSiteName: SITE_CONFIG.name,
+      footerSiteUrl: publicSiteUrl,
     },
   };
 }
 
-function addPdfFooters(
-  pdf: {
-    getNumberOfPages: () => number;
-    setPage: (page: number) => void;
-    internal: { pageSize: { getWidth: () => number; getHeight: () => number } };
-    setDrawColor: (r: number, g: number, b: number) => void;
-    setFillColor: (r: number, g: number, b: number) => void;
-    setLineWidth: (width: number) => void;
-    line: (x1: number, y1: number, x2: number, y2: number) => void;
-    rect: (x: number, y: number, w: number, h: number, style?: string) => void;
-    setFont: (font: string, style: string) => void;
-    setFontSize: (size: number) => void;
-    setTextColor: (r: number, g: number, b: number) => void;
-    text: (
-      text: string,
-      x: number,
-      y: number,
-      options?: { align?: "left" | "center" | "right" },
-    ) => void;
-  },
-  meta: ReturnType<typeof buildExportElement>["meta"],
-): void {
+type JsPdfFooter = {
+  getNumberOfPages: () => number;
+  setPage: (page: number) => void;
+  internal: { pageSize: { getWidth: () => number; getHeight: () => number } };
+  setDrawColor: (r: number, g: number, b: number) => void;
+  setFillColor: (r: number, g: number, b: number) => void;
+  setLineWidth: (width: number) => void;
+  line: (x1: number, y1: number, x2: number, y2: number) => void;
+  rect: (x: number, y: number, w: number, h: number, style?: string) => void;
+  setFont: (font: string, style: string) => void;
+  setFontSize: (size: number) => void;
+  setTextColor: (r: number, g: number, b: number) => void;
+  splitTextToSize: (text: string, maxWidth: number) => string[];
+  text: (
+    text: string | string[],
+    x: number,
+    y: number,
+    options?: { align?: "left" | "center" | "right"; baseline?: string },
+  ) => void;
+};
+
+function addPdfFooters(pdf: JsPdfFooter, meta: ReturnType<typeof buildExportElement>["meta"]): void {
   const pageCount = pdf.getNumberOfPages();
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
   const margin = 14;
   const footerTop = pageHeight - PDF_FOOTER_HEIGHT_MM;
+  const leftColWidth = pageWidth * 0.58;
+  const rightX = pageWidth - margin;
+
+  const refLine = `${meta.documentId}  |  ${meta.footerDirection}`;
 
   for (let page = 1; page <= pageCount; page += 1) {
     pdf.setPage(page);
     pdf.setFillColor(251, 247, 240);
-    pdf.rect(0, footerTop - 2, pageWidth, PDF_FOOTER_HEIGHT_MM + 2, "F");
+    pdf.rect(0, footerTop - 1, pageWidth, PDF_FOOTER_HEIGHT_MM + 1, "F");
     pdf.setDrawColor(216, 216, 232);
-    pdf.setLineWidth(0.2);
+    pdf.setLineWidth(0.25);
     pdf.line(margin, footerTop, pageWidth - margin, footerTop);
 
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(7);
     pdf.setTextColor(122, 122, 154);
-    pdf.text(
-      `${meta.documentId} · ${meta.direction}`,
-      margin,
-      footerTop + 5,
-    );
-    pdf.text(
-      `Source: ${meta.sourceStats}  |  Output: ${meta.outputStats}`,
-      margin,
-      footerTop + 9,
-    );
-    pdf.text(meta.generatedAt, margin, footerTop + 13);
+
+    pdf.text(pdf.splitTextToSize(refLine, leftColWidth), margin, footerTop + 5);
+    pdf.text(pdf.splitTextToSize(meta.footerStatsLine, leftColWidth), margin, footerTop + 10);
+    pdf.text(pdf.splitTextToSize(meta.generatedAt, leftColWidth), margin, footerTop + 15);
 
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7);
+    pdf.setFontSize(8);
     pdf.setTextColor(26, 107, 107);
-    pdf.text(meta.siteLine, pageWidth - margin, footerTop + 5, { align: "right" });
+    pdf.text(meta.footerSiteName, rightX, footerTop + 5, { align: "right" });
+
+    let pageLabelY = footerTop + 11;
+    if (meta.footerSiteUrl) {
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(6.5);
+      pdf.setTextColor(122, 122, 154);
+      const urlLines = pdf.splitTextToSize(meta.footerSiteUrl, pageWidth * 0.36);
+      pdf.text(urlLines, rightX, footerTop + 9.5, { align: "right" });
+      pageLabelY = footerTop + 9.5 + urlLines.length * 3.4;
+    }
+
     pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(7);
     pdf.setTextColor(122, 122, 154);
-    pdf.text(`Page ${page} of ${pageCount}`, pageWidth - margin, footerTop + 13, {
-      align: "right",
-    });
+    pdf.text(`Page ${page} of ${pageCount}`, rightX, pageLabelY, { align: "right" });
+
+    pdf.setFontSize(6);
+    pdf.setTextColor(160, 160, 180);
+    const disclaimerLines = pdf.splitTextToSize(
+      "Machine translation for reference only. Not certified for legal or official use.",
+      pageWidth - margin * 2,
+    );
+    let disclaimerY = footerTop + 19;
+    for (const line of disclaimerLines) {
+      pdf.text(line, pageWidth / 2, disclaimerY, { align: "center" });
+      disclaimerY += 3.2;
+    }
   }
 }
 
@@ -261,7 +286,7 @@ export async function downloadTranslationPdf(payload: PdfExportPayload): Promise
       heightLeft -= contentHeight;
     }
 
-    addPdfFooters(pdf, meta);
+    addPdfFooters(pdf as unknown as JsPdfFooter, meta);
 
     const stamp = meta.documentId.replace(/^AAT-/, "");
     pdf.save(`al-andalus-translation-${stamp}.pdf`);
