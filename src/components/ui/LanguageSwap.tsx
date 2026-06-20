@@ -15,7 +15,7 @@ export function LanguageSwap({ source, target, onSwap, className }: LanguageSwap
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center justify-center gap-3 rounded-[var(--radius)] border border-border bg-surface-alt px-4 py-3",
+        "flex flex-wrap items-center justify-center gap-3 rounded-[var(--radius)] border border-border bg-surface-alt px-4 py-3 language-swap-bar",
         className,
       )}
     >
@@ -26,8 +26,8 @@ export function LanguageSwap({ source, target, onSwap, className }: LanguageSwap
         type="button"
         onClick={onSwap}
         className={cn(
-          "inline-flex h-10 w-10 items-center justify-center rounded-full",
-          "bg-primary text-white hover:bg-hover hover:text-white [&_svg]:text-white transition-colors",
+          "language-swap-btn inline-flex h-10 w-10 items-center justify-center rounded-full",
+          "bg-primary text-white hover:bg-hover hover:text-white [&_svg]:text-white",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
         )}
         aria-label={`Swap languages: ${LANGUAGES[source].label} and ${LANGUAGES[target].label}`}

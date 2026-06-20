@@ -1,11 +1,14 @@
 "use client";
 
+import "@/styles/common-phrases.css";
 import { Button } from "@/components/ui/Button";
+import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import { SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { AlertTriangle, ArrowRight, Hand, HeartPulse, ShoppingCart } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const phrases = [
   {
@@ -34,7 +37,9 @@ const phrases = [
   },
 ] as const;
 
-function PhraseRow({
+const toneClass = ["phrase-card--teal", "phrase-card--gold", "phrase-card--teal", "phrase-card--gold"] as const;
+
+function PhraseCard({
   phrase,
   index,
   reduceMotion,
@@ -46,47 +51,35 @@ function PhraseRow({
   const { Icon, label, arabic, spanish } = phrase;
 
   return (
-    <motion.li
-      className={cn(
-        "rounded-[var(--radius-lg)] border border-border/80 bg-surface/95 p-4 shadow-sm sm:p-5",
-        "transition-[border-color,box-shadow] duration-300 hover:border-primary/30 hover:shadow-card",
-      )}
-      initial={reduceMotion ? {} : { opacity: 0, y: 16 }}
+    <motion.article
+      className={cn("phrase-card", toneClass[index])}
+      initial={reduceMotion ? {} : { opacity: 0, y: 20 }}
       whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-32px" }}
-      transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.48, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mb-3 flex items-center gap-2.5">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
-          <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+      <div className="phrase-card__head">
+        <span className="phrase-card__icon-wrap" aria-hidden>
+          <Icon className="h-4 w-4" strokeWidth={1.75} />
         </span>
-        <h3 className="type-h3-card text-heading">{label}</h3>
+        <h3 className="phrase-card__label">{label}</h3>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-[1fr_auto_1fr] md:items-center">
-        <p
-          className="rounded-[var(--radius)] border border-border/70 bg-surface-alt/60 px-3 py-2.5 font-arabic text-start text-base leading-relaxed text-heading sm:text-lg"
-          dir="rtl"
-          lang="ar"
-        >
+      <div className="phrase-card__arabic-wrap">
+        <p className="phrase-card__arabic" dir="rtl" lang="ar">
           {arabic}
         </p>
-
-        <span
-          className="hidden text-secondary md:flex md:items-center md:justify-center"
-          aria-hidden
-        >
-          →
-        </span>
-
-        <p
-          className="rounded-[var(--radius)] border border-primary/15 bg-primary/5 px-3 py-2.5 type-body leading-relaxed text-body"
-          lang="es"
-        >
-          {spanish}
-        </p>
       </div>
-    </motion.li>
+
+      <p className="phrase-card__spanish" lang="es">
+        {spanish}
+      </p>
+
+      <Button href={`#${SECTION_IDS.translator}`} size="sm" className="phrase-card__cta">
+        Traducir aquí
+        <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+      </Button>
+    </motion.article>
   );
 }
 
@@ -94,39 +87,41 @@ export function CommonPhrases() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <Section id={SECTION_IDS.commonPhrases} tone="primary-mist" className="overflow-hidden">
+    <Section
+      id={SECTION_IDS.commonPhrases}
+      tone="surface"
+      className="overflow-hidden"
+      data-common-phrases-section
+    >
       <div className="relative">
         <motion.header
-          className="mx-auto mb-8 max-w-3xl text-center lg:mb-10"
+          className="mx-auto mb-8 max-w-3xl lg:mb-10"
           initial={reduceMotion ? {} : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="type-h2-section text-heading">Común Frases En Árabe Al Español</h2>
-          <p className="type-body mx-auto mt-4 max-w-2xl text-body text-pretty">
-            Algunas frases comunes que usamos en nuestra vida diaria sin darnos cuenta. Según la
-            situación, aquí hay algunas frases mencionadas a través de traductor árabe gratis:
-          </p>
-          <div
-            className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-primary via-secondary to-primary"
-            aria-hidden
+          <SectionHeader
+            title="Común Frases En Árabe Al"
+            accent="Español"
+            description="Algunas frases comunes que usamos en nuestra vida diaria sin darnos cuenta. Según la situación, aquí hay algunas frases mencionadas a través de traductor árabe gratis:"
+            showLine={false}
           />
         </motion.header>
 
-        <ul className="mx-auto max-w-4xl space-y-4">
+        <div data-common-phrases className="phrase-grid">
           {phrases.map((phrase, index) => (
-            <PhraseRow
+            <PhraseCard
               key={phrase.label}
               phrase={phrase}
               index={index}
               reduceMotion={!!reduceMotion}
             />
           ))}
-        </ul>
+        </div>
 
         <motion.div
-          className="mt-10 flex flex-col items-center gap-4 text-center"
+          className="mt-10 flex justify-center lg:mt-12"
           initial={reduceMotion ? {} : { opacity: 0 }}
           whileInView={reduceMotion ? {} : { opacity: 1 }}
           viewport={{ once: true }}

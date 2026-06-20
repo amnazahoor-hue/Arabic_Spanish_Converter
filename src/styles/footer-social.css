@@ -1,0 +1,123 @@
+/* Footer social links — muted default, solid brand fill on hover */
+
+.footer-social-link {
+  --social-brand: var(--color-secondary);
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease,
+    background-color 0.28s ease,
+    box-shadow 0.3s ease;
+}
+
+.footer-social-link::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: -4px;
+  z-index: -1;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--social-brand) 38%, transparent);
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 0.3s ease;
+}
+
+.footer-social-link svg {
+  flex-shrink: 0;
+  fill: currentColor;
+  color: color-mix(in srgb, var(--color-footer-text) 88%, white);
+  transition:
+    color 0.28s ease,
+    fill 0.28s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .footer-social-link:hover,
+  .footer-social-link:focus-visible {
+    transform: translateY(-3px);
+    border-color: transparent;
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--social-brand) 42%, transparent);
+  }
+
+  .footer-social-link:hover::before,
+  .footer-social-link:focus-visible::before {
+    opacity: 1;
+  }
+
+  .footer-social-link:hover svg,
+  .footer-social-link:focus-visible svg {
+    transform: scale(1.1);
+  }
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+  background-color: var(--social-brand);
+  border-color: transparent;
+}
+
+.footer-social-link:hover svg,
+.footer-social-link:focus-visible svg {
+  color: #ffffff;
+  fill: #ffffff;
+}
+
+/* X — white mark on dark chip */
+.footer-social-link[data-social="x"]:hover,
+.footer-social-link[data-social="x"]:focus-visible {
+  background-color: #ffffff;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.32);
+}
+
+.footer-social-link[data-social="x"]:hover svg,
+.footer-social-link[data-social="x"]:focus-visible svg {
+  color: #0f1419;
+  fill: #0f1419;
+}
+
+.footer-social-link[data-social="x"]::before {
+  background: rgb(255 255 255 / 0.35);
+}
+
+/* Instagram — gradient badge */
+.footer-social-link[data-social="instagram"]:hover,
+.footer-social-link[data-social="instagram"]:focus-visible {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 22%,
+    #dc2743 48%,
+    #cc2366 72%,
+    #bc1888 100%
+  );
+  box-shadow: 0 10px 28px rgb(225 48 108 / 0.42);
+}
+
+.footer-social-link[data-social="instagram"]::before {
+  background: linear-gradient(
+    45deg,
+    rgb(240 148 51 / 0.45),
+    rgb(188 24 136 / 0.45)
+  );
+}
+
+.footer-social-link--placeholder {
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-social-link,
+  .footer-social-link::before,
+  .footer-social-link svg {
+    transition: none;
+  }
+
+  .footer-social-link:hover,
+  .footer-social-link:focus-visible {
+    transform: none;
+  }
+}

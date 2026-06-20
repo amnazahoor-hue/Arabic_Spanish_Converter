@@ -1,9 +1,10 @@
 "use client";
 
+import "@/styles/header.css";
 import { HeaderCta, NavLinks } from "@/components/layout/NavLinks";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { Logo } from "@/components/brand/Logo";
-import { PAGE_CONTAINER_CLASS } from "@/lib/constants";
+import { HEADER_CONTAINER_CLASS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
@@ -18,40 +19,47 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full max-w-[100vw] overflow-x-clip">
-      <div
-        className="h-[3px] w-full bg-gradient-to-r from-primary via-secondary to-primary"
-        aria-hidden
-      />
+    <header
+      data-site-header
+      data-scrolled={scrolled ? "true" : "false"}
+      className="sticky top-0 z-50 w-full max-w-[100vw] overflow-x-clip"
+    >
+      <div className="site-header__accent" aria-hidden />
 
-      <div
-        className={cn(
-          "border-b border-footer-text/15 bg-footer-bg text-footer-text transition-shadow duration-300",
-          scrolled && "shadow-[0_8px_32px_rgba(0,0,0,0.25)]",
-        )}
-      >
+      <div className="site-header__bar">
+        <div className="site-header__glow" aria-hidden />
+
         <div
           className={cn(
-            PAGE_CONTAINER_CLASS,
-            "flex items-center justify-between gap-3",
-            scrolled ? "h-[60px]" : "h-16",
+            HEADER_CONTAINER_CLASS,
+            "site-header__container relative transition-[padding] duration-300",
+            scrolled ? "min-h-[56px] py-1.5 sm:min-h-[60px] sm:py-2" : "min-h-[3.25rem] py-2 sm:min-h-16 sm:py-2.5",
           )}
         >
-          <div className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
-            <Logo variant="full" theme="dark" size="header-desktop" className="hidden lg:flex" />
-            <Logo variant="full" theme="dark" size="header-mobile" className="lg:hidden" />
-          </div>
+          <div className="site-header__inner">
+            <div className="site-header__brand">
+              <div className="site-header__brand-ring">
+                <Logo variant="full" theme="dark" size="header-desktop" className="hidden xl:flex" />
+                <Logo
+                  variant="icon"
+                  theme="dark"
+                  size="header-desktop"
+                  className="hidden lg:flex xl:hidden"
+                />
+                <Logo variant="icon" theme="dark" size="header-mobile" className="flex lg:hidden" />
+              </div>
+            </div>
 
-          <nav
-            aria-label="Main"
-            className="hidden min-w-0 flex-1 items-center justify-center overflow-hidden px-2 lg:flex xl:px-4"
-          >
-            <NavLinks variant="desktop" headerTheme="dark" />
-          </nav>
+            <nav aria-label="Navegación principal" className="site-header__nav">
+              <div className="site-header__nav-track">
+                <NavLinks variant="desktop" headerTheme="dark" />
+              </div>
+            </nav>
 
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <HeaderCta className="hidden sm:inline-flex" />
-            <MobileMenu headerTheme="dark" />
+            <div className="site-header__actions">
+              <HeaderCta className="site-header__cta hidden lg:inline-flex" />
+              <MobileMenu headerTheme="dark" />
+            </div>
           </div>
         </div>
       </div>

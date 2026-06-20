@@ -2,7 +2,7 @@
 
 import { ArabesqueMotif } from "@/components/brand/ArabesqueMotif";
 import { TranslatorPanel } from "@/components/sections/TranslatorPanel";
-import { PAGE_CONTAINER_CLASS, SECTION_IDS } from "@/lib/constants";
+import { HERO_CONTAINER_CLASS, SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { Globe2, Languages, ShieldCheck, Sparkles } from "lucide-react";
@@ -39,6 +39,9 @@ export function Hero() {
       )}
       aria-labelledby="hero-heading"
     >
+      <div className="hero-people-bg hero-people-bg--mobile pointer-events-none absolute inset-0 lg:hidden" aria-hidden />
+      <div className="hero-people-bg hero-people-bg--desktop pointer-events-none absolute inset-0 hidden lg:block" aria-hidden />
+      <div className="hero-people-overlay pointer-events-none absolute inset-0" aria-hidden />
       <div className="hero-mesh pointer-events-none absolute inset-0" aria-hidden />
 
       <div
@@ -68,15 +71,15 @@ export function Hero() {
 
       <div
         className={cn(
-          PAGE_CONTAINER_CLASS,
-          "hero-shell relative flex min-h-0 w-full flex-1 flex-col justify-center py-8 sm:py-9 lg:py-5 xl:py-8",
+          HERO_CONTAINER_CLASS,
+          "hero-shell relative z-10 flex min-h-0 w-full flex-1 flex-col items-center justify-center py-8 sm:py-9 lg:items-stretch lg:py-5 xl:py-8",
         )}
       >
         <div
           className={cn(
-            "hero-grid grid w-full min-w-0 max-w-none gap-8 sm:gap-10",
-            "lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start lg:gap-8",
-            "xl:gap-10",
+            "hero-grid grid w-full min-w-0 max-w-none justify-items-center gap-8 sm:gap-10",
+            "lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start lg:justify-items-stretch lg:gap-8",
+            "xl:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] xl:gap-10",
           )}
         >
           <motion.div
@@ -88,24 +91,26 @@ export function Hero() {
             initial="hidden"
             animate="show"
           >
-            <motion.div variants={motionItem} className="hero-copy-main flex min-h-0 w-full flex-col">
-              <div className="hero-title-block flex w-full min-w-0 flex-col gap-2.5 sm:gap-3">
+            <motion.div
+              variants={motionItem}
+              className="hero-copy-main flex min-h-0 w-full flex-col items-center lg:items-start"
+            >
+              <div className="hero-title-block flex w-full min-w-0 flex-col items-center gap-2.5 sm:gap-3 lg:items-start">
                 <h1
                   id="hero-heading"
                   className={cn(
-                    "type-h1-hero mx-auto max-w-xl text-balance md:mx-0 md:max-w-none",
+                    "type-h1-hero w-full max-w-xl text-balance text-center lg:max-w-none lg:text-start",
                     "lg:leading-[1.08]",
                   )}
                 >
                   Traductor Árabe Español:{" "}
-                  <span className="hero-instantly motion-safe:animate-[hero-shimmer_8s_ease-in-out_infinite] motion-reduce:animate-none">
+                  <span className="heading-accent motion-safe:animate-[hero-shimmer_8s_ease-in-out_infinite] motion-reduce:animate-none">
                     Traducción Mediante IA Precisa Y Sensible Al Contexto
                   </span>
                 </h1>
-                <div className="hero-grid-line mx-auto w-full max-w-[12rem] md:mx-0 lg:max-w-[14rem]" aria-hidden />
                 <p
                   className={cn(
-                    "hero-lead type-h3-card mx-auto max-w-lg font-normal text-body text-pretty md:mx-0 lg:max-w-xl",
+                    "hero-lead type-h3-card w-full max-w-lg text-center font-normal text-body text-pretty lg:max-w-xl lg:text-start",
                   )}
                 >
                   Nuestro traductor árabe español comprende los significados y los dialectos. No
@@ -133,7 +138,8 @@ export function Hero() {
 
           <motion.div
             className={cn(
-              "hero-translator order-2 relative flex min-h-0 min-w-0 w-full",
+              "hero-translator order-2 relative mx-auto flex min-h-0 min-w-0 w-full max-w-[28rem] interactive-lift",
+              "sm:max-w-[34rem] md:max-w-[40rem] lg:mx-0 lg:max-w-[38rem] lg:justify-self-end xl:max-w-[40rem]",
               "rounded-[calc(var(--radius)+4px)] border border-border/80 bg-surface/95 p-4 shadow-lg backdrop-blur-sm",
               "sm:p-5 lg:p-6",
             )}

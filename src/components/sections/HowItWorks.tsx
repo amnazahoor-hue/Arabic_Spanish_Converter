@@ -1,83 +1,117 @@
 "use client";
 
+import "@/styles/conversation-cards.css";
 import { Button } from "@/components/ui/Button";
+import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import { SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Briefcase, Plane } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const examples = [
+type ConversationExample = {
+  title: string;
+  description: string;
+  Icon: LucideIcon;
+  arabic: string;
+  spanish: string;
+  graphicPosition: "left" | "right";
+  align: "start" | "center";
+};
+
+const examples: readonly ConversationExample[] = [
   {
     title: "Viajar",
+    description: "Preguntas cotidianas al explorar una ciudad en el mundo árabe.",
     Icon: Plane,
     arabic: "أين أقرب محطة مترو؟",
     spanish: "¿Dónde está la estación de metro más cercana?",
+    graphicPosition: "left",
+    align: "start",
   },
   {
     title: "Negocio",
+    description: "Frases formales para reuniones y propuestas comerciales.",
     Icon: Briefcase,
     arabic: "نريد الاطلاع على العرض التجاري قبل الاجتماع.",
     spanish: "Quisiéramos revisar la propuesta comercial antes de la reunión.",
+    graphicPosition: "right",
+    align: "center",
   },
-] as const;
+];
 
-function ExampleCard({
+function ConversationGraphic({ Icon }: { Icon: LucideIcon }) {
+  return (
+    <div className="conversation-banner__graphic" aria-hidden>
+      <span className="conversation-banner__strip conversation-banner__strip--1" />
+      <span className="conversation-banner__strip conversation-banner__strip--2" />
+      <span className="conversation-banner__strip conversation-banner__strip--3" />
+      <span className="conversation-banner__strip conversation-banner__strip--4" />
+      <span className="conversation-banner__strip conversation-banner__strip--line" />
+      <span className="conversation-banner__strip conversation-banner__strip--line-2" />
+      <div className="conversation-banner__icon">
+        <Icon className="h-7 w-7" strokeWidth={1.65} />
+      </div>
+    </div>
+  );
+}
+
+function ConversationBanner({
   example,
   index,
   reduceMotion,
 }: {
-  example: (typeof examples)[number];
+  example: ConversationExample;
   index: number;
   reduceMotion: boolean;
 }) {
-  const { Icon, title, arabic, spanish } = example;
-  const accent = index % 2 === 0 ? "primary" : "secondary";
+  const { Icon, title, description, arabic, spanish, graphicPosition, align } = example;
+  const graphicFirst = graphicPosition === "left";
 
   return (
     <motion.article
       className={cn(
-        "group relative overflow-hidden rounded-[var(--radius-lg)] border border-border/80 bg-surface/95 p-5 shadow-card backdrop-blur-sm sm:p-6",
-        "transition-[border-color,box-shadow,transform] duration-300",
-        "motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_12px_40px_rgba(26,26,46,0.1)]",
-        accent === "primary" ? "hover:border-primary/35" : "hover:border-secondary/40",
+        "conversation-banner",
+        graphicPosition === "right" && "conversation-banner--flip",
+        align === "center" && "conversation-banner--center",
       )}
-      initial={reduceMotion ? {} : { opacity: 0, y: 20 }}
+      initial={reduceMotion ? {} : { opacity: 0, y: 24 }}
       whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mb-4 flex items-center gap-3">
-        <span
-          className={cn(
-            "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border shadow-sm",
-            accent === "primary"
-              ? "border-primary/25 bg-primary/10 text-primary"
-              : "border-secondary/30 bg-secondary/12 text-secondary",
-          )}
-        >
-          <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden />
-        </span>
-        <h3 className="type-h3-card text-heading">{title}</h3>
-      </div>
+      {graphicFirst && <ConversationGraphic Icon={Icon} />}
 
-      <div className="space-y-3">
-        <blockquote
-          className="rounded-[var(--radius)] border border-border/70 bg-surface-alt/60 px-4 py-3 font-arabic text-start text-lg leading-relaxed text-heading"
-          dir="rtl"
-          lang="ar"
-        >
+      <div className="conversation-banner__content">
+        <h3 className="conversation-banner__title">{title}</h3>
+        <p className="conversation-banner__lead">{description}</p>
+
+        <blockquote className="conversation-banner__quote" dir="rtl" lang="ar">
           {arabic}
         </blockquote>
 
-        <div className="flex justify-center" aria-hidden>
-          <span className="h-6 w-px bg-gradient-to-b from-primary/40 to-secondary/40" />
-        </div>
-
-        <p className="rounded-[var(--radius)] border border-primary/15 bg-primary/5 px-4 py-3 type-body leading-relaxed text-body" lang="es">
+        <p className="conversation-banner__translation" lang="es">
           {spanish}
         </p>
+
+        <div className="conversation-banner__actions">
+          <a
+            href={`#${SECTION_IDS.translator}`}
+            className="conversation-banner__btn conversation-banner__btn--primary"
+          >
+            Traducir aquí
+          </a>
+          <a
+            href={`#${SECTION_IDS.commonPhrases}`}
+            className="conversation-banner__btn conversation-banner__btn--secondary"
+          >
+            Más frases
+          </a>
+        </div>
       </div>
+
+      {!graphicFirst && <ConversationGraphic Icon={Icon} />}
     </motion.article>
   );
 }
@@ -86,32 +120,25 @@ export function HowItWorks() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <Section id={SECTION_IDS.howItWorks} tone="sand" className="overflow-hidden">
-      <div className="relative">
+    <Section id={SECTION_IDS.howItWorks} tone="grey" className="overflow-hidden">
+      <div data-conversation-section className="relative">
         <motion.header
-          className="mx-auto mb-8 max-w-3xl text-center lg:mb-10"
+          className="mx-auto mb-8 max-w-3xl lg:mb-10"
           initial={reduceMotion ? {} : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="type-h2-section text-heading">
-            Traducir El Árabe Al Español Conversación
-          </h2>
-          <p className="type-body mx-auto mt-4 max-w-2xl text-body text-pretty">
-            El traductor toma el español como un idioma, no como una fórmula. Aquí hay algunos
-            diálogos de viajes y negocios que te ayudarán a entender cómo traducir árabe a
-            español.
-          </p>
-          <div
-            className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-primary via-secondary to-primary"
-            aria-hidden
+          <SectionHeader
+            title="Traducir El Árabe Al Español"
+            accent="Conversación"
+            description="El traductor toma el español como un idioma, no como una fórmula. Aquí hay algunos diálogos de viajes y negocios que te ayudarán a entender cómo traducir árabe a español."
           />
         </motion.header>
 
-        <div className="grid gap-5 lg:grid-cols-2 lg:gap-6">
+        <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:gap-8">
           {examples.map((example, index) => (
-            <ExampleCard
+            <ConversationBanner
               key={example.title}
               example={example}
               index={index}

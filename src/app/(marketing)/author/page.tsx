@@ -3,8 +3,8 @@ import { AUTHOR_PROFILE } from "@/content/legal/author";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: `${AUTHOR_PROFILE.name} — Author | Traductor Árabe Español`,
-  description: `Conoce a ${AUTHOR_PROFILE.name}, experta en traducción árabe-español en Traductor Árabe Español.`,
+  title: `${AUTHOR_PROFILE.name} — Autora | Traductor Árabe Español`,
+  description: `Conoce a ${AUTHOR_PROFILE.name}, experta en traducción árabe-español, formación, especialidades y enfoque editorial en Traductor Árabe Español.`,
   path: "/author",
 });
 

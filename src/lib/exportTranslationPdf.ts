@@ -7,7 +7,7 @@ import {
   formatPdfFooterDirection,
   formatPdfFooterStats,
 } from "@/lib/pdf/documentStats";
-import { PDF_OFFICIAL_LOGO_HTML } from "@/lib/pdf/pdfBrandLogo";
+import { buildPdfLogoHtml, loadPdfLogoDataUrl } from "@/lib/pdf/pdfBrandLogo";
 import { getPublicSiteUrl } from "@/lib/publicSiteUrl";
 
 export type PdfExportPayload = {
@@ -49,7 +49,26 @@ function metaRow(label: string, value: string): string {
   `;
 }
 
-function buildExportElement(payload: PdfExportPayload): {
+async function waitForImages(container: HTMLElement): Promise<void> {
+  const images = Array.from(container.querySelectorAll("img"));
+
+  await Promise.all(
+    images.map(
+      (img) =>
+        new Promise<void>((resolve) => {
+          if (img.complete && img.naturalHeight > 0) {
+            resolve();
+            return;
+          }
+
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+        }),
+    ),
+  );
+}
+
+function buildExportElement(payload: PdfExportPayload, logoHtml: string): {
   root: HTMLDivElement;
   meta: {
     documentId: string;
@@ -105,7 +124,7 @@ function buildExportElement(payload: PdfExportPayload): {
             <div style="font-size:13px;color:${BRAND.muted};margin-top:4px;">Official translation record</div>
           </td>
           <td style="vertical-align:middle;text-align:right;width:240px;">
-            <div style="display:inline-block;line-height:0;">${PDF_OFFICIAL_LOGO_HTML}</div>
+            <div style="display:inline-block;line-height:0;">${logoHtml}</div>
           </td>
         </tr>
       </table>
@@ -254,10 +273,14 @@ export async function downloadTranslationPdf(payload: PdfExportPayload): Promise
     import("jspdf"),
   ]);
 
-  const { root, meta } = buildExportElement(payload);
+  const logoDataUrl = await loadPdfLogoDataUrl();
+  const logoHtml = buildPdfLogoHtml(logoDataUrl, SITE_CONFIG.name);
+  const { root, meta } = buildExportElement(payload, logoHtml);
   document.body.appendChild(root);
 
   try {
+    await waitForImages(root);
+
     const canvas = await html2canvas(root.firstElementChild as HTMLElement, {
       scale: 2,
       useCORS: true,
@@ -289,7 +312,7 @@ export async function downloadTranslationPdf(payload: PdfExportPayload): Promise
     addPdfFooters(pdf as unknown as JsPdfFooter, meta);
 
     const stamp = meta.documentId.replace(/^AAT-/, "");
-    pdf.save(`al-andalus-translation-${stamp}.pdf`);
+    pdf.save(`traductor-arabe-espanol-${stamp}.pdf`);
   } finally {
     document.body.removeChild(root);
   }

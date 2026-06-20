@@ -2,87 +2,87 @@ import type { LegalSection } from "@/components/legal/LegalPage";
 
 export const TERMS_SECTIONS: LegalSection[] = [
   {
-    heading: "Acceptance of terms",
+    heading: "Aceptación de los términos",
     paragraphs: [
-      "These Terms and Conditions (hereinafter, \"the Terms\") govern access to and use of the Al-Andalus Translate website and its bidirectional Arabic–Spanish translation tool. By using the Site, you agree to be bound by these Terms, the Legal Notice, the Privacy Policy, and any specific rules published on particular pages. Last updated: May 2026.",
-      "If you act on behalf of a company, association, or public body, you represent that you have authority to bind that entity. If you are a minor under Spanish law, you must use the Site under parental or guardian supervision, who assume responsibility for use.",
-      "We may deny or suspend access to users who breach these Terms, engage in abusive automated use, or attempt to compromise service security, without an obligation to compensate for that suspension when there is justified cause.",
+      "Los presentes Términos y Condiciones (en adelante, «los Términos») regulan el acceso y la utilización del sitio web Traductor Árabe Español y su herramienta bidireccional de traducción árabe–español. Al utilizar el Sitio, usted acepta quedar vinculado por estos Términos, el Aviso Legal, la Política de Privacidad y cualquier norma específica publicada en páginas concretas. Última actualización: Mayo 2026.",
+      "Si actúa en nombre de una empresa, asociación u organismo público, declara contar con autoridad para vincular a dicha entidad. Si es menor de edad conforme a la legislación española, debe utilizar el Sitio bajo supervisión de sus padres o tutores, quienes asumen la responsabilidad del uso.",
+      "Podemos denegar o suspender el acceso a usuarios que incumplan estos Términos, realicen un uso automatizado abusivo o intenten comprometer la seguridad del servicio, sin obligación de indemnizar por dicha suspensión cuando exista causa justificada.",
     ],
   },
   {
-    heading: "Use of the website",
+    heading: "Uso del sitio web",
     paragraphs: [
-      "We grant you a limited, non-exclusive, revocable, non-transferable license to access the Site and use the translator for personal, educational, family, or moderate internal professional purposes, provided they do not violate the law or these Terms.",
-      "You may not use the Site to disseminate illegal, defamatory, hate-inciting content, content that infringes intellectual property, malware, or harassment toward persons or groups. Impersonation, harvesting other users' data (if social features are added in the future), or interference with normal service operation is also prohibited.",
-      "You are responsible for the text you enter and for the consequences of sharing translations obtained. The Site is aimed primarily at facilitating communication for bilingual communities or learners in Spain, Latin America, and Arabic-speaking countries, without replacing official integration or interpretation services.",
+      "Le concedemos una licencia limitada, no exclusiva, revocable e intransferible para acceder al Sitio y utilizar el traductor con fines personales, educativos, familiares o profesionales internos moderados, siempre que no infrinjan la ley ni estos Términos.",
+      "No está permitido utilizar el Sitio para difundir contenido ilícito, difamatorio, incitador al odio, que infrinja propiedad intelectual, malware o acoso hacia personas o grupos. También está prohibida la suplantación de identidad, la recopilación de datos de otros usuarios (si en el futuro se añaden funciones sociales) o la interferencia con el funcionamiento normal del servicio.",
+      "Usted es responsable del texto que introduce y de las consecuencias de compartir las traducciones obtenidas. El Sitio está orientado principalmente a facilitar la comunicación de comunidades bilingües o aprendices en España, América Latina y países de habla árabe, sin sustituir servicios oficiales de integración o interpretación.",
     ],
   },
   {
-    heading: "Intellectual property",
+    heading: "Propiedad intelectual",
     paragraphs: [
-      "The design, the Al-Andalus Translate brand, original page texts, proprietary source code structure, icons, and content selection are owned by the Site owner or licensors and are protected by Spanish and international intellectual and industrial property law.",
-      "Systematic reproduction, public distribution, transformation, or commercial exploitation of those elements is not permitted without prior written authorization, except as allowed by law (brief quotations with source attribution, ordinary links, etc.).",
-      "Text you enter for translation remains yours or that of whoever granted you rights. By submitting it, you grant us a temporary, limited license to process it solely to provide the translation service, without transferring your copyright in original works.",
-      "Automatically generated translations may not be protected as human creative works in some jurisdictions; in any case, we do not guarantee absence of overlap with third-party texts in external providers' training corpora.",
+      "El diseño, la marca Traductor Árabe Español, los textos originales de las páginas, la estructura del código fuente propietario, los iconos y la selección de contenidos son propiedad del titular del Sitio o de sus licenciantes y están protegidos por la legislación española e internacional en materia de propiedad intelectual e industrial.",
+      "No está permitida la reproducción sistemática, distribución pública, transformación o explotación comercial de dichos elementos sin autorización previa por escrito, salvo lo permitido por la ley (citas breves con atribución de la fuente, enlaces ordinarios, etc.).",
+      "El texto que introduce para traducir sigue siendo suyo o de quien le haya otorgado los derechos. Al enviarlo, nos concede una licencia temporal y limitada para tratarlo únicamente con el fin de prestar el servicio de traducción, sin transferirnos su derecho de autor sobre obras originales.",
+      "Las traducciones generadas automáticamente pueden no estar protegidas como obras creativas humanas en algunas jurisdicciones; en todo caso, no garantizamos la ausencia de coincidencias con textos de terceros en los corpus de entrenamiento de proveedores externos.",
     ],
   },
   {
-    heading: "Conditions for use of the tool",
+    heading: "Condiciones de uso de la herramienta",
     paragraphs: [
-      "The translator is offered with per-request character limits and rate limiting to ensure fair use. Circumventing those limits via scripts, rotating proxies, bot farms, or artificial splitting of text in coordinated bursts is prohibited.",
-      "Mass scraping of translator output to build databases, train competing models without authorization, reselling the service as an unauthorized API, or automated commercial monitoring of the Site without consent is expressly forbidden.",
-      "You may not reverse engineer, decompile, or attempt to extract underlying translation model code through the Site. Access to the internal API (/api/translate) is restricted to legitimate use from the web interface or integrations expressly authorized in writing.",
-      "You must not enter content that infringes third-party trade secrets, personal data of others without a legal basis, or information subject to professional confidentiality. For enterprise or government volumes, contact us to evaluate specific terms.",
+      "El traductor se ofrece con límites de caracteres por solicitud y limitación de frecuencia para garantizar un uso equitativo. Está prohibido eludir esos límites mediante scripts, proxies rotativos, granjas de bots o división artificial de texto en ráfagas coordinadas.",
+      "Queda expresamente prohibido el raspado masivo de la salida del traductor para construir bases de datos, entrenar modelos competidores sin autorización, revender el servicio como API no autorizada o la monitorización comercial automatizada del Sitio sin consentimiento.",
+      "No debe realizar ingeniería inversa, descompilar ni intentar extraer el código del modelo de traducción subyacente a través del Sitio. El acceso a la API interna (/api/translate) está restringido al uso legítimo desde la interfaz web o integraciones expresamente autorizadas por escrito.",
+      "No debe introducir contenido que infrinja secretos empresariales de terceros, datos personales de otras personas sin base jurídica o información sujeta a confidencialidad profesional. Para volúmenes empresariales o gubernamentales, contáctenos para evaluar condiciones específicas.",
     ],
   },
   {
-    heading: "Disclaimer of warranties",
+    heading: "Exclusión de garantías",
     paragraphs: [
-      "The Site and translations are provided \"as is\" and \"as available.\" To the maximum extent permitted by law, we disclaim express or implied warranties of linguistic accuracy, uninterrupted availability, error-free operation, fitness for official procedures, or compatibility with all devices and browsers.",
-      "We do not warrant that translations are equivalent to those of a sworn translator, conference interpreter, or licensed professional. Religious, cultural, medical, or legal nuances may be lost or distorted.",
-      "Supplementary Site information (FAQ, guides) may become outdated; always verify administrative requirements with official sources.",
+      "El Sitio y las traducciones se ofrecen «tal cual» y «según disponibilidad». En la máxima medida permitida por la ley, excluimos garantías expresas o implícitas de exactitud lingüística, disponibilidad ininterrumpida, funcionamiento libre de errores, idoneidad para procedimientos oficiales o compatibilidad con todos los dispositivos y navegadores.",
+      "No garantizamos que las traducciones sean equivalentes a las de un traductor jurado, intérprete de conferencias o profesional habilitado. Los matices religiosos, culturales, médicos o jurídicos pueden perderse o distorsionarse.",
+      "La información complementaria del Sitio (preguntas frecuentes, guías) puede quedar desactualizada; verifique siempre los requisitos administrativos en fuentes oficiales.",
     ],
   },
   {
-    heading: "Limitation of liability",
+    heading: "Limitación de responsabilidad",
     paragraphs: [
-      "In no event shall the Site owner, its contributors, or technology providers be liable for indirect damages, lost profits, lost opportunities, reputational harm, or consequences of decisions taken solely on the basis of machine translation, unless mandatory Spanish or European law provides otherwise (for example fraud or personal injury from gross negligence directly attributable to the owner).",
-      "The owner's total aggregate liability to a user for Site-related claims in any twelve-month period shall be limited, where legally valid, to amounts you paid for specific paid services to the Site in that period, or one hundred euros (€100) if use was free, subject to mandatory rules.",
-      "Some jurisdictions do not allow certain limitations; in that case only those valid in your territory apply without affecting the remaining clauses.",
+      "En ningún caso el titular del Sitio, sus colaboradores o proveedores tecnológicos serán responsables de daños indirectos, lucro cesante, pérdida de oportunidades, daño reputacional o consecuencias de decisiones tomadas únicamente sobre la base de la traducción automática, salvo que la legislación española o europea imperativa disponga lo contrario (por ejemplo, dolo o lesiones personales por negligencia grave directamente imputable al titular).",
+      "La responsabilidad total agregada del titular frente a un usuario por reclamaciones relacionadas con el Sitio en cualquier periodo de doce meses quedará limitada, cuando sea legalmente válido, a las cantidades abonadas por servicios de pago específicos al Sitio en dicho periodo, o a cien euros (100 €) si el uso fue gratuito, con sujeción a las normas imperativas.",
+      "Algunas jurisdicciones no permiten ciertas limitaciones; en ese caso, solo serán aplicables las válidas en su territorio sin afectar al resto de cláusulas.",
     ],
   },
   {
-    heading: "Third-party links",
+    heading: "Enlaces a terceros",
     paragraphs: [
-      "The Site may contain links to external resources (institutions, dictionaries, news, advertising partners). We do not control those sites or assume responsibility for their content, policies, or practices. Access is at your own risk and governed by the third party's terms.",
-      "A link does not imply sponsorship or professional recommendation unless expressly stated in editorial context.",
+      "El Sitio puede contener enlaces a recursos externos (instituciones, diccionarios, noticias, socios publicitarios). No controlamos esos sitios ni asumimos responsabilidad por su contenido, políticas o prácticas. El acceso es bajo su propio riesgo y se rige por los términos del tercero.",
+      "Un enlace no implica patrocinio ni recomendación profesional, salvo que se indique expresamente en contexto editorial.",
     ],
   },
   {
-    heading: "Modifications",
+    heading: "Modificaciones",
     paragraphs: [
-      "We reserve the right to modify these Terms, translator features, usage limits, or monetization models (advertising, donations, future paid plans) by publishing the updated version at /terms-and-conditions.",
-      "If changes are material, we will provide a visible notice on the Site. Continued use after the new version takes effect implies acceptance, without prejudice to your consumer rights where applicable user-protection law applies.",
+      "Nos reservamos el derecho de modificar estos Términos, las funcionalidades del traductor, los límites de uso o los modelos de monetización (publicidad, donaciones, futuros planes de pago) publicando la versión actualizada en /terms-and-conditions.",
+      "Si los cambios son sustanciales, proporcionaremos un aviso visible en el Sitio. El uso continuado tras la entrada en vigor de la nueva versión implica aceptación, sin perjuicio de sus derechos como consumidor cuando resulte aplicable la legislación de protección de usuarios.",
     ],
   },
   {
-    heading: "Governing law and jurisdiction",
+    heading: "Ley aplicable y jurisdicción",
     paragraphs: [
-      "These Terms are governed by Spanish law. For dispute resolution, the parties submit to the courts of the consumer's domicile where EU consumer law so provides; otherwise to the courts of Spain that apply under general procedural rules, without prejudice to mandatory mediation or arbitration mechanisms imposed by law.",
-      "If you reside outside the EU, mandatory consumer-protection rules of your country of residence may apply.",
+      "Estos Términos se rigen por la legislación española. Para la resolución de controversias, las partes se someten a los tribunales del domicilio del consumidor cuando así lo disponga la legislación europea de consumo; en caso contrario, a los tribunales de España que resulten competentes conforme a las normas procesales generales, sin perjuicio de mecanismos imperativos de mediación o arbitraje impuestos por la ley.",
+      "Si reside fuera de la UE, pueden resultar aplicables las normas imperativas de protección al consumidor de su país de residencia.",
     ],
   },
   {
-    heading: "Severability",
+    heading: "Divisibilidad",
     paragraphs: [
-      "If any clause of these Terms is declared void or unenforceable by a competent authority, the remainder stays in force. The affected clause will be interpreted or replaced by a valid clause that approximates the original intent as closely as permitted by law.",
+      "Si alguna cláusula de estos Términos fuera declarada nula o inaplicable por una autoridad competente, el resto permanecerá en vigor. La cláusula afectada se interpretará o sustituirá por otra válida que se aproxime lo más posible a la intención original, en la medida permitida por la ley.",
     ],
   },
   {
-    heading: "Contact",
+    heading: "Contacto",
     paragraphs: [
-      "For questions about these Terms, enterprise API use requests, or abuse reports, use /contact with the subject \"Terms and conditions.\" We will aim to respond within a reasonable time in English or Spanish.",
-      "Before starting court proceedings, we invite you to contact us in good faith to seek an amicable solution, especially in disputes about access restrictions due to improper automated use.",
+      "Para consultas sobre estos Términos, solicitudes de uso empresarial de la API o denuncias de abuso, utilice /contact con el asunto «Términos y condiciones». Procuraremos responder en un plazo razonable en español o inglés.",
+      "Antes de iniciar procedimientos judiciales, le invitamos a contactarnos de buena fe para buscar una solución amistosa, especialmente en controversias sobre restricciones de acceso por uso automatizado indebido.",
     ],
   },
 ];

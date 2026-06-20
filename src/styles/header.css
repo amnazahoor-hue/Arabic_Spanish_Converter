@@ -1,0 +1,248 @@
+/* Site header — premium sticky bar (teal + gold) */
+
+[data-site-header] {
+  --header-bar-bg: color-mix(in srgb, var(--color-footer-bg) 92%, var(--color-primary));
+}
+
+[data-site-header] .site-header__accent {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 35%,
+    var(--color-accent) 50%,
+    var(--color-secondary) 65%,
+    var(--color-primary) 100%
+  );
+  background-size: 200% 100%;
+  animation: site-header-accent-flow 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-site-header] .site-header__accent {
+    animation: none;
+  }
+}
+
+@keyframes site-header-accent-flow {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+[data-site-header] .site-header__bar {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-footer-text) 14%, transparent);
+  background: var(--header-bar-bg);
+  transition:
+    box-shadow 0.35s ease,
+    background-color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+[data-site-header][data-scrolled="true"] .site-header__bar {
+  border-bottom-color: color-mix(in srgb, var(--color-secondary) 28%, transparent);
+  background: color-mix(in srgb, var(--color-footer-bg) 88%, transparent);
+  box-shadow:
+    0 10px 40px color-mix(in srgb, var(--color-heading) 28%, transparent),
+    0 1px 0 color-mix(in srgb, var(--color-secondary) 18%, transparent) inset;
+  backdrop-filter: blur(14px);
+}
+
+[data-site-header] .site-header__glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 55% 120% at 0% 50%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent),
+      transparent 68%
+    ),
+    radial-gradient(
+      ellipse 45% 100% at 100% 0%,
+      color-mix(in srgb, var(--color-secondary) 16%, transparent),
+      transparent 62%
+    );
+  opacity: 0.85;
+}
+
+[data-site-header] .site-header__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+[data-site-header] .site-header__brand {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem 0.25rem 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+}
+
+[data-site-header] .site-header__brand-ring {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.625rem 0.375rem 0.375rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-footer-text) 16%, transparent);
+  background: color-mix(in srgb, var(--color-footer-text) 6%, transparent);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--color-heading) 12%, transparent);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+[data-site-header][data-scrolled="true"] .site-header__brand-ring {
+  border-color: color-mix(in srgb, var(--color-secondary) 32%, transparent);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--color-secondary) 14%, transparent);
+}
+
+[data-site-header] .site-header__nav {
+  display: none;
+  min-width: 0;
+  flex: 1;
+  justify-content: center;
+  padding-inline: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  [data-site-header] .site-header__nav {
+    display: flex;
+  }
+}
+
+[data-site-header] .site-header__nav-track {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-footer-text) 14%, transparent);
+  background: color-mix(in srgb, var(--color-footer-text) 7%, transparent);
+  padding: 0.3125rem;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--color-on-primary) 6%, transparent) inset,
+    0 8px 24px color-mix(in srgb, var(--color-heading) 10%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+[data-site-header] .site-header__actions {
+  display: flex;
+  shrink: 0;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+[data-site-header] .site-header__cta {
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--color-on-primary) 18%, transparent) inset,
+    0 8px 22px color-mix(in srgb, var(--color-secondary) 38%, transparent);
+}
+
+[data-site-header] .site-header__cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-on-primary) 22%, transparent) 48%,
+    transparent 100%
+  );
+  translate: -120% 0;
+  transition: translate 0.55s ease;
+}
+
+[data-site-header] .site-header__cta:hover::before {
+  translate: 120% 0;
+}
+
+[data-site-header] .site-header-nav-link {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+[data-site-header] .site-header-nav-link:hover {
+  background: color-mix(in srgb, var(--color-footer-text) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-footer-text) 12%, transparent);
+}
+
+[data-site-header] .site-header-nav-link[data-active="true"] {
+  border-color: color-mix(in srgb, var(--color-secondary) 42%, transparent);
+  background: color-mix(in srgb, var(--color-secondary) 16%, transparent);
+  color: var(--color-secondary);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-secondary) 12%, transparent);
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  [data-site-header] .site-header-nav-link__label--long {
+    max-width: 7.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 1280px) {
+  [data-site-header] .site-header-nav-link__label--long {
+    max-width: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  [data-site-header] .site-header__container {
+    padding-inline: 0.875rem;
+  }
+
+  [data-site-header] .site-header__inner {
+    gap: 0.625rem;
+  }
+
+  [data-site-header] .site-header__brand {
+    min-width: 0;
+    flex: 0 0 auto;
+    padding: 0;
+  }
+
+  [data-site-header] .site-header__brand-ring {
+    padding: 0.125rem;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  [data-site-header] .site-header__actions {
+    flex-shrink: 0;
+    gap: 0.375rem;
+  }
+}
+
+@media (max-width: 639px) {
+  [data-site-header] .site-header__container {
+    padding-inline: 0.75rem;
+  }
+
+  [data-site-header] .site-header__inner {
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  [data-site-header] .site-header__brand-ring {
+    padding: 0.25rem;
+  }
+}

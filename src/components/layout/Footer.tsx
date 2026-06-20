@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/footer-social.css";
 import { Logo } from "@/components/brand/Logo";
 import { SOCIAL_BRAND_ICONS } from "@/components/icons/SocialBrandIcons";
 import {
@@ -7,16 +8,17 @@ import {
   FOOTER_LEGAL,
   FOOTER_PAGES,
   FOOTER_SOCIAL,
-  PAGE_CONTAINER_CLASS,
+  HEADER_CONTAINER_CLASS,
   SECTION_IDS,
   SITE_CONFIG,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ArrowRight, FileText, Sparkles } from "lucide-react";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 const footerLinkClass =
-  "inline-flex items-center justify-center gap-2 text-footer-text transition-colors hover:text-secondary motion-safe:hover:translate-x-0.5 motion-reduce:hover:translate-x-0 sm:justify-start";
+  "interactive-link inline-flex items-center justify-center gap-2 text-footer-text transition-colors hover:text-secondary sm:justify-start";
 
 function FooterColumn({
   title,
@@ -58,7 +60,7 @@ export function Footer() {
         aria-hidden
       />
 
-      <div className={cn(PAGE_CONTAINER_CLASS, "relative py-14 lg:py-16")}>
+      <div className={cn(HEADER_CONTAINER_CLASS, "relative py-14 lg:py-16")}>
         <div
           className={cn(
             "mb-12 flex flex-col gap-6 rounded-[var(--radius-lg)] border border-footer-text/20",
@@ -68,25 +70,24 @@ export function Footer() {
           <div className="mx-auto space-y-2 max-w-lg sm:mx-0">
             <p className="inline-flex items-center gap-2 type-small font-semibold uppercase tracking-wider text-secondary">
               <Sparkles className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-              Free · Instant · Bidirectional
+              Gratis · Instantáneo · Bidireccional
             </p>
             <h2 className="type-h3-card text-footer-heading">¿Listo Para Traducir?</h2>
             <p className="type-small text-footer-text/90">
-              Open the translator and switch between Arabic and Spanish in one click — no account
-              required.
+              Abre el traductor y cambia entre árabe y español con un clic — no necesitas cuenta.
             </p>
           </div>
           <a
             href={`/#${SECTION_IDS.translator}`}
             className={cn(
-              "inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3",
+              "interactive-scale inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3",
               "bg-secondary font-semibold text-white shadow-md",
-              "hover:bg-accent hover:text-white transition-colors",
+              "hover:bg-accent hover:text-white",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
               "[&_svg]:text-white",
             )}
           >
-            Start translating
+            Empezar A Traducir
             <ArrowRight className="h-4 w-4" strokeWidth={2} aria-hidden />
           </a>
         </div>
@@ -99,33 +100,32 @@ export function Footer() {
             </p>
             <p className="type-small text-footer-text/70">{SITE_CONFIG.tagline}</p>
             <div className="pt-2">
-              <p className="type-small mb-3 font-medium text-footer-text/80">Follow us</p>
+              <p className="type-small mb-3 font-medium text-footer-text/80">Síguenos</p>
               <div className="flex flex-wrap justify-center gap-2.5 sm:justify-start">
                 {FOOTER_SOCIAL.map(({ id, href }) => {
                   const brand = SOCIAL_BRAND_ICONS[id];
-                  const { Icon, label, hoverClass, iconClass, iconHoverClass } = brand;
+                  const { Icon, label, brandColor } = brand;
                   const isPlaceholder = href === "#";
                   const iconButtonClass = cn(
-                    "group inline-flex h-10 w-10 items-center justify-center rounded-full",
-                    "border border-footer-text/25 bg-footer-text/8",
-                    "transition-[background-color,border-color,transform] duration-200",
-                    "motion-safe:hover:scale-105",
-                    hoverClass,
-                  );
-                  const iconClasses = cn(
-                    "h-[1.125rem] w-[1.125rem] shrink-0 transition-colors duration-200",
-                    iconClass,
-                    iconHoverClass,
+                    "footer-social-link group inline-flex h-10 w-10 items-center justify-center rounded-full",
+                    "border border-footer-text/20 bg-footer-text/6",
+                    isPlaceholder && "footer-social-link--placeholder cursor-default",
                   );
 
                   if (isPlaceholder) {
                     return (
                       <span
                         key={id}
+                        data-social={id}
+                        tabIndex={0}
                         title={`${label} — add URL in .env`}
-                        className={cn(iconButtonClass, "cursor-default")}
+                        className={cn(
+                          iconButtonClass,
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
+                        )}
+                        style={{ "--social-brand": brandColor } as CSSProperties}
                       >
-                        <Icon className={iconClasses} />
+                        <Icon className="h-[1.125rem] w-[1.125rem] shrink-0" aria-hidden />
                         <span className="sr-only">{label}</span>
                       </span>
                     );
@@ -135,12 +135,14 @@ export function Footer() {
                     <a
                       key={id}
                       href={href}
+                      data-social={id}
                       aria-label={label}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={iconButtonClass}
+                      className={cn(iconButtonClass, "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg")}
+                      style={{ "--social-brand": brandColor } as CSSProperties}
                     >
-                      <Icon className={iconClasses} />
+                      <Icon className="h-[1.125rem] w-[1.125rem] shrink-0" aria-hidden />
                     </a>
                   );
                 })}
@@ -148,7 +150,7 @@ export function Footer() {
             </div>
           </div>
 
-          <FooterColumn title="Pages" className="lg:col-span-2">
+          <FooterColumn title="Páginas" className="lg:col-span-2">
             <ul className="space-y-2.5 type-small">
               {FOOTER_PAGES.map((item) => (
                 <li key={item.href}>
@@ -173,7 +175,7 @@ export function Footer() {
             </ul>
           </FooterColumn>
 
-          <FooterColumn title="Company" className="lg:col-span-3">
+          <FooterColumn title="Empresa" className="lg:col-span-3">
             <ul className="space-y-2.5 type-small">
               {FOOTER_INFO.map((item) => (
                 <li key={item.href}>
@@ -189,7 +191,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-footer-text/20 pt-8 text-center">
           <p className="type-small text-footer-text/80">
-            © {year} {SITE_CONFIG.name}. All rights reserved.
+            © {year} {SITE_CONFIG.name}. Todos los derechos reservados.
           </p>
         </div>
       </div>

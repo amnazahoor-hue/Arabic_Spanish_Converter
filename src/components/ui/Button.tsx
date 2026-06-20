@@ -42,8 +42,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 font-medium transition-colors duration-200 border",
-    "motion-safe:hover:scale-[1.02] motion-reduce:hover:scale-100",
+    "interactive-scale inline-flex items-center justify-center gap-2 font-medium border",
     "disabled:opacity-50 disabled:pointer-events-none",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
     variantClasses[variant],

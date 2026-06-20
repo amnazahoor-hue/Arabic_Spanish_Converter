@@ -3,17 +3,17 @@ import { TERMS_SECTIONS } from "@/content/legal/terms-and-conditions";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Terms & Conditions",
+  title: "Términos Y Condiciones",
   description:
-    "Terms of use for Al-Andalus Translate and the Arabic–Spanish translation tool. Intellectual property and usage rules.",
+    "Condiciones de uso de Traductor Árabe Español y la herramienta de traducción árabe–español. Propiedad intelectual y normas de uso.",
   path: "/terms-and-conditions",
 });
 
 export default function TermsPage() {
   return (
     <LegalPage
-      title="Terms & Conditions"
-      description="Rules for using the Al-Andalus Translate website and translation tool."
+      title="Términos Y Condiciones"
+      description="Normas de uso del sitio web y la herramienta de traducción de Traductor Árabe Español."
       path="/terms-and-conditions"
       sections={TERMS_SECTIONS}
     />

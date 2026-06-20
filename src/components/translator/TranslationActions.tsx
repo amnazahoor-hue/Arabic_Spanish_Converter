@@ -1,7 +1,7 @@
 "use client";
 
+import "@/styles/translation-actions.css";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
-import { Button } from "@/components/ui/Button";
 import { downloadTranslationPdf } from "@/lib/exportTranslationPdf";
 import { openEmailShare, openWhatsAppShare, type SharePayload } from "@/lib/shareTranslation";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ export function TranslationActions({ payload, disabled, className }: Translation
   const [actionError, setActionError] = useState<string | null>(null);
 
   const hasOutput = Boolean(payload?.output?.trim());
+  const isDisabled = disabled || !hasOutput;
 
   const onCopy = useCallback(async () => {
     if (!payload?.output) return;
@@ -31,7 +32,7 @@ export function TranslationActions({ payload, disabled, className }: Translation
       setFeedback("copy");
       setTimeout(() => setFeedback(null), 2000);
     } catch {
-      setActionError("Copy failed. Select the text and copy manually.");
+      setActionError("No se pudo copiar. Selecciona el texto y cópialo manualmente.");
     }
   }, [payload]);
 
@@ -56,89 +57,79 @@ export function TranslationActions({ payload, disabled, className }: Translation
       setFeedback("pdf");
       setTimeout(() => setFeedback(null), 2000);
     } catch {
-      setActionError("Could not create PDF. Try again or use Copy / Email.");
+      setActionError("No se pudo crear el PDF. Inténtalo de nuevo o usa Copiar / Correo.");
     } finally {
       setPdfLoading(false);
     }
   }, [payload]);
 
   return (
-    <div className={cn("space-y-2 text-center md:text-start", className)}>
-      <p className="type-small font-medium text-muted">Share or export</p>
-      <div className="flex flex-wrap justify-center gap-2 md:justify-start">
-        <Button
+    <div className={cn("translation-actions space-y-2 text-center md:text-start", className)}>
+      <p className="translation-actions__label">Compartir o exportar</p>
+      <div className="translation-actions__row">
+        <button
           type="button"
-          variant="outline"
-          size="sm"
-          disabled={disabled || !hasOutput}
+          disabled={isDisabled}
           onClick={() => void onCopy()}
-          className="min-w-0"
+          className="translation-actions__btn interactive-scale"
         >
           {feedback === "copy" ? (
             <>
-              <Check className="h-4 w-4 shrink-0" aria-hidden />
-              Copied
+              <Check className="h-4 w-4" aria-hidden />
+              Copiado
             </>
           ) : (
             <>
-              <Copy className="h-4 w-4 shrink-0" aria-hidden />
-              Copy
+              <Copy className="h-4 w-4" aria-hidden />
+              Copiar
             </>
           )}
-        </Button>
+        </button>
 
         <button
           type="button"
-          disabled={disabled || !hasOutput}
+          disabled={isDisabled}
           onClick={onWhatsApp}
-          className={cn(
-            "inline-flex items-center justify-center gap-2 rounded-[var(--radius)] px-4 py-2",
-            "text-[0.875rem] font-medium text-white border border-transparent",
-            "bg-[#25D366] hover:bg-[#20BD5A] transition-colors",
-            "disabled:opacity-50 disabled:pointer-events-none",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2",
-          )}
-          aria-label="Share translation on WhatsApp"
+          className="translation-actions__btn translation-actions__btn--whatsapp interactive-scale"
+          aria-label="Compartir traducción en WhatsApp"
         >
-          <WhatsAppIcon className="h-4 w-4 shrink-0" />
+          <WhatsAppIcon className="h-4 w-4" />
           WhatsApp
         </button>
 
-        <Button
+        <button
           type="button"
-          variant="outline"
-          size="sm"
-          disabled={disabled || !hasOutput || pdfLoading}
+          disabled={isDisabled || pdfLoading}
           onClick={() => void onPdf()}
+          className="translation-actions__btn interactive-scale"
         >
           {pdfLoading ? (
             <>
-              <Loader2 className="h-4 w-4 shrink-0 animate-spin" aria-hidden />
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
               PDF…
             </>
           ) : feedback === "pdf" ? (
             <>
-              <Check className="h-4 w-4 shrink-0" aria-hidden />
-              Downloaded
+              <Check className="h-4 w-4" aria-hidden />
+              Descargado
             </>
           ) : (
             <>
-              <FileDown className="h-4 w-4 shrink-0" aria-hidden />
-              Export PDF
+              <FileDown className="h-4 w-4" aria-hidden />
+              Exportar PDF
             </>
           )}
-        </Button>
+        </button>
 
-        <Button
+        <button
           type="button"
-          variant="outline"
-          size="sm"
-          disabled={disabled || !hasOutput}
+          disabled={isDisabled}
           onClick={onEmail}
+          className="translation-actions__btn interactive-scale"
         >
-          <Mail className="h-4 w-4 shrink-0" aria-hidden />
-          Email
-        </Button>
+          <Mail className="h-4 w-4" aria-hidden />
+          Correo
+        </button>
       </div>
       {actionError && (
         <p role="alert" className="type-small text-error">

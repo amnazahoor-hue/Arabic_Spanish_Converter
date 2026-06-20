@@ -3,18 +3,19 @@ import { PRIVACY_SECTIONS } from "@/content/legal/privacy-policy";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Privacy Policy",
+  title: "Política De Privacidad",
   description:
-    "How Al-Andalus Translate collects, uses, and protects your data. Cookies, analytics, and GDPR rights.",
+    "Cómo Traductor Árabe Español recopila, utiliza y protege sus datos. Cookies, analítica y derechos GDPR.",
   path: "/privacy-policy",
 });
 
 export default function PrivacyPolicyPage() {
   return (
     <LegalPage
-      title="Privacy Policy"
-      description="Transparency about personal data, cookies, and analytics on our online translator."
+      title="Política De Privacidad"
+      description="Transparencia sobre datos personales, cookies y analítica en nuestro traductor en línea."
       path="/privacy-policy"
+      docLabel="Política de privacidad"
       sections={PRIVACY_SECTIONS}
     />
   );

@@ -8,10 +8,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  fullName: z.string().min(2, "Please enter your full name."),
-  email: z.string().email("Please enter a valid email address."),
-  subject: z.string().min(3, "Subject is required."),
-  message: z.string().min(20, "Message must be at least 20 characters."),
+  fullName: z.string().min(2, "Introduzca su nombre completo."),
+  email: z.string().email("Introduzca una dirección de correo válida."),
+  subject: z.string().min(3, "El asunto es obligatorio."),
+  message: z.string().min(20, "El mensaje debe tener al menos 20 caracteres."),
   website: z.string().max(0).optional(),
 });
 
@@ -37,7 +37,7 @@ export function ContactForm() {
     });
     const json = (await res.json()) as { ok?: boolean; error?: string };
     if (!res.ok || !json.ok) {
-      setServerError(json.error ?? "Could not send your message.");
+      setServerError(json.error ?? "No se pudo enviar su mensaje.");
       return;
     }
     setSubmitted(true);
@@ -48,14 +48,14 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-[var(--radius-lg)] border border-success/30 bg-surface p-8 text-center"
+        className="rounded-[var(--radius-lg)] border border-success/30 bg-section-primary-mist p-8 text-center"
       >
-        <h2 className="type-h3-card text-success mb-2">Thank you for contacting us!</h2>
+        <h2 className="type-h3-card text-success mb-2">¡Gracias por contactarnos!</h2>
         <p className="type-body">
-          We have received your message. We usually reply within 1–2 business days.
+          Hemos recibido su mensaje. Solemos responder en un plazo de 1–2 días laborables.
         </p>
         <Button type="button" variant="outline" className="mt-6" onClick={() => setSubmitted(false)}>
-          Send another message
+          Enviar otro mensaje
         </Button>
       </div>
     );
@@ -64,17 +64,17 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-5 rounded-[var(--radius-lg)] border border-border bg-surface p-6 md:p-8"
+      className="space-y-5 rounded-[var(--radius-lg)] border border-border/80 bg-section-primary-mist/40 p-6 md:p-8"
       noValidate
     >
       <div className="absolute -left-[9999px]" aria-hidden>
-        <label htmlFor="website">Do not fill</label>
+        <label htmlFor="website">No rellenar</label>
         <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
       </div>
 
       <div>
         <label htmlFor="fullName" className="mb-2 block text-nav font-medium text-heading">
-          Full name *
+          Nombre completo *
         </label>
         <input
           id="fullName"
@@ -88,7 +88,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="email" className="mb-2 block text-nav font-medium text-heading">
-          Email *
+          Correo electrónico *
         </label>
         <input
           id="email"
@@ -101,7 +101,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="subject" className="mb-2 block text-nav font-medium text-heading">
-          Subject *
+          Asunto *
         </label>
         <input
           id="subject"
@@ -112,7 +112,7 @@ export function ContactForm() {
       </div>
 
       <TextArea
-        label="Message *"
+        label="Mensaje *"
         rows={6}
         error={errors.message?.message}
         {...register("message")}
@@ -125,7 +125,7 @@ export function ContactForm() {
       )}
 
       <Button type="submit" size="lg" disabled={isSubmitting}>
-        {isSubmitting ? "Sending…" : "Send message"}
+        {isSubmitting ? "Enviando…" : "Enviar mensaje"}
       </Button>
     </form>
   );

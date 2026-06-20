@@ -2,6 +2,7 @@
 
 import { NAV_HEADER_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -33,8 +34,8 @@ export function NavLinks({
 
   if (variant === "mobile") {
     return (
-      <nav className={cn("flex flex-col gap-2", className)} aria-label="Main">
-        <ul className="flex flex-col gap-1">
+      <nav className={cn("flex flex-col gap-2", className)} aria-label="Navegación principal">
+        <ul className="flex flex-col gap-1.5">
           {NAV_HEADER_LINKS.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -43,10 +44,11 @@ export function NavLinks({
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "flex items-center rounded-[var(--radius)] px-3 py-2.5 text-nav font-medium transition-colors",
+                    "interactive-link flex items-center rounded-[var(--radius)] border px-3 py-2.5 text-nav font-medium",
+                    "transition-[border-color,background-color,transform,color] duration-200",
                     isActive
-                      ? "bg-surface-alt text-primary font-semibold"
-                      : "text-body hover:bg-surface-alt hover:text-link",
+                      ? "border-primary/25 bg-primary/8 text-primary font-semibold"
+                      : "border-transparent text-body hover:border-border hover:bg-surface-alt hover:text-link",
                   )}
                   onClick={onNavigate}
                 >
@@ -61,25 +63,31 @@ export function NavLinks({
   }
 
   return (
-    <ul className={cn("flex flex-wrap items-center justify-center gap-1 xl:gap-2", className)} role="list">
+    <ul
+      className={cn("flex flex-nowrap items-center justify-center gap-0.5", className)}
+      role="list"
+    >
       {NAV_HEADER_LINKS.map((item) => {
         const isActive = pathname === item.href;
+        const isLongLabel = item.href === "/traductor-marroqui-espanol";
+
         return (
           <li key={item.href}>
             <Link
               href={item.href}
               aria-current={isActive ? "page" : undefined}
+              data-active={isActive ? "true" : "false"}
               className={cn(
-                "block rounded-full px-2.5 py-2 text-[0.8125rem] xl:text-nav font-medium transition-colors whitespace-nowrap",
+                "site-header-nav-link px-2 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap xl:px-2.5 xl:text-nav",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
                 focusRing,
-                isActive
-                  ? cn(linkActive, isDark && "underline decoration-secondary decoration-2 underline-offset-4")
-                  : linkIdle,
+                isActive ? linkActive : linkIdle,
               )}
               onClick={onNavigate}
             >
-              {item.label}
+              <span className={cn(isLongLabel && "site-header-nav-link__label--long")}>
+                {item.label}
+              </span>
             </Link>
           </li>
         );
@@ -96,17 +104,17 @@ export function HeaderCta({ onNavigate, className }: { onNavigate?: () => void; 
     <Link
       href={onHome ? "#translator" : "/#translator"}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2",
+        "interactive-scale inline-flex items-center justify-center gap-2 rounded-full px-3.5 py-2 lg:px-4",
         "bg-secondary text-white hover:bg-accent hover:text-white visited:text-white",
-        "text-[0.875rem] md:text-[0.9375rem] font-semibold no-underline shadow-md",
+        "text-[0.875rem] md:text-[0.9375rem] font-semibold no-underline",
         "transition-colors",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
-        "motion-safe:hover:scale-[1.02] motion-reduce:hover:scale-100",
         className,
       )}
       onClick={onNavigate}
     >
       Traducir aquí
+      <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={2.25} aria-hidden />
     </Link>
   );
 }

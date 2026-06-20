@@ -1,12 +1,14 @@
-import { MAX_TRANSLATE_CHARS } from "@/lib/constants";
+import { isArabicLang, MAX_TRANSLATE_CHARS, type LanguageCode } from "@/lib/constants";
 import { TranslateProviderError, translate } from "@/lib/translate";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+const languageSchema = z.enum(["ar", "ar-ma", "es"]);
+
 const bodySchema = z.object({
   text: z.string().min(1).max(MAX_TRANSLATE_CHARS),
-  from: z.enum(["ar", "es"]),
-  to: z.enum(["ar", "es"]),
+  from: languageSchema,
+  to: languageSchema,
 });
 
 const rateMap = new Map<string, { count: number; reset: number }>();
@@ -55,6 +57,15 @@ export async function POST(request: Request) {
   if (from === to) {
     return NextResponse.json(
       { error: "Source and target languages must be different." },
+      { status: 400 },
+    );
+  }
+
+  const fromIsArabic = isArabicLang(from);
+  const toIsArabic = isArabicLang(to);
+  if (fromIsArabic === toIsArabic) {
+    return NextResponse.json(
+      { error: "Select one Arabic dialect and Spanish." },
       { status: 400 },
     );
   }

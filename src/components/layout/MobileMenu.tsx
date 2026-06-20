@@ -44,14 +44,12 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
   }, [open]);
 
   return (
-    <div className="lg:hidden flex items-center gap-2">
-      <HeaderCta className="sm:hidden text-small px-3 py-1.5" onNavigate={close} />
-
+    <div className="lg:hidden flex items-center">
       <button
         ref={buttonRef}
         type="button"
         className={cn(
-          "inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors",
+          "inline-flex h-9 w-9 items-center justify-center rounded-full border interactive-scale sm:h-10 sm:w-10",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
           isDark
             ? "border-footer-text/30 bg-footer-text/10 text-footer-heading hover:border-secondary hover:text-secondary"
@@ -60,7 +58,7 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
         )}
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? "Cerrar menú" : "Abrir menú"}
         onClick={() => setOpen((v) => !v)}
       >
         {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
@@ -70,8 +68,8 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
         <>
           <button
             type="button"
-            className="fixed inset-0 z-40 bg-heading/50 backdrop-blur-[2px]"
-            aria-label="Close menu"
+            className="fixed inset-0 z-40 bg-heading/50 backdrop-blur-[2px] mobile-menu-backdrop"
+            aria-label="Cerrar menú"
             onClick={close}
           />
           <div
@@ -79,9 +77,9 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
             id={panelId}
             role="dialog"
             aria-modal="true"
-            aria-label="Navigation menu"
+            aria-label="Menú de navegación"
             className={cn(
-              "fixed inset-y-0 right-0 z-50 flex w-[min(100%,22rem)] flex-col",
+              "mobile-menu-panel fixed inset-y-0 right-0 z-50 flex w-[min(100%,22rem)] flex-col",
               "border-l border-border bg-surface shadow-[0_0_40px_rgba(26,26,46,0.2)]",
             )}
           >
@@ -92,8 +90,8 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
               <button
                 type="button"
                 onClick={close}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-surface-alt text-heading"
-                aria-label="Close"
+                className="interactive-scale inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-surface-alt text-heading"
+                aria-label="Cerrar"
               >
                 <X className="h-5 w-5" aria-hidden />
               </button>
@@ -106,7 +104,7 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
             <div className="border-t border-border p-5 bg-surface-alt/50">
               <HeaderCta className="w-full justify-center" onNavigate={close} />
               <p className="type-small text-center text-muted mt-3">
-                Legal and privacy links are in the footer.
+                Los enlaces legales y de privacidad están en el pie de página.
               </p>
             </div>
           </div>

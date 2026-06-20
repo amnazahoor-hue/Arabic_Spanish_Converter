@@ -1,6 +1,9 @@
+import "@/styles/legal-document.css";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { SITE_CONFIG } from "@/lib/constants";
+import { HEADER_CONTAINER_CLASS, SITE_CONFIG } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo";
+import { FileText } from "lucide-react";
 
 export type LegalSection = {
   heading: string;
@@ -12,40 +15,76 @@ type LegalPageProps = {
   description: string;
   path: string;
   sections: LegalSection[];
+  docLabel?: string;
+  /** Rendered directly below the page header (e.g. contact form). */
+  topChildren?: React.ReactNode;
+  children?: React.ReactNode;
 };
 
-export function LegalPage({ title, description, path, sections }: LegalPageProps) {
+export function LegalPage({
+  title,
+  description,
+  path,
+  sections,
+  docLabel = "Documento Legal",
+  topChildren,
+  children,
+}: LegalPageProps) {
   return (
-    <article className="bg-bg py-16 md:py-20">
+    <article data-legal-document className="py-12 md:py-16 lg:py-20">
       <JsonLd
         data={[
           breadcrumbSchema([
-            { name: "Home", path: "/" },
+            { name: "Inicio", path: "/" },
             { name: title, path },
           ]),
           articleSchema({ title, description, path }),
         ]}
       />
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <header className="mb-10 border-b border-border pb-8">
-          <h1 className="type-h1-hero mb-4">{title}</h1>
-          <p className="type-small">Last updated: {SITE_CONFIG.lastUpdated}</p>
-          <p className="type-body mt-4">{description}</p>
-        </header>
 
-        <div className="space-y-10">
-          {sections.map((section) => (
-            <section key={section.heading}>
-              <h2 className="type-h2-section mb-4">{section.heading}</h2>
-              <div className="space-y-4">
-                {section.paragraphs.map((p, i) => (
-                  <p key={i} className="type-body">
-                    {p}
-                  </p>
-                ))}
-              </div>
-            </section>
-          ))}
+      <div className={cn(HEADER_CONTAINER_CLASS, "legal-document-shell")}>
+        <div className="legal-document-paper">
+          <header className="legal-document-header">
+            <p className="legal-document-eyebrow">
+              <FileText className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+              {docLabel}
+              <span aria-hidden />
+            </p>
+            <h1 className="legal-document-title">{title}</h1>
+            <div className="legal-document-meta">
+              <span>{SITE_CONFIG.name}</span>
+              <span>Última actualización: {SITE_CONFIG.lastUpdated}</span>
+            </div>
+            <p className="legal-document-intro">{description}</p>
+          </header>
+
+          {topChildren ? (
+            <div className="legal-document-contact-top">{topChildren}</div>
+          ) : null}
+
+          <div className="legal-document-body">
+            {sections.map((section, index) => (
+              <section key={section.heading} className="legal-document-section">
+                <h2 className="legal-document-section__heading">
+                  <span className="legal-document-section__num">
+                    {String(index + 1).padStart(2, "0")}.
+                  </span>
+                  {section.heading}
+                </h2>
+                <div>
+                  {section.paragraphs.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+            {children}
+          </div>
+
+          <footer className="legal-document-footer">
+            Este documento forma parte de la información legal de {SITE_CONFIG.name}. Para
+            consultas, utilice la página de contacto.
+          </footer>
         </div>
       </div>
     </article>

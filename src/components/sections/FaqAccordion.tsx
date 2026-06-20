@@ -2,7 +2,7 @@
 
 import type { FaqCategory } from "@/content/faq";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ChevronDown,
   HelpCircle,
@@ -12,7 +12,7 @@ import {
   Type,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 export type FaqAccordionEntry = {
   id: string;
@@ -29,13 +29,7 @@ const categoryIcons: Record<FaqCategory, LucideIcon> = {
   Precisión: HelpCircle,
 };
 
-const categoryStyles: Record<FaqCategory, string> = {
-  Uso: "border-secondary/30 bg-secondary/10 text-secondary",
-  Límites: "border-primary/25 bg-primary/10 text-primary",
-  Voz: "border-terracotta/25 bg-terracotta/10 text-terracotta",
-  Idiomas: "border-primary/25 bg-primary/10 text-primary",
-  Precisión: "border-secondary/30 bg-secondary/10 text-secondary",
-};
+const ROW_GAP_PX = 12;
 
 type FaqAccordionProps = {
   items: FaqAccordionEntry[];
@@ -44,49 +38,115 @@ type FaqAccordionProps = {
 
 export function FaqAccordion({ items, className }: FaqAccordionProps) {
   const reduceMotion = useReducedMotion();
-  const initialOpen = useMemo(
-    () => new Set(items[0] ? [items[0].id] : []),
-    [items],
-  );
-  const [openIds, setOpenIds] = useState<Set<string>>(initialOpen);
+  const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
+  const measureRef = useRef<HTMLDivElement>(null);
+  const [answerMinHeight, setAnswerMinHeight] = useState(0);
+  const [listHeight, setListHeight] = useState(0);
 
   const toggle = useCallback((id: string) => {
-    setOpenIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+    setOpenId((prev) => (prev === id ? null : id));
   }, []);
 
-  const expandAll = useCallback(() => {
-    setOpenIds(new Set(items.map((item) => item.id)));
+  const collapseAll = useCallback(() => setOpenId(null), []);
+
+  useLayoutEffect(() => {
+    const measureRoot = measureRef.current;
+    if (!measureRoot) return;
+
+    const measureHeights = () => {
+      const headerEls = measureRoot.querySelectorAll<HTMLElement>("[data-faq-header-measure]");
+      const answerEls = measureRoot.querySelectorAll<HTMLElement>("[data-faq-answer-measure]");
+
+      let headersTotal = 0;
+      headerEls.forEach((el) => {
+        headersTotal += el.offsetHeight;
+      });
+
+      let maxAnswerHeight = 0;
+      answerEls.forEach((el) => {
+        maxAnswerHeight = Math.max(maxAnswerHeight, el.offsetHeight);
+      });
+
+      if (headersTotal > 0 && maxAnswerHeight > 0) {
+        const gaps = Math.max(0, items.length - 1) * ROW_GAP_PX;
+        const buffer = 8;
+        setAnswerMinHeight(maxAnswerHeight);
+        setListHeight(headersTotal + gaps + maxAnswerHeight + buffer);
+      }
+    };
+
+    measureHeights();
+
+    const observer = new ResizeObserver(measureHeights);
+    observer.observe(measureRoot);
+
+    void document.fonts?.ready?.then(measureHeights);
+    window.addEventListener("resize", measureHeights);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measureHeights);
+    };
   }, [items]);
 
-  const collapseAll = useCallback(() => setOpenIds(new Set()), []);
-
   return (
-    <div className={cn("w-full", className)}>
+    <div className={cn("relative w-full", className)}>
+      <div
+        ref={measureRef}
+        className="pointer-events-none absolute left-0 top-0 -z-10 w-full opacity-0"
+        aria-hidden
+      >
+        {items.map((item, index) => (
+          <div key={item.id}>
+            <div
+              data-faq-header-measure
+              className="flex w-full items-start gap-3 px-4 py-3.5 sm:px-5 sm:py-4"
+            >
+              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-alt" />
+              <span className="min-w-0 flex-1">
+                <span className="mb-2 block type-small font-medium tabular-nums text-muted">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="block text-[0.9375rem] font-semibold leading-snug md:text-base">
+                  {item.question}
+                </span>
+              </span>
+              <span className="mt-2 h-5 w-5 shrink-0" />
+            </div>
+
+            <div
+              data-faq-answer-measure
+              className="border-t border-border/60 px-4 pb-4 pt-3 sm:px-5 sm:pb-5"
+            >
+              <p className="type-small leading-relaxed text-body md:text-[0.9375rem] md:leading-relaxed">
+                {item.answer}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
       <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
         <button
           type="button"
-          onClick={expandAll}
-          className="type-small rounded-full border border-border bg-surface px-3 py-1.5 font-medium text-body transition-colors hover:border-primary/40 hover:text-primary"
-        >
-          Expandir todo
-        </button>
-        <button
-          type="button"
           onClick={collapseAll}
-          className="type-small rounded-full border border-border bg-surface px-3 py-1.5 font-medium text-body transition-colors hover:border-primary/40 hover:text-primary"
+          className="type-small rounded-full border border-border bg-surface px-3 py-1.5 font-medium text-body interactive-scale hover:border-primary/40 hover:text-primary"
         >
           Contraer todo
         </button>
       </div>
 
-      <ul className="space-y-3" role="list">
+      <ul
+        className="space-y-3"
+        role="list"
+        style={
+          listHeight > 0
+            ? { height: listHeight, minHeight: listHeight, maxHeight: listHeight }
+            : undefined
+        }
+      >
         {items.map((item, index) => {
-          const isOpen = openIds.has(item.id);
+          const isOpen = openId === item.id;
           const panelId = `faq-panel-${item.id}`;
           const buttonId = `faq-button-${item.id}`;
           const CategoryIcon = categoryIcons[item.category];
@@ -130,18 +190,8 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                   </span>
 
                   <span className="min-w-0 flex-1">
-                    <span className="mb-2 flex flex-wrap items-center gap-2">
-                      <span
-                        className={cn(
-                          "rounded-full border px-2 py-0.5 type-small font-semibold uppercase tracking-wide",
-                          categoryStyles[item.category],
-                        )}
-                      >
-                        {item.category}
-                      </span>
-                      <span className="type-small font-medium tabular-nums text-muted">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
+                    <span className="mb-2 block type-small font-medium tabular-nums text-muted">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
                     <span
                       className={cn(
@@ -163,26 +213,25 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                 </button>
               </h4>
 
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    id={panelId}
-                    role="region"
-                    aria-labelledby={buttonId}
-                    initial={reduceMotion ? false : { height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="border-t border-border/60 px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
-                      <p className="type-small leading-relaxed text-body md:text-[0.9375rem] md:leading-relaxed">
-                        {item.answer}
-                      </p>
-                    </div>
-                  </motion.div>
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
+                aria-hidden={!isOpen}
+                className={cn(
+                  "overflow-hidden transition-[opacity] duration-300 motion-reduce:transition-none",
+                  isOpen ? "opacity-100" : "pointer-events-none opacity-0",
                 )}
-              </AnimatePresence>
+                style={{
+                  height: isOpen && answerMinHeight > 0 ? answerMinHeight : 0,
+                }}
+              >
+                <div className="border-t border-border/60 px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
+                  <p className="type-small leading-relaxed text-body md:text-[0.9375rem] md:leading-relaxed">
+                    {item.answer}
+                  </p>
+                </div>
+              </div>
             </motion.li>
           );
         })}

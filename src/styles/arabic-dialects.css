@@ -1,0 +1,346 @@
+/* Arabic dialects — about-style split layout (teal + gold) */
+
+[data-dialects-section] .dialects-about {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+[data-dialects-section] .dialects-about__top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  [data-dialects-section] .dialects-about__top {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+[data-dialects-section] .dialects-about__intro {
+  max-width: 38rem;
+  text-align: start;
+}
+
+[data-dialects-section] .dialects-about__title {
+  margin: 0;
+  font-size: clamp(1.875rem, 3.6vw, 2.625rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-heading);
+}
+
+[data-dialects-section] .dialects-about__lead {
+  margin: 1rem 0 0;
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-muted);
+}
+
+[data-dialects-section] .dialects-about__cta-wrap {
+  flex-shrink: 0;
+}
+
+[data-dialects-section] .dialects-about__cta {
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--color-on-primary) 15%, transparent) inset,
+    0 10px 24px color-mix(in srgb, var(--color-primary) 22%, transparent);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    background-color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-dialects-section] .dialects-about__cta:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow:
+      0 1px 0 color-mix(in srgb, var(--color-on-primary) 18%, transparent) inset,
+      0 14px 32px color-mix(in srgb, var(--color-primary) 32%, transparent);
+  }
+}
+
+[data-dialects-section] .dialects-about__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.875rem 1rem;
+  align-items: start;
+  border-radius: calc(var(--radius-lg) - 4px);
+  padding: 0.625rem 0.75rem;
+  margin: -0.625rem -0.75rem;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+[data-dialects-section] .dialects-about__body {
+  display: grid;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  [data-dialects-section] .dialects-about__body {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 3rem 3.5rem;
+  }
+}
+
+[data-dialects-section] .dialects-about__grid {
+  display: grid;
+  gap: 1.75rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  [data-dialects-section] .dialects-about__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.75rem;
+  }
+}
+
+[data-dialects-section] .dialects-about__item-body {
+  min-width: 0;
+}
+
+[data-dialects-section] .dialects-about__item:nth-child(even) .dialects-about__num {
+  color: color-mix(in srgb, var(--color-secondary) 78%, var(--color-heading));
+}
+
+[data-dialects-section] .dialects-about__num {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--color-heading) 88%, var(--color-primary));
+  transition:
+    transform 0.3s ease,
+    color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-dialects-section] .dialects-about__item:hover {
+    transform: translateX(6px);
+    background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--color-heading) 6%, transparent);
+  }
+
+  [data-dialects-section] .dialects-about__item:hover .dialects-about__num {
+    transform: scale(1.08);
+    color: var(--color-primary);
+  }
+
+  [data-dialects-section] .dialects-about__item:nth-child(even):hover .dialects-about__num {
+    color: var(--color-secondary);
+  }
+
+  [data-dialects-section] .dialects-about__item:hover .dialects-about__item-title {
+    color: var(--color-primary);
+  }
+}
+
+[data-dialects-section] .dialects-about__item-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-heading);
+  transition: color 0.25s ease;
+}
+
+[data-dialects-section] .dialects-about__item-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--color-body);
+}
+
+[data-dialects-section] .dialects-collage {
+  display: grid;
+  min-height: 20rem;
+  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-rows: minmax(5.5rem, auto) 1fr;
+  gap: 0.75rem;
+}
+
+[data-dialects-section] .dialects-collage__tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 4px);
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  isolation: isolate;
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s ease,
+    border-color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-dialects-section] .dialects-collage__tile:hover {
+    transform: translateY(-5px) scale(1.015);
+    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+    box-shadow: 0 16px 40px color-mix(in srgb, var(--color-heading) 14%, transparent);
+  }
+
+  [data-dialects-section] .dialects-collage__tile:hover .dialects-collage__bg {
+    filter: brightness(1.1);
+  }
+
+  [data-dialects-section] .dialects-collage__tile:hover .dialects-collage__icon {
+    transform: scale(1.12);
+  }
+
+  [data-dialects-section] .dialects-collage__tile--c:hover .dialects-collage__icon {
+    transform: scale(1.12) rotate(-6deg);
+  }
+}
+
+[data-dialects-section] .dialects-collage__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: filter 0.32s ease;
+}
+
+[data-dialects-section] .dialects-collage__tile--a {
+  grid-column: 1;
+  grid-row: 1;
+  min-height: 5.5rem;
+}
+
+[data-dialects-section] .dialects-collage__tile--b {
+  grid-column: 1;
+  grid-row: 2;
+  min-height: 11rem;
+}
+
+[data-dialects-section] .dialects-collage__tile--c {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-height: 100%;
+}
+
+[data-dialects-section] .dialects-collage__tile--a .dialects-collage__bg {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-primary) 52%, var(--color-footer-bg)) 0%,
+    color-mix(in srgb, var(--color-primary) 72%, var(--color-footer-bg)) 100%
+  );
+}
+
+[data-dialects-section] .dialects-collage__tile--b .dialects-collage__bg {
+  background: linear-gradient(
+    145deg,
+    var(--color-footer-bg) 0%,
+    color-mix(in srgb, var(--color-primary) 72%, var(--color-footer-bg)) 100%
+  );
+}
+
+[data-dialects-section] .dialects-collage__tile--c .dialects-collage__bg {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-secondary) 22%, var(--color-surface-alt)) 0%,
+    color-mix(in srgb, var(--color-section-gold-mist) 85%, var(--color-surface)) 100%
+  );
+}
+
+[data-dialects-section] .dialects-collage__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 1.125rem;
+  color: var(--color-on-primary);
+}
+
+[data-dialects-section] .dialects-collage__tile--c .dialects-collage__content {
+  color: var(--color-heading);
+}
+
+[data-dialects-section] .dialects-collage__icon {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-on-primary) 16%, transparent);
+  color: var(--color-on-primary);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-dialects-section] .dialects-collage__tile--c .dialects-collage__icon {
+  background: color-mix(in srgb, var(--color-secondary) 18%, transparent);
+  color: var(--color-secondary);
+}
+
+[data-dialects-section] .dialects-collage__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+[data-dialects-section] .dialects-collage__arabic {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-arabic);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: end;
+}
+
+[data-dialects-section] .dialects-collage__tile--b .dialects-collage__arabic {
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  text-align: center;
+}
+
+[data-dialects-section] .dialects-collage__tag {
+  align-self: flex-start;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-on-primary) 22%, transparent);
+  background: color-mix(in srgb, var(--color-on-primary) 10%, transparent);
+  padding: 0.3125rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+[data-dialects-section] .dialects-collage__tile--c .dialects-collage__tag {
+  border-color: color-mix(in srgb, var(--color-secondary) 30%, transparent);
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+  color: color-mix(in srgb, var(--color-secondary) 85%, var(--color-heading));
+}
+
+@media (min-width: 1280px) {
+  [data-dialects-section] .dialects-collage {
+    min-height: 24rem;
+    gap: 0.875rem;
+  }
+
+  [data-dialects-section] .dialects-collage__content {
+    padding: 1.125rem 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-dialects-section] .dialects-about__item:hover,
+  [data-dialects-section] .dialects-collage__tile:hover,
+  [data-dialects-section] .dialects-about__cta:hover {
+    transform: none;
+  }
+
+  [data-dialects-section] .dialects-collage__tile:hover .dialects-collage__icon {
+    transform: none;
+  }
+}

@@ -49,9 +49,9 @@ export function buildMetadata({ title, description, path = "" }: PageSeo): Metad
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
-        { url: "/images/logo.webp", type: "image/webp" },
+        { url: "/icon.png", type: "image/png", sizes: "512x512" },
       ],
-      apple: [{ url: "/images/logo.webp", type: "image/webp" }],
+      apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
       shortcut: ["/favicon.ico"],
     },
     robots: {

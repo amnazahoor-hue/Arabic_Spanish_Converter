@@ -1,6 +1,7 @@
 import {
   MYMEMORY_MAX_BYTES_PER_REQUEST,
   MYMEMORY_MAX_CHARS_PER_DAY,
+  providerLangCode,
   type LanguageCode,
 } from "@/lib/constants";
 
@@ -172,7 +173,7 @@ async function fetchMyMemoryChunk(
     );
   }
 
-  const langpair = `${from}|${to}`;
+  const langpair = `${providerLangCode(from)}|${providerLangCode(to)}`;
   const url = new URL(
     process.env.TRANSLATE_API_URL ?? "https://api.mymemory.translated.net/get",
   );

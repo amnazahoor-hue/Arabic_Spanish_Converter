@@ -7,7 +7,8 @@ export type SectionTone =
   | "sand"
   | "surface"
   | "primary-mist"
-  | "gold-mist";
+  | "gold-mist"
+  | "grey";
 
 type SectionProps = HTMLAttributes<HTMLElement> & {
   children: ReactNode;
@@ -22,6 +23,7 @@ const toneClasses: Record<SectionTone, string> = {
   surface: "bg-section-surface",
   "primary-mist": "bg-section-primary-mist",
   "gold-mist": "bg-section-gold-mist",
+  grey: "bg-section-grey",
 };
 
 export function Section({

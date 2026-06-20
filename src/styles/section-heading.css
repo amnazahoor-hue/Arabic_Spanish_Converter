@@ -1,0 +1,95 @@
+/* Shared section headings — match hero typography + brand gradient accent */
+
+.section-heading {
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-heading);
+}
+
+.section-heading--on-dark {
+  color: var(--color-on-primary);
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--color-footer-bg) 40%, transparent);
+}
+
+.heading-accent {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  background: linear-gradient(
+    105deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 38%,
+    var(--color-accent) 62%,
+    var(--color-primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-heading--on-dark .heading-accent,
+.heading-accent--on-dark {
+  font-weight: 700;
+  background: linear-gradient(
+    105deg,
+    #fff6df 0%,
+    var(--color-accent) 32%,
+    var(--color-secondary) 58%,
+    #ffe8a8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 3px color-mix(in srgb, var(--color-footer-bg) 55%, transparent));
+}
+
+.section-heading-line {
+  width: 5rem;
+  height: 1px;
+  opacity: 0.65;
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-primary) 18%, transparent) 20%,
+    color-mix(in srgb, var(--color-secondary) 28%, transparent) 50%,
+    color-mix(in srgb, var(--color-primary) 18%, transparent) 80%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .section-heading-line {
+    width: 5.5rem;
+  }
+}
+
+.section-heading-line--wide {
+  width: 5rem;
+  height: 0.25rem;
+  border-radius: 9999px;
+  opacity: 1;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-primary)
+  );
+}
+
+@media (min-width: 768px) {
+  .section-heading-line--wide {
+    width: 5rem;
+  }
+}
+
+.section-header__description {
+  color: var(--color-body);
+}
+
+.section-header__description--on-dark {
+  color: color-mix(in srgb, var(--color-on-primary) 92%, var(--color-footer-text));
+}

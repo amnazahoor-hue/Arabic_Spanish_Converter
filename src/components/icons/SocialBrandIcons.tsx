@@ -3,6 +3,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaLinkedin,
+  FaPinterest,
   FaQuora,
   FaReddit,
   FaXTwitter,
@@ -15,6 +16,7 @@ export type SocialBrandId =
   | "instagram"
   | "linkedin"
   | "youtube"
+  | "pinterest"
   | "quora"
   | "reddit";
 
@@ -23,58 +25,47 @@ export const SOCIAL_BRAND_ICONS: Record<
   {
     Icon: IconType;
     label: string;
-    iconClass: string;
-    iconHoverClass: string;
-    hoverClass: string;
+    brandColor: string;
   }
 > = {
   x: {
     Icon: FaXTwitter,
-    label: "Follow us on X",
-    iconClass: "text-footer-heading",
-    iconHoverClass: "group-hover:text-[#000000]",
-    hoverClass: "hover:border-white/90 hover:bg-white",
+    label: "Síguenos en X",
+    brandColor: "#ffffff",
   },
   facebook: {
     Icon: FaFacebook,
-    label: "Follow us on Facebook",
-    iconClass: "text-[#1877F2]",
-    iconHoverClass: "group-hover:text-white",
-    hoverClass: "hover:border-[#1877F2] hover:bg-[#1877F2]",
+    label: "Síguenos en Facebook",
+    brandColor: "#1877F2",
   },
   instagram: {
     Icon: FaInstagram,
-    label: "Follow us on Instagram",
-    iconClass: "text-[#E4405F]",
-    iconHoverClass: "group-hover:text-white",
-    hoverClass: "hover:border-[#E4405F] hover:bg-[#E4405F]",
+    label: "Síguenos en Instagram",
+    brandColor: "#E4405F",
   },
   linkedin: {
     Icon: FaLinkedin,
-    label: "Follow us on LinkedIn",
-    iconClass: "text-[#0A66C2]",
-    iconHoverClass: "group-hover:text-white",
-    hoverClass: "hover:border-[#0A66C2] hover:bg-[#0A66C2]",
+    label: "Síguenos en LinkedIn",
+    brandColor: "#0A66C2",
   },
   youtube: {
     Icon: FaYoutube,
-    label: "Subscribe on YouTube",
-    iconClass: "text-[#FF0000]",
-    iconHoverClass: "group-hover:text-white",
-    hoverClass: "hover:border-[#FF0000] hover:bg-[#FF0000]",
+    label: "Suscríbete en YouTube",
+    brandColor: "#FF0000",
+  },
+  pinterest: {
+    Icon: FaPinterest,
+    label: "Síguenos en Pinterest",
+    brandColor: "#E60023",
   },
   quora: {
     Icon: FaQuora,
-    label: "Follow us on Quora",
-    iconClass: "text-[#B92B27]",
-    iconHoverClass: "group-hover:text-white",
-    hoverClass: "hover:border-[#B92B27] hover:bg-[#B92B27]",
+    label: "Síguenos en Quora",
+    brandColor: "#B92B27",
   },
   reddit: {
     Icon: FaReddit,
-    label: "Follow us on Reddit",
-    iconClass: "text-[#FF4500]",
-    iconHoverClass: "group-hover:text-white",
-    hoverClass: "hover:border-[#FF4500] hover:bg-[#FF4500]",
+    label: "Síguenos en Reddit",
+    brandColor: "#FF4500",
   },
 };

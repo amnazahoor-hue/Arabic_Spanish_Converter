@@ -5,20 +5,43 @@ export const SITE_CONFIG = {
     "Necesitas un preciso traductor árabe español¿ Nuestro servicio de traducción ofrece traducciones rápidas y fiables para superar las barreras lingüísticas.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://traductorarabeespañol.es",
   locale: "es",
-  lastUpdated: "May 2026",
+  lastUpdated: "Mayo 2026",
 } as const;
 
-export type LanguageCode = "ar" | "es";
+export type LanguageCode = "ar" | "ar-ma" | "es";
 
 export const LANGUAGES: Record<
   LanguageCode,
   { code: LanguageCode; label: string; nativeLabel: string; dir: "rtl" | "ltr" }
 > = {
   ar: { code: "ar", label: "Arabic", nativeLabel: "العربية", dir: "rtl" },
+  "ar-ma": {
+    code: "ar-ma",
+    label: "Darija Marroquí",
+    nativeLabel: "الدارجة",
+    dir: "rtl",
+  },
   es: { code: "es", label: "Spanish", nativeLabel: "Español", dir: "ltr" },
 };
 
+export function isArabicLang(code: LanguageCode): boolean {
+  return code === "ar" || code === "ar-ma";
+}
+
+/** Maps app language codes to MyMemory / RFC 3066 provider codes. */
+export function providerLangCode(code: LanguageCode): string {
+  if (code === "ar-ma") return "ar-MA";
+  return code;
+}
+
+export function defaultArabicFor(initialFrom: LanguageCode): "ar" | "ar-ma" {
+  return initialFrom === "ar-ma" ? "ar-ma" : "ar";
+}
+
 export const PAGE_CONTAINER_CLASS = "mx-auto w-full max-w-6xl px-4 sm:px-6";
+export const HERO_CONTAINER_CLASS =
+  "mx-auto w-full max-w-7xl px-4 sm:px-6 xl:max-w-[90rem] xl:px-8";
+export const HEADER_CONTAINER_CLASS = HERO_CONTAINER_CLASS;
 
 export const SECTION_IDS = {
   translator: "translator",
@@ -44,12 +67,12 @@ export const NAV_SECTIONS = [
 
 export const NAV_HEADER_LINKS = [
   { href: "/traductor-marroqui-espanol", label: "Traductor Marroquí Español" },
-  { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact Us" },
-  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/about", label: "Sobre Nosotros" },
+  { href: "/contact", label: "Contáctanos" },
+  { href: "/privacy-policy", label: "Política De Privacidad" },
 ] as const;
 
-export const NAV_HEADER_ABOUT = { href: "/about", label: "About Us" } as const;
+export const NAV_HEADER_ABOUT = { href: "/about", label: "Sobre Nosotros" } as const;
 
 function socialHref(envValue: string | undefined): string {
   const url = envValue?.trim();
@@ -62,6 +85,7 @@ export const FOOTER_SOCIAL = [
   { id: "instagram" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM) },
   { id: "linkedin" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN) },
   { id: "youtube" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_YOUTUBE) },
+  { id: "pinterest" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_PINTEREST) },
   { id: "quora" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_QUORA) },
   { id: "reddit" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_REDDIT) },
 ];
@@ -72,15 +96,15 @@ export const FOOTER_PAGES = [
 ] as const;
 
 export const FOOTER_LEGAL = [
-  { href: "/privacy-policy", label: "Privacy Policy" },
-  { href: "/terms-and-conditions", label: "Terms And Conditions" },
-  { href: "/disclaimer", label: "Disclaimer" },
+  { href: "/privacy-policy", label: "Política De Privacidad" },
+  { href: "/terms-and-conditions", label: "Términos Y Condiciones" },
+  { href: "/disclaimer", label: "Aviso Legal" },
 ] as const;
 
 export const FOOTER_INFO = [
-  { href: "/contact", label: "Contact Us" },
-  { href: "/about", label: "About Us" },
-  { href: "/author", label: "Author" },
+  { href: "/contact", label: "Contáctanos" },
+  { href: "/about", label: "Sobre Nosotros" },
+  { href: "/author", label: "Autor" },
 ] as const;
 
 export const MAX_TRANSLATE_CHARS = 5000;

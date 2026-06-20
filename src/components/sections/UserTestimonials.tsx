@@ -1,66 +1,95 @@
 "use client";
 
+import "@/styles/testimonials-carousel.css";
+import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import { SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 
-const testimonials = [
+type TestimonialAccent = "primary" | "secondary";
+
+type TestimonialShape = "a" | "b" | "c";
+
+type Testimonial = {
+  name: string;
+  role: string;
+  quote: string;
+  accent: TestimonialAccent;
+  shape: TestimonialShape;
+};
+
+const testimonials: readonly Testimonial[] = [
   {
     name: "Samir El Fassi",
+    role: "Usuario Frecuente",
     quote:
       "Este es uno de los mejores traductores. Me da resultados precisos. Resuelve mis problemas de comunicación diarios. Lo recomiendo ampliamente.",
+    accent: "primary",
+    shape: "a",
   },
   {
     name: "Mateo Torres",
+    role: "Empresario",
     quote:
       "Este traductor me resulta muy útil para la comunicación en mi negocio. Aprecio especialmente cómo maneja las expresiones culturales y cotidianas. Es rápido y fácil de usar.",
+    accent: "secondary",
+    shape: "b",
   },
   {
     name: "Alejandro Gómez",
+    role: "Viajero",
     quote:
       "Fue una salvación durante todo mi viaje. El traductor hizo que mi viaje fuera mucho más fácil gracias a sus traducciones precisas. Sentía como si tuviera un asistente lingüístico personal en el bolsillo.",
+    accent: "primary",
+    shape: "c",
   },
-] as const;
+];
 
 function TestimonialCard({
   testimonial,
   index,
   reduceMotion,
 }: {
-  testimonial: (typeof testimonials)[number];
+  testimonial: Testimonial;
   index: number;
   reduceMotion: boolean;
 }) {
-  const accent = index % 2 === 0 ? "primary" : "secondary";
+  const { name, role, quote, accent, shape } = testimonial;
 
   return (
-    <motion.blockquote
-      className={cn(
-        "relative flex h-full flex-col rounded-[var(--radius-lg)] border border-border/80 bg-surface/95 p-5 shadow-card backdrop-blur-sm sm:p-6",
-        "transition-[border-color,box-shadow,transform] duration-300",
-        "motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_12px_40px_rgba(26,26,46,0.1)]",
-        accent === "primary" ? "hover:border-primary/35" : "hover:border-secondary/40",
-      )}
+    <motion.li
       initial={reduceMotion ? {} : { opacity: 0, y: 20 }}
       whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "-32px" }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Quote
-        className={cn(
-          "mb-4 h-8 w-8",
-          accent === "primary" ? "text-primary/70" : "text-secondary/80",
-        )}
-        strokeWidth={1.5}
-        aria-hidden
-      />
-      <p className="type-body flex-1 leading-relaxed text-body">&ldquo;{testimonial.quote}&rdquo;</p>
-      <footer className="mt-5 border-t border-border/60 pt-4">
-        <cite className="type-h3-card not-italic text-heading">{testimonial.name}</cite>
-      </footer>
-    </motion.blockquote>
+      <blockquote className={cn("testimonial-card", `testimonial-card--shape-${shape}`)}>
+        <div className="testimonial-card__header">
+          <div
+            className={cn("testimonial-card__badge", `testimonial-card__badge--${accent}`)}
+            aria-hidden
+          >
+            <Quote className="h-[1.125rem] w-[1.125rem]" strokeWidth={2.75} />
+          </div>
+
+          <div className="testimonial-card__head">
+            <cite className="testimonial-card__name not-italic">{name}</cite>
+            <span className="testimonial-card__role">{role}</span>
+            <div className="testimonial-card__stars" aria-label="5 de 5 estrellas">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-current" strokeWidth={0} aria-hidden />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p className="testimonial-card__quote">{quote}</p>
+
+        <Quote className="testimonial-card__watermark" strokeWidth={1.15} aria-hidden />
+      </blockquote>
+    </motion.li>
   );
 }
 
@@ -69,22 +98,24 @@ export function UserTestimonials() {
 
   return (
     <Section id={SECTION_IDS.testimonials} tone="sand" className="overflow-hidden">
-      <div className="relative">
+      <div data-testimonials-section className="relative">
         <motion.header
-          className="mx-auto mb-8 max-w-3xl text-center lg:mb-10"
+          className="mx-auto mb-10 max-w-2xl lg:mb-12"
           initial={reduceMotion ? {} : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="type-h2-section text-heading">Comentarios De Los Usuarios</h2>
-          <div
-            className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-primary via-secondary to-primary"
-            aria-hidden
+          <SectionHeader
+            title="Comentarios De Los"
+            accent="Usuarios"
+            description="Opiniones reales de personas que confían en nuestro traductor árabe español para comunicarse cada día."
+            className="max-w-2xl"
+            showLine={false}
           />
         </motion.header>
 
-        <div className="grid gap-5 lg:grid-cols-3 lg:gap-6">
+        <ul className="testimonials-grid mx-auto max-w-6xl">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={testimonial.name}
@@ -93,7 +124,7 @@ export function UserTestimonials() {
               reduceMotion={!!reduceMotion}
             />
           ))}
-        </div>
+        </ul>
       </div>
     </Section>
   );

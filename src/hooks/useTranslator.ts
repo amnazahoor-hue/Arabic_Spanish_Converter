@@ -1,8 +1,12 @@
 "use client";
 
-import { MAX_TRANSLATE_CHARS, type LanguageCode } from "@/lib/constants";
+import {
+  defaultArabicFor,
+  MAX_TRANSLATE_CHARS,
+  type LanguageCode,
+} from "@/lib/constants";
 import type { TranslateErrorResponse, TranslateResponse } from "@/types";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 type TranslatorState = {
   sourceLang: LanguageCode;
@@ -14,10 +18,17 @@ type TranslatorState = {
   errorCode: TranslateErrorResponse["code"] | null;
 };
 
+function defaultTargetFor(initialFrom: LanguageCode): LanguageCode {
+  return initialFrom === "es" ? defaultArabicFor(initialFrom) : "es";
+}
+
 export function useTranslator(initialFrom: LanguageCode = "ar") {
+  const defaultSource = initialFrom;
+  const defaultTarget = defaultTargetFor(initialFrom);
+
   const [state, setState] = useState<TranslatorState>({
-    sourceLang: initialFrom,
-    targetLang: initialFrom === "ar" ? "es" : "ar",
+    sourceLang: defaultSource,
+    targetLang: defaultTarget,
     input: "",
     output: "",
     loading: false,
@@ -46,63 +57,102 @@ export function useTranslator(initialFrom: LanguageCode = "ar") {
     }));
   }, []);
 
-  const translateText = useCallback(async () => {
-    const trimmed = state.input.trim();
-    if (!trimmed) {
-      setState((s) => ({
-        ...s,
-        error: "Escribe o pega algún texto antes de traducir.",
-        errorCode: "EMPTY_INPUT",
-      }));
-      return;
-    }
-
-    setState((s) => ({ ...s, loading: true, error: null, errorCode: null }));
-
-    try {
-      const res = await fetch("/api/translate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: trimmed,
-          from: state.sourceLang,
-          to: state.targetLang,
-        }),
-      });
-
-      const data = (await res.json()) as TranslateResponse | TranslateErrorResponse;
-
-      if (!res.ok || "error" in data) {
-        const err = data as TranslateErrorResponse;
+  const translateFromText = useCallback(
+    async (rawText: string) => {
+      const trimmed = rawText.trim();
+      if (!trimmed) {
         setState((s) => ({
           ...s,
-          loading: false,
-          error: err.error ?? "Translation could not be completed.",
-          errorCode: err.code ?? (res.status >= 500 ? "PROVIDER" : "VALIDATION"),
+          error: "Escribe o pega algún texto antes de traducir.",
+          errorCode: "EMPTY_INPUT",
         }));
         return;
       }
 
+      const input = trimmed.slice(0, MAX_TRANSLATE_CHARS);
       setState((s) => ({
         ...s,
-        loading: false,
-        output: (data as TranslateResponse).translatedText,
+        input,
+        loading: true,
+        error: null,
+        errorCode: null,
       }));
-    } catch {
-      setState((s) => ({
-        ...s,
-        loading: false,
-        error: "Network error. Check your connection and try again.",
-        errorCode: "PROVIDER",
-      }));
-    }
-  }, [state.input, state.sourceLang, state.targetLang]);
+
+      try {
+        const res = await fetch("/api/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: input,
+            from: state.sourceLang,
+            to: state.targetLang,
+          }),
+        });
+
+        const data = (await res.json()) as TranslateResponse | TranslateErrorResponse;
+
+        if (!res.ok || "error" in data) {
+          const err = data as TranslateErrorResponse;
+          setState((s) => ({
+            ...s,
+            loading: false,
+            error: err.error ?? "No se pudo completar la traducción.",
+            errorCode: err.code ?? (res.status >= 500 ? "PROVIDER" : "VALIDATION"),
+          }));
+          return;
+        }
+
+        setState((s) => ({
+          ...s,
+          loading: false,
+          output: (data as TranslateResponse).translatedText,
+        }));
+      } catch {
+        setState((s) => ({
+          ...s,
+          loading: false,
+          error: "Error de red. Comprueba tu conexión e inténtalo de nuevo.",
+          errorCode: "PROVIDER",
+        }));
+      }
+    },
+    [state.sourceLang, state.targetLang],
+  );
+
+  const translateText = useCallback(async () => {
+    await translateFromText(state.input);
+  }, [state.input, translateFromText]);
+
+  const reset = useCallback(() => {
+    setState({
+      sourceLang: defaultSource,
+      targetLang: defaultTarget,
+      input: "",
+      output: "",
+      loading: false,
+      error: null,
+      errorCode: null,
+    });
+  }, [defaultSource, defaultTarget]);
+
+  const isDefault = useMemo(
+    () =>
+      state.input === "" &&
+      state.output === "" &&
+      !state.error &&
+      state.sourceLang === defaultSource &&
+      state.targetLang === defaultTarget,
+    [state, defaultSource, defaultTarget],
+  );
 
   return {
     ...state,
     setInput,
     swapLanguages,
     translateText,
+    translateFromText,
+    reset,
+    isDefault,
     charCount: state.input.length,
     maxChars: MAX_TRANSLATE_CHARS,
   };

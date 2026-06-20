@@ -1,0 +1,196 @@
+/* Site-wide micro-interactions — hovers, focus, and entrance motion */
+
+.interactive-scale {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .interactive-scale:hover:not(:disabled) {
+    transform: scale(1.03);
+  }
+
+  .interactive-scale:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+}
+
+.interactive-lift {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .interactive-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--color-heading) 12%, transparent);
+  }
+}
+
+.interactive-link {
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .interactive-link:hover {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes site-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes site-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mobile-menu-backdrop {
+  animation: site-fade-in 0.28s ease;
+}
+
+.mobile-menu-panel {
+  animation: site-slide-in-right 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.language-swap-bar {
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .language-swap-bar:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--color-primary) 10%, transparent);
+  }
+}
+
+.language-swap-btn {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .language-swap-btn:hover {
+    transform: rotate(180deg) scale(1.06);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  }
+
+  .language-swap-btn:active {
+    transform: rotate(180deg) scale(0.96);
+  }
+}
+
+.translator-output-panel {
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.translator-output-panel:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-border));
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--color-heading) 6%, transparent);
+}
+
+.hero-trust-pill {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-trust-pill:hover {
+    transform: translateY(-2px);
+  }
+}
+
+[data-common-phrases] .phrase-row__content,
+[data-common-phrases] .phrase-pill {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-common-phrases] .phrase-row__content:hover,
+  [data-common-phrases] .phrase-pill:hover {
+    transform: scale(1.02);
+  }
+}
+
+[data-ai-features] .ai-features__card {
+  transition:
+    transform 0.32s ease,
+    box-shadow 0.32s ease;
+}
+
+[data-conversation-section] .conversation-banner {
+  transition:
+    transform 0.32s ease,
+    box-shadow 0.32s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-conversation-section] .conversation-banner:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px color-mix(in srgb, var(--color-heading) 14%, transparent);
+  }
+}
+
+[data-testimonials-section] .testimonial-card {
+  transition:
+    transform 0.32s ease,
+    box-shadow 0.32s ease,
+    border-color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-testimonials-section] .testimonial-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu-backdrop,
+  .mobile-menu-panel {
+    animation: none;
+  }
+
+  .interactive-scale:hover,
+  .interactive-lift:hover,
+  .interactive-link:hover,
+  .language-swap-btn:hover,
+  [data-common-phrases] .phrase-row__content:hover,
+  [data-common-phrases] .phrase-pill:hover,
+  [data-conversation-section] .conversation-banner:hover,
+  [data-testimonials-section] .testimonial-card:hover {
+    transform: none;
+  }
+}

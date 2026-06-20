@@ -3,17 +3,17 @@ import { DISCLAIMER_SECTIONS } from "@/content/legal/disclaimer";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Disclaimer",
+  title: "Aviso Legal",
   description:
-    "Legal disclaimer and machine-translation limitations for Al-Andalus Translate Arabic–Spanish translator.",
+    "Aviso legal y limitaciones de la traducción automática del traductor árabe–español Traductor Árabe Español.",
   path: "/disclaimer",
 });
 
 export default function DisclaimerPage() {
   return (
     <LegalPage
-      title="Disclaimer"
-      description="Legal information about using the Arabic–Spanish translator and the limits of automatic translation."
+      title="Aviso Legal"
+      description="Información jurídica sobre el uso del traductor árabe–español y los límites de la traducción automática."
       path="/disclaimer"
       sections={DISCLAIMER_SECTIONS}
     />

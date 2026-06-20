@@ -1,0 +1,206 @@
+/* Common phrases — section atmosphere + compact cards */
+
+[data-common-phrases-section] {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-bg);
+}
+
+[data-common-phrases-section]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/common-phrases-bg.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.44;
+  pointer-events: none;
+}
+
+[data-common-phrases-section]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-bg) 78%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 42%, transparent) 22%,
+      color-mix(in srgb, var(--color-surface) 38%, transparent) 48%,
+      color-mix(in srgb, var(--color-bg) 44%, transparent) 76%,
+      color-mix(in srgb, var(--color-bg) 74%, transparent) 100%
+    ),
+    radial-gradient(
+      ellipse 90% 75% at 50% 42%,
+      color-mix(in srgb, var(--color-surface) 62%, transparent) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 12% 50%,
+      color-mix(in srgb, var(--color-primary) 8%, transparent) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 88% 50%,
+      color-mix(in srgb, var(--color-secondary) 7%, transparent) 0%,
+      transparent 100%
+    );
+}
+
+[data-common-phrases-section] > div {
+  position: relative;
+  z-index: 2;
+}
+
+[data-common-phrases].phrase-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  [data-common-phrases].phrase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-common-phrases].phrase-grid {
+    gap: 1.25rem;
+  }
+}
+
+[data-common-phrases] .phrase-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-radius: 1.125rem;
+  border: 1px solid color-mix(in srgb, var(--color-border) 78%, transparent);
+  background: var(--color-surface);
+  padding: 1rem 1.125rem 1.125rem;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--color-heading) 5%, transparent);
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-common-phrases] .phrase-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px color-mix(in srgb, var(--color-heading) 10%, transparent);
+  }
+}
+
+[data-common-phrases] .phrase-card--teal:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
+}
+
+[data-common-phrases] .phrase-card--gold:hover {
+  border-color: color-mix(in srgb, var(--color-secondary) 35%, var(--color-border));
+}
+
+[data-common-phrases] .phrase-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+[data-common-phrases] .phrase-card__icon-wrap {
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  transition: transform 0.28s ease;
+}
+
+[data-common-phrases] .phrase-card--teal .phrase-card__icon-wrap {
+  background: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface));
+  color: var(--color-primary);
+}
+
+[data-common-phrases] .phrase-card--gold .phrase-card__icon-wrap {
+  background: color-mix(in srgb, var(--color-secondary) 16%, var(--color-surface));
+  color: color-mix(in srgb, var(--color-secondary) 88%, var(--color-heading));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-common-phrases] .phrase-card:hover .phrase-card__icon-wrap {
+    transform: scale(1.08);
+  }
+}
+
+[data-common-phrases] .phrase-card__label {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: var(--color-heading);
+}
+
+[data-common-phrases] .phrase-card--teal .phrase-card__label {
+  color: var(--color-primary);
+}
+
+[data-common-phrases] .phrase-card--gold .phrase-card__label {
+  color: color-mix(in srgb, var(--color-secondary) 82%, var(--color-heading));
+}
+
+[data-common-phrases] .phrase-card__arabic-wrap {
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-footer-bg) 0%,
+    color-mix(in srgb, var(--color-primary) 72%, var(--color-footer-bg)) 100%
+  );
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-on-primary) 10%, transparent);
+}
+
+[data-common-phrases] .phrase-card__arabic {
+  margin: 0;
+  font-family: var(--font-arabic);
+  font-size: clamp(1.0625rem, 2vw, 1.1875rem);
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--color-on-primary);
+}
+
+[data-common-phrases] .phrase-card__spanish {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--color-body);
+}
+
+[data-common-phrases] .phrase-card__cta {
+  align-self: flex-start;
+  margin-top: 0.125rem;
+  padding-inline: 0.875rem;
+  min-height: 2.125rem;
+  font-size: 0.8125rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-common-phrases] .phrase-card,
+  [data-common-phrases] .phrase-card__icon-wrap {
+    transition: none;
+  }
+
+  [data-common-phrases] .phrase-card:hover {
+    transform: none;
+  }
+}

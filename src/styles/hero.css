@@ -4,25 +4,227 @@
   background-color: var(--color-bg);
 }
 
+[data-hero] .hero-people-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-repeat: no-repeat;
+}
+
+[data-hero] .hero-people-bg--mobile {
+  background-image: url("/hero-mobile-bg.webp");
+  background-size: cover;
+  background-position: center 58%;
+  opacity: 0.62;
+}
+
+[data-hero] .hero-people-bg--desktop {
+  background-image: url("/hero-people-bg.png");
+  background-size: cover;
+  background-position: center 55%;
+  opacity: 0.72;
+}
+
+@media (max-width: 1023px) {
+  [data-hero] .hero-people-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-bg) 90%, transparent) 0%,
+        color-mix(in srgb, var(--color-bg) 78%, transparent) 28%,
+        color-mix(in srgb, var(--color-bg) 52%, transparent) 58%,
+        color-mix(in srgb, var(--color-bg) 38%, transparent) 100%
+      ),
+      linear-gradient(
+        105deg,
+        color-mix(in srgb, var(--color-bg) 72%, transparent) 0%,
+        color-mix(in srgb, var(--color-bg) 34%, transparent) 100%
+      );
+  }
+
+  [data-hero] .hero-mesh {
+    opacity: 0.16;
+  }
+
+  [data-hero] {
+    min-height: auto;
+  }
+
+  [data-hero] .hero-shell {
+    align-items: center;
+    padding-inline: 0.875rem;
+  }
+
+  [data-hero] .hero-grid {
+    justify-items: center;
+    width: 100%;
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  [data-hero] .hero-copy,
+  [data-hero] .hero-copy-main,
+  [data-hero] .hero-title-block {
+    align-items: center;
+    text-align: center;
+  }
+
+  [data-hero] #hero-heading,
+  [data-hero] .hero-lead {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  [data-hero] .hero-trust {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  [data-hero] .hero-translator {
+    margin-inline: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  [data-hero] .hero-people-bg--mobile {
+    background-image: url("/hero-mobile-bg.webp");
+    background-size: cover;
+    background-position: center 64%;
+    opacity: 0.7;
+  }
+
+  [data-hero] .hero-people-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-bg) 82%, transparent) 0%,
+        color-mix(in srgb, var(--color-bg) 66%, transparent) 32%,
+        color-mix(in srgb, var(--color-bg) 42%, transparent) 62%,
+        color-mix(in srgb, var(--color-bg) 30%, transparent) 100%
+      );
+  }
+
+  [data-hero] .hero-shell {
+    padding-block: 1.75rem;
+    padding-inline: 0.75rem;
+  }
+
+  [data-hero] .hero-grid {
+    gap: 1.75rem;
+    max-width: 100%;
+  }
+
+  [data-hero] #hero-heading {
+    font-size: clamp(1.5rem, 7.2vw, 1.875rem) !important;
+    line-height: 1.14;
+    max-width: 20rem;
+  }
+
+  [data-hero] .hero-lead {
+    font-size: clamp(0.875rem, 3.8vw, 1rem) !important;
+    line-height: 1.55;
+    max-width: 22rem;
+  }
+
+  [data-hero] .hero-trust {
+    max-width: 20rem;
+    gap: 0.375rem !important;
+  }
+
+  [data-hero] .hero-trust-pill {
+    padding: 0.3125rem 0.625rem;
+    font-size: 0.6875rem;
+  }
+
+  [data-hero] .hero-translator {
+    max-width: 100%;
+    padding: 0.875rem !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  [data-hero] .hero-people-bg--mobile {
+    background-position: center 50%;
+    opacity: 0.54;
+  }
+
+  [data-hero] {
+    min-height: auto;
+  }
+
+  [data-hero] .hero-shell {
+    padding-block: 2.75rem;
+  }
+
+  [data-hero] .hero-grid {
+    width: 100%;
+    max-width: 42rem;
+    margin-inline: auto;
+    gap: 2rem;
+    justify-items: stretch;
+  }
+
+  [data-hero] .hero-copy,
+  [data-hero] .hero-copy-main,
+  [data-hero] .hero-title-block {
+    align-items: center;
+    text-align: center;
+  }
+
+  [data-hero] #hero-heading {
+    font-size: clamp(2rem, 4.8vw, 2.625rem) !important;
+    line-height: 1.12;
+    max-width: 36rem;
+  }
+
+  [data-hero] .hero-lead {
+    font-size: clamp(1rem, 2.2vw, 1.1875rem) !important;
+    line-height: 1.55;
+    max-width: 34rem;
+  }
+
+  [data-hero] .hero-trust {
+    justify-content: center;
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  [data-hero] .hero-translator {
+    width: 100%;
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+}
+
+[data-hero] .hero-people-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      105deg,
+      color-mix(in srgb, var(--color-bg) 62%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 40%, transparent) 38%,
+      color-mix(in srgb, var(--color-bg) 28%, transparent) 62%,
+      color-mix(in srgb, var(--color-bg) 22%, transparent) 100%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-bg) 58%, transparent) 0%,
+      transparent 42%,
+      color-mix(in srgb, var(--color-surface-alt) 14%, transparent) 100%
+    );
+}
+
 [data-hero] .hero-mesh {
+  z-index: 2;
+  opacity: 0.28;
   background:
     radial-gradient(ellipse 120% 80% at 0% 0%, color-mix(in srgb, var(--color-primary) 22%, transparent), transparent 52%),
     radial-gradient(ellipse 90% 70% at 100% 10%, color-mix(in srgb, var(--color-secondary) 20%, transparent), transparent 48%),
     radial-gradient(ellipse 70% 50% at 50% 100%, color-mix(in srgb, var(--color-terracotta) 8%, transparent), transparent 55%),
     linear-gradient(168deg, color-mix(in srgb, var(--color-bg) 88%, white) 0%, var(--color-bg) 42%, color-mix(in srgb, var(--color-surface-alt) 55%, var(--color-bg)) 100%);
-}
-
-[data-hero] .hero-grid-line {
-  background-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in srgb, var(--color-primary) 18%, transparent) 20%,
-    color-mix(in srgb, var(--color-secondary) 28%, transparent) 50%,
-    color-mix(in srgb, var(--color-primary) 18%, transparent) 80%,
-    transparent 100%
-  );
-  height: 1px;
-  opacity: 0.65;
 }
 
 [data-hero] .hero-badge {
@@ -43,7 +245,8 @@
   box-shadow: 0 2px 8px rgba(201, 148, 58, 0.2);
 }
 
-[data-hero] .hero-instantly {
+[data-hero] .hero-instantly,
+.heading-accent {
   font-family: var(--font-display), Georgia, "Times New Roman", serif;
   font-style: italic;
   font-weight: 600;
@@ -179,4 +382,8 @@
   [data-hero] .hero-float-chip {
     display: none !important;
   }
+}
+
+[data-hero] .hero-translator .type-small {
+  color: color-mix(in srgb, var(--color-body) 88%, var(--color-heading));
 }
