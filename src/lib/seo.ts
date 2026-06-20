@@ -36,13 +36,23 @@ export function buildMetadata({ title, description, path = "" }: PageSeo): Metad
       description,
       url,
       siteName: SITE_CONFIG.name,
-      locale: "en_US",
+      locale: "es_ES",
       type: "website",
+      images: [{ url: "/images/logo.webp", alt: SITE_CONFIG.name }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["/images/logo.webp"],
+    },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/images/logo.webp", type: "image/webp" },
+      ],
+      apple: [{ url: "/images/logo.webp", type: "image/webp" }],
+      shortcut: ["/favicon.ico"],
     },
     robots: {
       index: true,
@@ -71,7 +81,7 @@ export function organizationSchema() {
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
     description: SITE_CONFIG.description,
-    logo: `${SITE_CONFIG.url}/logo.svg`,
+    logo: `${SITE_CONFIG.url}/images/logo.webp`,
   };
 }
 
@@ -82,7 +92,7 @@ export function webSiteSchema() {
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
     description: SITE_CONFIG.description,
-    inLanguage: "en",
+    inLanguage: "es",
   };
 }
 

@@ -1,9 +1,24 @@
 import { Hero } from "@/components/sections/Hero";
-import { Translator } from "@/components/sections/Translator";
 import dynamic from "next/dynamic";
 
 const HowItWorks = dynamic(() =>
   import("@/components/sections/HowItWorks").then((mod) => mod.HowItWorks),
+);
+
+const CommonPhrases = dynamic(() =>
+  import("@/components/sections/CommonPhrases").then((mod) => mod.CommonPhrases),
+);
+
+const ArabicDialects = dynamic(() =>
+  import("@/components/sections/ArabicDialects").then((mod) => mod.ArabicDialects),
+);
+
+const AiTranslatorFeatures = dynamic(() =>
+  import("@/components/sections/AiTranslatorFeatures").then((mod) => mod.AiTranslatorFeatures),
+);
+
+const UserTestimonials = dynamic(() =>
+  import("@/components/sections/UserTestimonials").then((mod) => mod.UserTestimonials),
 );
 
 const Features = dynamic(() =>
@@ -16,9 +31,12 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Translator />
-      <HowItWorks />
       <Features />
+      <HowItWorks />
+      <CommonPhrases />
+      <ArabicDialects />
+      <AiTranslatorFeatures />
+      <UserTestimonials />
       <Faq />
     </>
   );

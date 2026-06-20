@@ -3,7 +3,9 @@ import type { MetadataRoute } from "next";
 
 const routes = [
   "",
+  "/traductor-marroqui-espanol",
   "/about",
+  "/author",
   "/disclaimer",
   "/privacy-policy",
   "/terms-and-conditions",

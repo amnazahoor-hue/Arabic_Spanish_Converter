@@ -7,11 +7,10 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 
 type MobileMenuProps = {
-  activeSectionId: string | null;
   headerTheme?: "light" | "dark";
 };
 
-export function MobileMenu({ activeSectionId, headerTheme = "light" }: MobileMenuProps) {
+export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -101,11 +100,7 @@ export function MobileMenu({ activeSectionId, headerTheme = "light" }: MobileMen
             </div>
 
             <div className="flex-1 overflow-y-auto px-5 py-6">
-              <NavLinks
-                activeSectionId={activeSectionId}
-                onNavigate={close}
-                variant="mobile"
-              />
+              <NavLinks onNavigate={close} variant="mobile" />
             </div>
 
             <div className="border-t border-border p-5 bg-surface-alt/50">

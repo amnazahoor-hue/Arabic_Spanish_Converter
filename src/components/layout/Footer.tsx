@@ -3,20 +3,40 @@
 import { Logo } from "@/components/brand/Logo";
 import { SOCIAL_BRAND_ICONS } from "@/components/icons/SocialBrandIcons";
 import {
+  FOOTER_INFO,
   FOOTER_LEGAL,
+  FOOTER_PAGES,
   FOOTER_SOCIAL,
-  NAV_HEADER_ABOUT,
-  NAV_SECTIONS,
   PAGE_CONTAINER_CLASS,
   SECTION_IDS,
   SITE_CONFIG,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { ArrowRight, FileText, Mail, Sparkles } from "lucide-react";
+import { ArrowRight, FileText, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 const footerLinkClass =
   "inline-flex items-center justify-center gap-2 text-footer-text transition-colors hover:text-secondary motion-safe:hover:translate-x-0.5 motion-reduce:hover:translate-x-0 sm:justify-start";
+
+function FooterColumn({
+  title,
+  children,
+  className,
+}: {
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("text-center sm:text-start", className)}>
+      <h2 className="mb-4 flex items-center justify-center gap-2 text-footer-heading font-semibold text-nav sm:justify-start">
+        <span className="h-1 w-6 rounded-full bg-secondary" aria-hidden />
+        {title}
+      </h2>
+      {children}
+    </div>
+  );
+}
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -50,7 +70,7 @@ export function Footer() {
               <Sparkles className="h-4 w-4" strokeWidth={1.75} aria-hidden />
               Free · Instant · Bidirectional
             </p>
-            <h2 className="type-h3-card text-footer-heading">Ready to translate?</h2>
+            <h2 className="type-h3-card text-footer-heading">¿Listo Para Traducir?</h2>
             <p className="type-small text-footer-text/90">
               Open the translator and switch between Arabic and Spanish in one click — no account
               required.
@@ -93,8 +113,7 @@ export function Footer() {
                     hoverClass,
                   );
                   const iconClasses = cn(
-                    "h-[1.125rem] w-[1.125rem] shrink-0",
-                    id !== "instagram" && "transition-colors duration-200",
+                    "h-[1.125rem] w-[1.125rem] shrink-0 transition-colors duration-200",
                     iconClass,
                     iconHoverClass,
                   );
@@ -129,27 +148,19 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="text-center sm:text-start lg:col-span-2">
-            <h2 className="mb-4 flex items-center justify-center gap-2 text-footer-heading font-semibold text-nav sm:justify-start">
-              <span className="h-1 w-6 rounded-full bg-secondary" aria-hidden />
-              Sections
-            </h2>
+          <FooterColumn title="Pages" className="lg:col-span-2">
             <ul className="space-y-2.5 type-small">
-              {NAV_SECTIONS.map((item) => (
+              {FOOTER_PAGES.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className={footerLinkClass}>
+                  <Link href={item.href} className={footerLinkClass}>
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </FooterColumn>
 
-          <div className="text-center sm:text-start lg:col-span-2">
-            <h2 className="mb-4 flex items-center justify-center gap-2 text-footer-heading font-semibold text-nav sm:justify-start">
-              <span className="h-1 w-6 rounded-full bg-secondary" aria-hidden />
-              Legal
-            </h2>
+          <FooterColumn title="Legal" className="lg:col-span-2">
             <ul className="space-y-2.5 type-small">
               {FOOTER_LEGAL.map((item) => (
                 <li key={item.href}>
@@ -159,42 +170,26 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href={NAV_HEADER_ABOUT.href} className={footerLinkClass}>
-                  <FileText className="h-3.5 w-3.5 opacity-60" strokeWidth={1.75} aria-hidden />
-                  {NAV_HEADER_ABOUT.label}
-                </Link>
-              </li>
             </ul>
-          </div>
+          </FooterColumn>
 
-          <div className="text-center sm:text-start lg:col-span-3">
-            <h2 className="mb-4 flex items-center justify-center gap-2 text-footer-heading font-semibold text-nav sm:justify-start">
-              <span className="h-1 w-6 rounded-full bg-secondary" aria-hidden />
-              Contact
-            </h2>
-            <p className="type-small mb-4 leading-relaxed text-footer-text/90">
-              Questions about translations, accuracy reports, or privacy? Reach out anytime.
-            </p>
-            <Link
-              href="/contact"
-              className={cn(
-                "inline-flex items-center justify-center gap-2 rounded-full border border-footer-text/25",
-                "bg-footer-text/5 px-4 py-2.5 text-footer-heading font-medium type-small",
-                "hover:border-secondary hover:text-secondary transition-colors",
-              )}
-            >
-              <Mail className="h-4 w-4 text-secondary" strokeWidth={1.75} aria-hidden />
-              Contact us
-              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
-            </Link>
-          </div>
+          <FooterColumn title="Company" className="lg:col-span-3">
+            <ul className="space-y-2.5 type-small">
+              {FOOTER_INFO.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={footerLinkClass}>
+                    <FileText className="h-3.5 w-3.5 opacity-60" strokeWidth={1.75} aria-hidden />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </FooterColumn>
         </div>
 
         <div className="mt-12 border-t border-footer-text/20 pt-8 text-center">
           <p className="type-small text-footer-text/80">
-            © {year} {SITE_CONFIG.name}. All rights reserved. Last updated:{" "}
-            {SITE_CONFIG.lastUpdated}.
+            © {year} {SITE_CONFIG.name}. All rights reserved.
           </p>
         </div>
       </div>

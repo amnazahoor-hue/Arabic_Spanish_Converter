@@ -14,14 +14,13 @@ import {
   BookOpen,
   HelpCircle,
   Mail,
-  MessageCircleQuestion,
   Scale,
 } from "lucide-react";
 
 const sidebarLinks = [
-  { href: "/disclaimer", label: "Disclaimer", Icon: Scale },
-  { href: "/privacy-policy", label: "Privacy Policy", Icon: BookOpen },
-  { href: "/contact", label: "Contact us", Icon: Mail },
+  { href: "/disclaimer", label: "Aviso Legal", Icon: Scale },
+  { href: "/privacy-policy", label: "Privacidad", Icon: BookOpen },
+  { href: "/contact", label: "Contacto", Icon: Mail },
 ] as const;
 
 export function Faq() {
@@ -69,20 +68,9 @@ export function Faq() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-secondary/35 bg-surface/90 px-3 py-1 type-small font-semibold uppercase tracking-[0.18em] text-secondary shadow-sm">
-            <MessageCircleQuestion className="h-3.5 w-3.5" aria-hidden />
-            Help center
-          </span>
-          <h2 className="type-h2-section mt-4 text-heading">
-            Frequently asked{" "}
-            <span className="bg-gradient-to-r from-secondary via-primary to-primary bg-clip-text text-transparent">
-              questions
-            </span>
+          <h2 className="type-h2-section text-heading">
+            Respuestas Rápidas Sobre Nuestro Traductor Árabe Online Gratis
           </h2>
-          <p className="type-body prose-width mx-auto mt-3 text-body">
-            Clear answers about pricing, languages, accuracy, and mobile use — before you translate
-            or contact support.
-          </p>
           <div
             className="mx-auto mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-secondary to-primary"
             aria-hidden
@@ -114,14 +102,14 @@ export function Faq() {
               </div>
 
               <p className="type-small font-semibold uppercase tracking-wider text-secondary">
-                Quick guide
+                Guía Rápida
               </p>
               <h3 className="mt-1 text-base font-semibold text-heading md:text-lg">
-                {FAQ_ITEMS.length} answers that matter
+                {FAQ_ITEMS.length} Respuestas Útiles
               </h3>
               <p className="type-small mt-3 leading-relaxed text-body">
-                Tap a question to expand. Categories cover pricing, languages, privacy, quality, and
-                devices.
+                Pulsa una pregunta para ver la respuesta. Cubre uso, límites, voz, idiomas y
+                precisión.
               </p>
 
               <ul className="mt-6 space-y-2 border-t border-border/70 pt-6 md:text-start" role="list">
@@ -145,12 +133,12 @@ export function Faq() {
               </ul>
 
               <div className="mt-6 rounded-[var(--radius)] border border-primary/20 bg-primary/5 p-4">
-                <p className="type-small font-medium text-heading">Still need help?</p>
+                <p className="type-small font-medium text-heading">¿Necesitas Más Ayuda?</p>
                 <p className="type-small mt-1 text-muted">
-                  Use the contact form for cases not covered here.
+                  Usa el formulario de contacto para casos no cubiertos aquí.
                 </p>
                 <Button href="/contact" variant="outline" size="sm" className="mt-3 w-full">
-                  Contact support
+                  Contactar
                 </Button>
               </div>
             </div>
@@ -182,10 +170,10 @@ export function Faq() {
               transition={{ delay: 0.15, duration: 0.4 }}
             >
               <p className="type-small text-muted">
-                Machine translation for everyday use — not certified legal advice.
+                Traducción automática para uso cotidiano — no sustituye asesoramiento legal certificado.
               </p>
               <Button href={`#${SECTION_IDS.translator}`} variant="ghost" size="sm">
-                Back to translator
+                Volver al traductor
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Button>
             </motion.div>

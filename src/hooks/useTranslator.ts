@@ -51,7 +51,7 @@ export function useTranslator(initialFrom: LanguageCode = "ar") {
     if (!trimmed) {
       setState((s) => ({
         ...s,
-        error: "Type or paste some text before translating.",
+        error: "Escribe o pega algún texto antes de traducir.",
         errorCode: "EMPTY_INPUT",
       }));
       return;

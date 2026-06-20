@@ -1,7 +1,7 @@
 import { SITE_CONFIG } from "@/lib/constants";
 import { ImageResponse } from "next/og";
 
-export const alt = `${SITE_CONFIG.name} — Arabic ↔ Spanish translator`;
+export const alt = `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -31,13 +31,13 @@ export default function OpenGraphImage() {
             marginBottom: 24,
           }}
         >
-          Al-Andalus Translate
+          {SITE_CONFIG.name}
         </div>
         <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1, marginBottom: 28 }}>
-          Arabic and Spanish
+          Árabe y Español
         </div>
         <div style={{ fontSize: 32, lineHeight: 1.4, color: "#f4ecdd", maxWidth: 900 }}>
-          Free, instant bidirectional translation for families, business, and students.
+          {SITE_CONFIG.description}
         </div>
       </div>
     ),

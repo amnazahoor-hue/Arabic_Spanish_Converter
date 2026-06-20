@@ -30,7 +30,7 @@ const display = Cormorant_Garamond({
 });
 
 export const metadata = buildMetadata({
-  title: "Free Arabic Spanish Translator | Al-Andalus Translate",
+  title: "Traductor Árabe Español: Traducción Instantánea De Texto Y Voz.",
   description: SITE_CONFIG.description,
   path: "/",
 });
@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${inter.variable} ${jetbrainsMono.variable} ${display.variable} h-full`}
       suppressHydrationWarning
     >

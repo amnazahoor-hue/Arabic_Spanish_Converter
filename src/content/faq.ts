@@ -1,46 +1,39 @@
-export type FaqCategory = "Pricing" | "Languages" | "Privacy" | "Quality" | "Devices";
+export type FaqCategory = "Uso" | "Límites" | "Voz" | "Idiomas" | "Precisión";
 
 export const FAQ_ITEMS = [
   {
-    id: "free",
-    category: "Pricing" as FaqCategory,
-    question: "Is the Arabic–Spanish translator free?",
+    id: "translate-free",
+    category: "Uso" as FaqCategory,
+    question: "¿Cómo Traducir Del Árabe Al Español En Línea Gratis?",
     answer:
-      "Yes. Al-Andalus Translate is free for personal and everyday use. You do not need an account or payment details to translate phrases, messages, or drafts. We fund the service with responsible advertising and reasonable usage limits to keep quality stable.",
+      "Solo pega tu texto en el cuadro de entrada. Haz clic en «Traducir aquí». Funciona al instante y te da las traducciones. También puedes usarlo para traducción de español a árabe.",
   },
   {
-    id: "bidirectional",
-    category: "Languages" as FaqCategory,
-    question: "Does it work both ways (Arabic→Spanish and Spanish→Arabic)?",
+    id: "character-limit",
+    category: "Límites" as FaqCategory,
+    question: "¿Cuántos Caracteres Puedo Traducir A La Vez?",
     answer:
-      "Absolutely. Choose Arabic as the source and Spanish as the target, or the reverse, using the swap button. The UI sets RTL for Arabic panels and LTR for Spanish so reading and copying results is comfortable on any device.",
+      "Tienes un límite de 5000 caracteres. Para documentos y artículos completos, utiliza nuestra API traductor árabe. Además, divide tu texto en secciones.",
   },
   {
-    id: "darija",
-    category: "Languages" as FaqCategory,
-    question: "Does it support Darija / Moroccan Arabic?",
+    id: "voice",
+    category: "Voz" as FaqCategory,
+    question: "¿Puedo Usarlo Como Un Traductor De Voz Árabe-Español?",
     answer:
-      "The engine is tuned for Modern Standard Arabic (MSA) and general Spanish. Darija, Moroccan Arabic, and other dialects may be translated approximately, but accuracy varies. For legal or medical documents, always consult a qualified human professional.",
+      "Sí. Nuestra función de audio le permite hablarle al traductor. Simplemente haga clic en el icono del micrófono en el cuadro de entrada. Obtendrá resultados fiables.",
   },
   {
-    id: "account",
-    category: "Privacy" as FaqCategory,
-    question: "Do I need to create an account?",
+    id: "swap-language",
+    category: "Idiomas" as FaqCategory,
+    question: "¿Cómo Cambio De Idioma?",
     answer:
-      "No. You can translate immediately in your browser. We do not store translation history tied to your identity unless you contact us voluntarily through the form. That keeps access fast for families and workers who need to communicate without barriers.",
+      "Haz clic en el botón de intercambio entre los dos idiomas. Cambia rápidamente la herramienta de un traductor español a árabe.",
   },
   {
     id: "accuracy",
-    category: "Quality" as FaqCategory,
-    question: "How accurate is it for important documents?",
+    category: "Precisión" as FaqCategory,
+    question: "¿Qué Tan Precisa Es La Traducción?",
     answer:
-      "Machine translation helps with messages, social posts, and drafts, but it is not a substitute for a sworn translator or official interpreter. Cultural nuance, technical terms, or legal context can be wrong. For contracts, visas, or official procedures, use certified human review.",
-  },
-  {
-    id: "mobile",
-    category: "Devices" as FaqCategory,
-    question: "Does it work on mobile?",
-    answer:
-      "Yes. The interface is built for screens from 320px wide with no horizontal scrolling. Buttons are touch-friendly, the menu uses a hamburger pattern on small screens, and text areas respect RTL when you write or read Arabic on your phone.",
+      "Nuestro traductor confiable logra precisión en el árabe estándar moderno y tiene conocimientos sobre dialectos. La IA revisa el contenido antes de convertirlo al español. Lo que reduce los errores.",
   },
 ] as const;

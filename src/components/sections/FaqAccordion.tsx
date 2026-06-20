@@ -7,9 +7,9 @@ import {
   ChevronDown,
   HelpCircle,
   Languages,
-  Shield,
-  Smartphone,
+  Mic,
   Sparkles,
+  Type,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
@@ -22,19 +22,19 @@ export type FaqAccordionEntry = {
 };
 
 const categoryIcons: Record<FaqCategory, LucideIcon> = {
-  Pricing: Sparkles,
-  Languages: Languages,
-  Privacy: Shield,
-  Quality: HelpCircle,
-  Devices: Smartphone,
+  Uso: Sparkles,
+  Límites: Type,
+  Voz: Mic,
+  Idiomas: Languages,
+  Precisión: HelpCircle,
 };
 
 const categoryStyles: Record<FaqCategory, string> = {
-  Pricing: "border-secondary/30 bg-secondary/10 text-secondary",
-  Languages: "border-primary/25 bg-primary/10 text-primary",
-  Privacy: "border-primary/20 bg-surface-alt text-body",
-  Quality: "border-terracotta/25 bg-terracotta/10 text-terracotta",
-  Devices: "border-primary/25 bg-primary/10 text-primary",
+  Uso: "border-secondary/30 bg-secondary/10 text-secondary",
+  Límites: "border-primary/25 bg-primary/10 text-primary",
+  Voz: "border-terracotta/25 bg-terracotta/10 text-terracotta",
+  Idiomas: "border-primary/25 bg-primary/10 text-primary",
+  Precisión: "border-secondary/30 bg-secondary/10 text-secondary",
 };
 
 type FaqAccordionProps = {
@@ -73,14 +73,14 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
           onClick={expandAll}
           className="type-small rounded-full border border-border bg-surface px-3 py-1.5 font-medium text-body transition-colors hover:border-primary/40 hover:text-primary"
         >
-          Expand all
+          Expandir todo
         </button>
         <button
           type="button"
           onClick={collapseAll}
           className="type-small rounded-full border border-border bg-surface px-3 py-1.5 font-medium text-body transition-colors hover:border-primary/40 hover:text-primary"
         >
-          Collapse all
+          Contraer todo
         </button>
       </div>
 
@@ -105,7 +105,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                   : "border-border/80 bg-surface/95 shadow-sm hover:border-primary/25 hover:shadow-card",
               )}
             >
-              <h3 className="m-0">
+              <h4 className="m-0">
                 <button
                   id={buttonId}
                   type="button"
@@ -161,7 +161,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                     aria-hidden
                   />
                 </button>
-              </h3>
+              </h4>
 
               <AnimatePresence initial={false}>
                 {isOpen && (

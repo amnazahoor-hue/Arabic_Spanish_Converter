@@ -1,159 +1,105 @@
 "use client";
 
-import { ArabesqueMotif } from "@/components/brand/ArabesqueMotif";
-import { Button } from "@/components/ui/Button";
-import { Section } from "@/components/ui/Section";
-import { SECTION_IDS } from "@/lib/constants";
+import "@/styles/features-infographic.css";
+import { Button } from "@/components/ui/Button";import { PAGE_CONTAINER_CLASS, SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowRight,
-  Globe2,
-  Handshake,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  Users,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, Globe2, Languages, Mic, RefreshCw, Sparkles } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-type FeatureAccent = "primary" | "secondary";
-
-const features = [
-  {
-    title: "Bidirectional Arabic–Spanish translation",
-    description:
-      "Convert messages, emails, and posts in both directions instantly. Built for families and mixed-language teams who need clarity fast.",
-    Icon: Zap,
-    tag: "Instant both ways",
-    accent: "primary" as FeatureAccent,
-  },
-  {
-    title: "Free with no sign-up",
-    description:
-      "Open the site and translate — no account or app install. Use it as often as you need within fair usage limits on the free tier.",
-    Icon: Globe2,
-    tag: "Always free",
-    accent: "secondary" as FeatureAccent,
-  },
-  {
-    title: "Optimized for mobile",
-    description:
-      "Smooth on phones and tablets with RTL panels for Arabic and no horizontal scroll. Lightweight loading helps on slower networks.",
-    Icon: Smartphone,
-    tag: "RTL ready",
-    accent: "secondary" as FeatureAccent,
-  },
-  {
-    title: "For communities and businesses",
-    description:
-      "Designed for migrant communities in Spain and Latin America, and for businesses tied to the Arab world — trade, hospitality, education, and social services.",
-    Icon: Users,
-    tag: "Real-world use",
-    accent: "primary" as FeatureAccent,
-  },
-] as const;
-
-const trustPoints = [
-  { label: "No sign-up", Icon: ShieldCheck },
-  { label: "Privacy-first", Icon: Handshake },
-  { label: "Built for daily life", Icon: Sparkles },
-] as const;
-
-const accentStyles: Record<
-  FeatureAccent,
-  { iconWrap: string; tag: string; hoverBorder: string; glow: string }
-> = {
-  primary: {
-    iconWrap:
-      "border-primary/25 bg-gradient-to-br from-primary/18 via-primary/8 to-surface text-primary",
-    tag: "border-primary/25 bg-primary/10 text-primary",
-    hoverBorder: "group-hover:border-primary/40",
-    glow: "from-primary/20",
-  },
-  secondary: {
-    iconWrap:
-      "border-secondary/30 bg-gradient-to-br from-secondary/22 via-secondary/8 to-surface text-secondary",
-    tag: "border-secondary/30 bg-secondary/12 text-secondary",
-    hoverBorder: "group-hover:border-secondary/45",
-    glow: "from-secondary/25",
-  },
+type FeatureTheme = {
+  color: string;
+  ctaTextDark?: boolean;
+  title: string;
+  description: string;
+  bullets?: readonly string[];
+  Icon: LucideIcon;
 };
 
-function FeatureCard({
+const featureThemes: readonly FeatureTheme[] = [
+  {
+    color: "#4dbce9",
+    title: "Detección De Contexto Mediante IA",
+    description:
+      "La inteligencia artificial comprueba el contexto antes de traducir al español. Una manzana es fruta; un MacBook es un ordenador.",
+    Icon: Sparkles,
+  },
+  {
+    color: "#f38a2e",
+    title: "Dialectos Árabes",
+    description:
+      "Dominamos el árabe estándar moderno y dialectos como Darija Marroquí, Árabe Del Golfo y Árabe Levantino.",
+    Icon: Globe2,
+  },
+  {
+    color: "#e94d6a",
+    title: "Proporcione Una Salida En Español Natural",
+    description:
+      "La salida en español maneja correctamente la diferenciación de género y la concordancia verbal.",
+    Icon: Languages,
+  },
+  {
+    color: "#5a3e98",
+    title: "Modo Inverso",
+    description:
+      "Con un clic en intercambiar, realiza la traducción inversa: traductor español a árabe al instante.",
+    Icon: RefreshCw,
+  },
+  {
+    color: "#f9d448",
+    ctaTextDark: true,
+    title: "Traducción De Texto Y Voz",
+    description:
+      "Dos modos que funcionan juntos: traductor árabe español escrito y traducción audio árabe español.",
+    Icon: Mic,
+  },
+];
+
+function FeatureInfographicCard({
   feature,
   index,
-  featured,
   reduceMotion,
 }: {
-  feature: (typeof features)[number];
+  feature: FeatureTheme;
   index: number;
-  featured?: boolean;
   reduceMotion: boolean;
 }) {
-  const { Icon, accent, tag, title, description } = feature;
-  const styles = accentStyles[accent];
+  const { Icon, color, ctaTextDark, title, description, bullets } = feature;
 
   return (
     <motion.article
-      className={cn(
-        index === features.length - 1 &&
-          features.length % 2 === 1 &&
-          "max-lg:col-span-2 max-lg:max-w-xl max-lg:justify-self-center",
-      )}
-      initial={reduceMotion ? {} : { opacity: 0, y: 24 }}
+      className="features-card h-full"
+      initial={reduceMotion ? {} : { opacity: 0, y: 28 }}
       whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "-32px" }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div
-        className={cn(
-          "group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border p-6 sm:p-7",
-          "border-border/80 bg-surface/95 shadow-card backdrop-blur-sm",
-          "transition-[border-color,box-shadow,transform] duration-300",
-          "motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_12px_40px_rgba(26,26,46,0.1)]",
-          styles.hoverBorder,
-          featured && "lg:min-h-[280px]",
-        )}
-      >
-        <div
-          className={cn(
-            "pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-br opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100",
-            styles.glow,
-          )}
-          aria-hidden
-        />
-
-        <div className="relative z-10 mb-5 flex flex-col items-center gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div
-            className={cn(
-              "flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border shadow-sm",
-              styles.iconWrap,
-            )}
-          >
-            <Icon className="h-7 w-7" strokeWidth={1.65} aria-hidden />
-          </div>
-          <span
-            className={cn(
-              "rounded-full border px-2.5 py-1 type-small font-semibold uppercase tracking-wide",
-              styles.tag,
-            )}
-          >
-            {tag}
-          </span>
+      <div className="features-card__visual" style={{ backgroundColor: color }}>
+        <div className="features-card__icon-wrap">
+          <Icon className="h-9 w-9" strokeWidth={1.65} aria-hidden />
         </div>
+      </div>
 
-        <h3 className="type-h3-card relative z-10 text-center text-heading transition-colors group-hover:text-primary md:text-start">
-          {title}
-        </h3>
-        <p className="type-body relative z-10 mt-3 flex-1 text-center leading-relaxed text-body md:text-start">
-          {description}
-        </p>
-
-        <div
-          className="relative z-10 mt-6 h-0.5 w-10 rounded-full bg-gradient-to-r from-primary/50 to-secondary/50 opacity-60 transition-all duration-300 group-hover:w-16 group-hover:opacity-100"
-          aria-hidden
-        />
+      <div className="features-card__body">
+        <h3 className="features-card__title">{title}</h3>
+        <p className="features-card__text">{description}</p>
+        {bullets && bullets.length > 0 && (
+          <ul className="features-card__bullets">
+            {bullets.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        )}
+        <a
+          href={`#${SECTION_IDS.translator}`}
+          className="features-card__cta"
+          style={{
+            backgroundColor: color,
+            color: ctaTextDark ? "#1a1a2e" : "#ffffff",
+          }}
+        >
+          Traducir aquí
+        </a>
       </div>
     </motion.article>
   );
@@ -163,71 +109,63 @@ export function Features() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <Section id={SECTION_IDS.features} tone="primary-mist" className="relative overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.035]"
-        aria-hidden
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, var(--color-heading) 1px, transparent 0)`,
-          backgroundSize: "24px 24px",
-        }}
-      />
-      <ArabesqueMotif
-        className="pointer-events-none absolute -right-10 top-8 h-36 w-36 text-primary/[0.06]"
-        aria-hidden
-      />
-      <ArabesqueMotif
-        className="pointer-events-none absolute -left-8 bottom-4 h-28 w-28 rotate-90 text-secondary/[0.07]"
-        aria-hidden
-      />
-
-      <div className="relative">
+    <section
+      id={SECTION_IDS.features}
+      className="scroll-mt-[calc(var(--header-height)+0.75rem)]"
+    >
+      <div data-features-infographic className="py-12 md:py-16 lg:py-20">
+        <div className={PAGE_CONTAINER_CLASS}>
         <motion.header
-          className="mx-auto mb-8 max-w-3xl text-center lg:mb-10"
+          className="mx-auto mb-10 max-w-3xl text-center lg:mb-12"
           initial={reduceMotion ? {} : { opacity: 0, y: 20 }}
           whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-surface/80 px-3 py-1 type-small font-semibold uppercase tracking-[0.18em] text-primary shadow-sm">
-            <Sparkles className="h-3.5 w-3.5 text-secondary" aria-hidden />
-            Why Al-Andalus
-          </span>
-          <h2 className="type-h2-section mt-4 text-heading">
-            Why use this{" "}
-            <span className="bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent">
-              translator
-            </span>
+          <h2 className="type-h2-section text-white text-balance">
+            ¿Por Qué Nuestro Traductor Árabe Español Es Diferente?
           </h2>
-          <p className="type-body prose-width mx-auto mt-3 text-body">
-            Tools for people who live between two languages and two cultures — fast, free, and
-            respectful of Arabic typography.
+          <p className="features-intro type-body mx-auto mt-4 max-w-2xl text-pretty">
+            Nuestra herramienta traduce los significados. Está conectada con una IA de traducción
+            árabe y cuenta con formación en patrones de comunicación. Además, comprende el contexto
+            del mismo modo que lo haría una persona bilingüe.
           </p>
-          <div
-            className="mx-auto mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-primary to-secondary"
-            aria-hidden
-          />
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-            {trustPoints.map(({ label, Icon }) => (
-              <span
-                key={label}
-                className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-surface/90 px-3.5 py-2 type-small font-medium text-body shadow-sm"
-              >
-                <Icon className="h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} aria-hidden />
-                {label}
-              </span>
-            ))}
-          </div>
         </motion.header>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2 lg:gap-6">
-          {features.map((feature, index) => (
-            <FeatureCard
+        <div className="features-connectors mx-auto mb-2 hidden max-w-6xl lg:block">
+          <div className="features-hub-line mb-5" aria-hidden />
+          <div
+            className="grid gap-4"
+            style={{ gridTemplateColumns: `repeat(${featureThemes.length}, minmax(0, 1fr))` }}
+          >
+            {featureThemes.map((feature) => (
+              <div key={feature.title} className="features-connector-col">
+                <span
+                  className="features-dot"
+                  style={{ backgroundColor: feature.color, color: feature.color }}
+                  aria-hidden
+                />
+                <span
+                  className="features-stem"
+                  style={{ backgroundColor: feature.color }}
+                  aria-hidden
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div
+          className={cn(
+            "mx-auto grid max-w-6xl gap-4",
+            "sm:grid-cols-2 lg:grid-cols-5 lg:gap-3 xl:gap-4",
+          )}
+        >
+          {featureThemes.map((feature, index) => (
+            <FeatureInfographicCard
               key={feature.title}
               feature={feature}
               index={index}
-              featured={index === 0}
               reduceMotion={!!reduceMotion}
             />
           ))}
@@ -240,15 +178,18 @@ export function Features() {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.45 }}
         >
-          <p className="type-body max-w-lg text-muted">
-            Ready to translate? Paste your text and get results in seconds.
-          </p>
-          <Button href={`#${SECTION_IDS.translator}`} size="lg">
-            Open translator
+          <p className="type-body max-w-lg text-white/75">¡Empieza a traducir gratis!</p>
+          <Button
+            href={`#${SECTION_IDS.translator}`}
+            size="lg"
+            className="bg-secondary hover:bg-accent"
+          >
+            Traducir aquí
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Button>
         </motion.div>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

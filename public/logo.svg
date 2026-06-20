@@ -1,6 +1,0 @@
-<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Al-Andalus Translate">
-  <path d="M8 36c8-14 16-22 24-28 4 6 6 12 6 18 0 4-2 8-6 10-8 4-16 2-24 0Z" fill="#1a6b6b" opacity="0.15"/>
-  <path d="M12 34c6-10 12-16 20-22M16 28c4-6 10-10 16-14" stroke="#1a6b6b" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M28 12h8v8M32 8v16" stroke="#c9943a" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="32" cy="32" r="4" fill="#c9943a"/>
-</svg>
