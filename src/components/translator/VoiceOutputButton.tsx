@@ -29,7 +29,7 @@ export function VoiceOutputButton({
       aria-label={speaking ? "Detener lectura en voz alta" : "Escuchar traducción"}
       title={speaking ? "Detener audio" : "Escuchar"}
       className={cn(
-        "interactive-scale inline-flex h-9 w-9 items-center justify-center rounded-full border",
+        "interactive-scale icon-btn-interactive inline-flex h-9 w-9 items-center justify-center rounded-full border",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
         "disabled:pointer-events-none disabled:opacity-50",
         speaking

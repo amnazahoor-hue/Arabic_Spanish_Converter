@@ -1,7 +1,8 @@
 import { SITE_CONFIG } from "@/lib/constants";
+import { SITE_IMAGES } from "@/content/site-images";
 import { ImageResponse } from "next/og";
 
-export const alt = `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`;
+export const alt = SITE_IMAGES.openGraph.alt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

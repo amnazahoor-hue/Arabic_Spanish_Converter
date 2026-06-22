@@ -1,4 +1,4 @@
-"""Generate crisp favicons from public/LOGO.jpeg (square brand mark on teal)."""
+"""Generate crisp favicons from public/images/logo.webp (square brand mark on teal)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 from PIL import Image, ImageEnhance, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "public" / "LOGO.jpeg"
+SOURCE = ROOT / "public" / "images" / "logo.webp"
 BRAND_BG = (18, 63, 63)  # #123f3f — matches site footer teal
 
 

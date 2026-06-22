@@ -57,7 +57,10 @@ export function MarroquiFeaturesSection() {
           <p className="marroqui-features__intro">{MARROQUI_FEATURES_INTRO}</p>
 
           <div className="marroqui-features__image-panel" aria-live="polite">
-            {MARROQUI_FEATURES.map((feature, index) => (
+            {MARROQUI_FEATURES.map((feature, index) => {
+              const descriptionId = `marroqui-feature-image-desc-${feature.id}`;
+
+              return (
               <div
                 key={feature.id}
                 className={cn(
@@ -68,14 +71,19 @@ export function MarroquiFeaturesSection() {
               >
                 <Image
                   src={feature.image}
-                  alt=""
+                  alt={feature.imageAlt}
+                  aria-describedby={descriptionId}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="marroqui-features__image object-contain object-center p-4 sm:p-6"
                   priority={index === 0}
                 />
+                <span id={descriptionId} className="sr-only">
+                  {feature.imageDescription}
+                </span>
               </div>
-            ))}
+            );
+            })}
           </div>
         </motion.div>
 

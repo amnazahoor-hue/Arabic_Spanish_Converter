@@ -1,8 +1,8 @@
 export const SITE_CONFIG = {
   name: "Traductor Árabe Español",
-  tagline: "Traducción Instantánea De Texto Y Voz",
+  tagline: "Traducción Instantánea de Texto y Voz",
   description:
-    "Necesitas un preciso traductor árabe español¿ Nuestro servicio de traducción ofrece traducciones rápidas y fiables para superar las barreras lingüísticas.",
+    "¿Necesitas un traductor árabe español preciso? Nuestro servicio de traducción ofrece traducciones rápidas y fiables para superar las barreras lingüísticas.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://traductorarabeespañol.es",
   locale: "es",
   lastUpdated: "Mayo 2026",
@@ -44,6 +44,7 @@ export const HERO_CONTAINER_CLASS =
 export const HEADER_CONTAINER_CLASS = HERO_CONTAINER_CLASS;
 
 export const SECTION_IDS = {
+  hero: "hero",
   translator: "translator",
   howItWorks: "how-it-works",
   features: "features",
@@ -54,25 +55,12 @@ export const SECTION_IDS = {
   faq: "faq",
 } as const;
 
-export const NAV_SECTIONS = [
-  { href: `#${SECTION_IDS.translator}`, label: "Traductor", id: SECTION_IDS.translator },
-  { href: `#${SECTION_IDS.features}`, label: "Ventajas", id: SECTION_IDS.features },
-  { href: `#${SECTION_IDS.howItWorks}`, label: "Conversación", id: SECTION_IDS.howItWorks },
-  { href: `#${SECTION_IDS.commonPhrases}`, label: "Frases", id: SECTION_IDS.commonPhrases },
-  { href: `#${SECTION_IDS.dialects}`, label: "Dialectos", id: SECTION_IDS.dialects },
-  { href: `#${SECTION_IDS.aiFeatures}`, label: "IA", id: SECTION_IDS.aiFeatures },
-  { href: `#${SECTION_IDS.testimonials}`, label: "Opiniones", id: SECTION_IDS.testimonials },
-  { href: `#${SECTION_IDS.faq}`, label: "FAQ", id: SECTION_IDS.faq },
-] as const;
-
 export const NAV_HEADER_LINKS = [
   { href: "/traductor-marroqui-espanol", label: "Traductor Marroquí Español" },
   { href: "/about", label: "Sobre Nosotros" },
   { href: "/contact", label: "Contáctanos" },
   { href: "/privacy-policy", label: "Política De Privacidad" },
 ] as const;
-
-export const NAV_HEADER_ABOUT = { href: "/about", label: "Sobre Nosotros" } as const;
 
 function socialHref(envValue: string | undefined): string {
   const url = envValue?.trim();
@@ -106,6 +94,12 @@ export const FOOTER_INFO = [
   { href: "/about", label: "Sobre Nosotros" },
   { href: "/author", label: "Autor" },
 ] as const;
+
+/** Single official external resource (government / public institution). */
+export const GOVERNMENT_EXTERNAL_LINK = {
+  href: "https://www.cervantes.es",
+  label: "Instituto Cervantes",
+} as const;
 
 export const MAX_TRANSLATE_CHARS = 5000;
 

@@ -8,6 +8,7 @@ export const metadata = buildMetadata({
   description:
     "Contacte con Traductor Árabe Español: soporte técnico, consultas generales, colaboraciones y preguntas sobre privacidad.",
   path: "/contact",
+  index: true,
 });
 
 export default function ContactPage() {
@@ -17,6 +18,7 @@ export default function ContactPage() {
       description="Formulario y canales de contacto para soporte, sugerencias, colaboraciones y ejercicio de derechos de protección de datos."
       path="/contact"
       docLabel="Formulario de contacto"
+      pageSchemaType="ContactPage"
       sections={CONTACT_SECTIONS}
       topChildren={
         <div className="legal-document-contact-form">

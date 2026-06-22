@@ -85,9 +85,16 @@ export function NavLinks({
               )}
               onClick={onNavigate}
             >
-              <span className={cn(isLongLabel && "site-header-nav-link__label--long")}>
-                {item.label}
-              </span>
+              {isLongLabel ? (
+                <>
+                  <span className="2xl:hidden">Traductor Marroquí</span>
+                  <span className="hidden 2xl:inline site-header-nav-link__label--long">
+                    {item.label}
+                  </span>
+                </>
+              ) : (
+                item.label
+              )}
             </Link>
           </li>
         );
@@ -104,7 +111,7 @@ export function HeaderCta({ onNavigate, className }: { onNavigate?: () => void; 
     <Link
       href={onHome ? "#translator" : "/#translator"}
       className={cn(
-        "interactive-scale inline-flex items-center justify-center gap-2 rounded-full px-3.5 py-2 lg:px-4",
+        "interactive-scale interactive-shine inline-flex items-center justify-center gap-2 rounded-full px-3.5 py-2 lg:px-4",
         "bg-secondary text-white hover:bg-accent hover:text-white visited:text-white",
         "text-[0.875rem] md:text-[0.9375rem] font-semibold no-underline",
         "transition-colors",

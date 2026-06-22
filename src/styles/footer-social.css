@@ -1,10 +1,31 @@
 /* Footer social links — muted default, solid brand fill on hover */
 
+.footer-social-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.25rem, 1.6vw, 0.625rem);
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .footer-social-row {
+    justify-content: flex-start;
+  }
+}
+
 .footer-social-link {
   --social-brand: var(--color-secondary);
+  --social-btn-size: clamp(1.75rem, 8.2vw, 2.5rem);
+  --social-icon-size: clamp(0.75rem, 3.2vw, 1.125rem);
   position: relative;
   isolation: isolate;
   overflow: visible;
+  flex-shrink: 0;
+  width: var(--social-btn-size);
+  height: var(--social-btn-size);
   transition:
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.28s ease,
@@ -25,7 +46,10 @@
   transition: opacity 0.3s ease;
 }
 
-.footer-social-link svg {
+.footer-social-link svg,
+.footer-social-link__icon {
+  width: var(--social-icon-size);
+  height: var(--social-icon-size);
   flex-shrink: 0;
   fill: currentColor;
   color: color-mix(in srgb, var(--color-footer-text) 88%, white);

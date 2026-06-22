@@ -1,19 +1,26 @@
+"use client";
+
+import { SITE_IMAGES } from "@/content/site-images";
+import { SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, type MouseEvent } from "react";
 
 const LOGO_SRC = "/images/logo.webp";
 const LOGO_WIDTH = 580;
 const LOGO_HEIGHT = 324;
+const HOME_HREF = "/";
 
 type LogoVariant = "full" | "icon";
 type LogoTheme = "light" | "dark";
 type LogoSize = "header-desktop" | "header-mobile" | "footer" | "favicon";
 
 const iconHeightMap: Record<LogoSize, string> = {
-  "header-desktop": "h-10",
-  "header-mobile": "h-9",
-  footer: "h-9",
+  "header-desktop": "h-9",
+  "header-mobile": "h-8",
+  footer: "h-8",
   favicon: "h-8",
 };
 
@@ -23,18 +30,28 @@ type LogoProps = {
   size?: LogoSize;
   className?: string;
   href?: string;
+  onNavigate?: () => void;
 };
 
-function LogoMark({ size, className }: { size: LogoSize; className?: string }) {
+function LogoMark({
+  size,
+  className,
+  decorative,
+}: {
+  size: LogoSize;
+  className?: string;
+  decorative?: boolean;
+}) {
   return (
     <Image
       src={LOGO_SRC}
-      alt=""
+      alt={decorative ? "" : SITE_IMAGES.logo.alt}
+      title={SITE_IMAGES.logo.description}
       width={LOGO_WIDTH}
       height={LOGO_HEIGHT}
       priority={size === "header-desktop" || size === "header-mobile"}
-      className={cn("w-auto shrink-0 object-contain", iconHeightMap[size], className)}
-      aria-hidden
+      className={cn("w-auto shrink-0 object-contain logo-interactive", iconHeightMap[size], className)}
+      aria-hidden={decorative ? true : undefined}
     />
   );
 }
@@ -44,8 +61,20 @@ export function Logo({
   theme = "light",
   size = "header-desktop",
   className,
-  href = "/",
+  href,
+  onNavigate,
 }: LogoProps) {
+  const pathname = usePathname();
+  const targetHref = href ?? HOME_HREF;
+  const scrollToHero = href === undefined;
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    if (window.location.hash === `#${SECTION_IDS.hero}`) {
+      window.history.replaceState(null, "", "/");
+    }
+  }, [pathname]);
+
   const wordmarkColor =
     theme === "dark" ? "var(--color-footer-heading)" : "var(--color-heading)";
 
@@ -58,9 +87,26 @@ export function Logo({
     className,
   );
 
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    onNavigate?.();
+
+    if (!scrollToHero) return;
+
+    if (pathname === "/") {
+      event.preventDefault();
+      const hero = document.getElementById(SECTION_IDS.hero);
+      hero?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   if (variant === "icon") {
     return (
-      <Link href={href} className={wrapperClass} aria-label="Traductor Árabe Español — inicio">
+      <Link
+        href={targetHref}
+        onClick={handleClick}
+        className={cn(wrapperClass, "logo-interactive-wrap")}
+        aria-label="Traductor Árabe Español — inicio"
+      >
         <LogoMark size={size} />
       </Link>
     );
@@ -68,15 +114,18 @@ export function Logo({
 
   return (
     <Link
-      href={href}
-      className={cn(wrapperClass, "gap-2.5 group")}
+      href={targetHref}
+      onClick={handleClick}
+      className={cn(wrapperClass, "gap-2.5 group logo-interactive-wrap")}
       aria-label="Traductor Árabe Español — inicio"
     >
-      <LogoMark size={size} />
+      <LogoMark size={size} decorative />
       <span
         className={cn(
           "min-w-0 font-semibold tracking-tight transition-colors group-hover:text-link",
-          size === "header-mobile" ? "text-[0.8125rem] leading-tight" : "text-nav-mobile md:text-nav",
+          size === "header-mobile"
+            ? "text-[0.875rem] leading-tight sm:text-[0.9375rem]"
+            : "text-[0.9375rem] leading-tight md:text-[1.0625rem]",
         )}
         style={{ color: wordmarkColor }}
       >

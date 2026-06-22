@@ -2,6 +2,8 @@
 @import "../styles/hero.css";
 @import "../styles/hero-nest-hub.css";
 @import "../styles/hero-large.css";
+@import "../styles/hero-ipad.css";
+@import "../styles/hero-compact-desktop.css";
 @import "../styles/section-heading.css";
 @import "../styles/interactions.css";
 
@@ -49,7 +51,7 @@
   --header-height: 4.1875rem;
 
   --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-arabic: var(--font-inter), "Segoe UI", Tahoma, "Noto Naskh Arabic", sans-serif;
 }
 

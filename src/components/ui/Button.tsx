@@ -43,6 +43,7 @@ export function Button({
 }: ButtonProps) {
   const classes = cn(
     "interactive-scale inline-flex items-center justify-center gap-2 font-medium border",
+    (variant === "primary" || variant === "secondary") && "interactive-shine interactive-glow",
     "disabled:opacity-50 disabled:pointer-events-none",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
     variantClasses[variant],

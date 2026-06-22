@@ -1,32 +1,21 @@
-import { JsonLd } from "@/components/seo/JsonLd";
 import { AUTHOR_PROFILE, AUTHOR_SECTIONS } from "@/content/legal/author";
 import { PAGE_CONTAINER_CLASS } from "@/lib/constants";
-import { articleSchema, breadcrumbSchema } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { GraduationCap, Languages, MapPin, Sparkles, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useId } from "react";
 
 const DETAIL_ICONS = [MapPin, Languages, GraduationCap, Timer, Sparkles] as const;
 
 export function AuthorPageContent() {
-  const { name, role, imageSrc, imageAlt, bio, details, expertise } = AUTHOR_PROFILE;
+  const { name, role, imageSrc, imageAlt, imageDescription, bio, details, expertise } = AUTHOR_PROFILE;
+  const imageDescriptionId = useId();
   const title = "Autora";
   const description = `Conoce a ${name}, ${role} en Traductor Árabe Español.`;
-  const path = "/author";
 
   return (
     <article className="bg-bg py-16 md:py-20">
-      <JsonLd
-        data={[
-          breadcrumbSchema([
-            { name: "Inicio", path: "/" },
-            { name: title, path },
-          ]),
-          articleSchema({ title, description, path }),
-        ]}
-      />
-
       <div className={cn(PAGE_CONTAINER_CLASS, "max-w-3xl")}>
         <header className="mb-10 border-b border-border pb-8">
           <h1 className="type-h1-hero mb-4">{title}</h1>
@@ -35,19 +24,23 @@ export function AuthorPageContent() {
 
         <div
           className={cn(
-            "mb-10 flex flex-col items-center gap-6 rounded-[var(--radius-lg)] border border-border/80",
+            "author-profile-card mb-10 flex flex-col items-center gap-6 rounded-[var(--radius-lg)] border border-border/80",
             "bg-surface p-6 shadow-card sm:flex-row sm:items-start sm:p-8",
           )}
         >
-          <div className="relative h-44 w-44 shrink-0 overflow-hidden rounded-full border-4 border-primary/20 shadow-md sm:h-52 sm:w-52">
+          <div className="author-avatar relative h-44 w-44 shrink-0 overflow-hidden rounded-full border-4 border-primary/20 shadow-md sm:h-52 sm:w-52">
             <Image
               src={imageSrc}
               alt={imageAlt}
+              aria-describedby={imageDescriptionId}
               fill
               sizes="(max-width: 640px) 176px, 208px"
               className="object-cover object-[center_18%]"
               priority
             />
+            <span id={imageDescriptionId} className="sr-only">
+              {imageDescription}
+            </span>
           </div>
 
           <div className="min-w-0 flex-1 text-center sm:text-start">
@@ -62,7 +55,7 @@ export function AuthorPageContent() {
                 return (
                   <div
                     key={detail.label}
-                    className="rounded-[var(--radius)] border border-border/70 bg-section-primary-mist/35 px-3.5 py-3"
+                    className="detail-chip rounded-[var(--radius)] border border-border/70 bg-section-primary-mist/35 px-3.5 py-3"
                   >
                     <dt className="flex items-center gap-2 type-small font-semibold text-primary">
                       <Icon className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
@@ -78,7 +71,7 @@ export function AuthorPageContent() {
               {expertise.map((item) => (
                 <li
                   key={item}
-                  className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 type-small font-medium text-body"
+                  className="detail-chip rounded-full border border-primary/20 bg-primary/5 px-3 py-1 type-small font-medium text-body"
                 >
                   {item}
                 </li>
@@ -109,7 +102,7 @@ export function AuthorPageContent() {
 
         <Link
           href="/contact"
-          className="type-body mt-4 inline-flex text-link hover:text-link-hover"
+          className="type-body interactive-link mt-4 inline-flex text-link hover:text-link-hover"
         >
           Contactar al equipo →
         </Link>

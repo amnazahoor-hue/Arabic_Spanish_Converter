@@ -41,9 +41,20 @@ export function MarroquiPhrasesSection() {
     <section
       id={MARROQUI_SECTION_IDS.phrases}
       className="marroqui-phrases scroll-mt-[calc(var(--header-height)+0.75rem)] py-10 md:py-14 lg:py-16"
+      data-marroqui-phrases-section
     >
+      <div className="marroqui-phrases__accent" aria-hidden />
+      <div className="marroqui-phrases__glow marroqui-phrases__glow--gold" aria-hidden />
+      <div className="marroqui-phrases__glow marroqui-phrases__glow--teal" aria-hidden />
+      <div className="marroqui-phrases__pattern" aria-hidden />
+
       <div className={cn(PAGE_CONTAINER_CLASS, "marroqui-phrases__inner")}>
         <motion.header {...motionProps()} className="marroqui-phrases__header">
+          <div className="marroqui-phrases__header-ornament" aria-hidden>
+            <span className="marroqui-phrases__header-line" />
+            <span className="marroqui-phrases__header-diamond" />
+            <span className="marroqui-phrases__header-line" />
+          </div>
           <h2 className="marroqui-phrases__title">
             Traductor Marroquí Español:{" "}
             <span className="heading-accent heading-accent--on-dark">Frases Comunes</span>
@@ -65,6 +76,9 @@ export function MarroquiPhrasesSection() {
                 {...cardMotion(!!reduceMotion, index)}
                 className="marroqui-phrase-card"
               >
+                <span className="marroqui-phrase-card__index" aria-hidden>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <span className="marroqui-phrase-card__icon-wrap">
                   <Icon className="marroqui-phrase-card__icon" strokeWidth={1.75} aria-hidden />
                 </span>
@@ -74,26 +88,26 @@ export function MarroquiPhrasesSection() {
                 <p className="marroqui-phrase-card__spanish" lang="es">
                   {phrase.spanish}
                 </p>
+                <span className="marroqui-phrase-card__shine" aria-hidden />
               </motion.article>
             );
           })}
         </div>
 
-        <motion.div
-          {...motionProps(0.2)}
-          className="marroqui-phrases__cta"
-        >
-          <p className="marroqui-phrases__cta-text">
-            ¿Traducir árabe marroquí al español? ¡Abre el traductor ahora!
-          </p>
-          <Button
-            href={`#${MARROQUI_SECTION_IDS.translator}-panel`}
-            size="lg"
-            className="marroqui-phrases__cta-btn bg-secondary hover:bg-accent"
-          >
-            Traducir aquí
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Button>
+        <motion.div {...motionProps(0.2)} className="marroqui-phrases__cta">
+          <div className="marroqui-phrases__cta-panel">
+            <p className="marroqui-phrases__cta-text">
+              ¿Traducir árabe marroquí al español? ¡Abre el traductor ahora!
+            </p>
+            <Button
+              href={`#${MARROQUI_SECTION_IDS.translator}-panel`}
+              size="lg"
+              className="marroqui-phrases__cta-btn bg-secondary hover:bg-accent"
+            >
+              Traducir aquí
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Button>
+          </div>
         </motion.div>
       </div>
     </section>

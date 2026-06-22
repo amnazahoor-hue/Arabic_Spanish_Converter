@@ -78,6 +78,25 @@
     var(--color-secondary),
     var(--color-primary)
   );
+  background-size: 200% auto;
+  animation: section-line-flow 7s ease-in-out infinite;
+}
+
+@keyframes section-line-flow {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+
+  50% {
+    background-position: 100% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-heading-line--wide {
+    animation: none;
+  }
 }
 
 @media (min-width: 768px) {

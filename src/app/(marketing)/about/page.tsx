@@ -7,6 +7,7 @@ export const metadata = buildMetadata({
   description:
     "Quiénes somos, a quién servimos y por qué confiar en Traductor Árabe Español — traductor árabe–español para España, América Latina y más allá.",
   path: "/about",
+  index: true,
 });
 
 export default function AboutPage() {
@@ -16,6 +17,7 @@ export default function AboutPage() {
       description="Traductor Árabe Español conecta a las comunidades de habla árabe y española con una traducción clara y accesible."
       path="/about"
       docLabel="Información institucional"
+      pageSchemaType="AboutPage"
       sections={ABOUT_SECTIONS}
     />
   );

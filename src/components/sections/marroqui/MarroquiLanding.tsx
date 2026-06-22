@@ -37,23 +37,24 @@ export function MarroquiLanding() {
     <div data-marroqui-page>
       <section
         id={MARROQUI_SECTION_IDS.translator}
-        className="marroqui-hero scroll-mt-[calc(var(--header-height)+0.75rem)] py-10 sm:py-12 lg:py-14"
+        data-marroqui-hero
+        className="marroqui-hero scroll-mt-[calc(var(--header-height)+0.75rem)] flex flex-col overflow-hidden py-10 sm:py-12 lg:py-14"
       >
         <div className="marroqui-hero__glow" aria-hidden />
-        <div className={cn(HERO_CONTAINER_CLASS, "marroqui-hero__inner")}>
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-10">
-            <motion.div {...motionProps()} className="marroqui-hero__copy">
+        <div className={cn(HERO_CONTAINER_CLASS, "marroqui-hero__inner hero-shell")}>
+          <div className="hero-grid grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-10">
+            <motion.div {...motionProps()} className="marroqui-hero__copy hero-copy">
               <h1 className="type-h1-hero text-balance text-white">
                 Traductor Marroquí Español:{" "}
                 <span className="heading-accent heading-accent--on-dark">
                   Llena La Brecha Lingüística Al Instante
                 </span>
               </h1>
-              <p className="marroqui-hero__lead type-body mx-auto mt-4 max-w-xl text-pretty lg:mx-0">
+              <p className="marroqui-hero__lead hero-lead type-body mx-auto mt-4 max-w-xl text-pretty lg:mx-0">
                 Nuestro traductor descifra una conversación de mercado en Marrakech. Además, te
                 conecta directamente con la rica cultura marroquí. ¡Solo escribe y traduce ahora!
               </p>
-              <div className="mt-6 flex justify-center lg:justify-start">
+              <div className="marroqui-hero__cta mt-6 flex justify-center lg:justify-start">
                 <Button href={`#${MARROQUI_SECTION_IDS.translator}-panel`} size="lg" className="bg-secondary hover:bg-accent">
                   Traducir aquí
                   <ArrowRight className="h-4 w-4" aria-hidden />
@@ -64,7 +65,7 @@ export function MarroquiLanding() {
             <motion.div
               {...motionProps(0.1)}
               id={`${MARROQUI_SECTION_IDS.translator}-panel`}
-              className="marroqui-translator-card interactive-lift p-4 sm:p-5 lg:p-6"
+              className="marroqui-translator-card hero-translator interactive-lift p-4 sm:p-5 lg:p-6"
             >
               <TranslatorPanel variant="hero" initialFrom="ar-ma" />
             </motion.div>

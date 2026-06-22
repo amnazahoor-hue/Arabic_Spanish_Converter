@@ -1,3 +1,5 @@
+import { SITE_IMAGES } from "@/content/site-images";
+
 export type LegalSection = {
   heading: string;
   paragraphs: string[];
@@ -11,9 +13,9 @@ export type AuthorDetail = {
 export const AUTHOR_PROFILE = {
   name: "Noelia Zahirín",
   role: "Experta en traducción árabe–español",
-  imageSrc: "/images/author-noelia-zahirin.png",
-  imageAlt:
-    "Retrato de Noelia Zahirín, experta ficticia en traducción árabe-español y revisión editorial",
+  imageSrc: "/images/author-noelia-zahirin.webp",
+  imageAlt: SITE_IMAGES.authorPortrait.alt,
+  imageDescription: SITE_IMAGES.authorPortrait.description,
   bio: "Lingüista especializada en traducción bidireccional árabe–español, dialectos del Magreb y comunicación intercultural. Revisa contenidos, guías y ejemplos prácticos publicados en Traductor Árabe Español.",
   details: [
     { label: "Ubicación", value: "Valencia, España" },

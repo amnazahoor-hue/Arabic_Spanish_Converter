@@ -14,9 +14,6 @@ import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 import { useTranslator } from "@/hooks/useTranslator";
 import {
   LANGUAGES,
-  MAX_TRANSLATE_CHARS,
-  MYMEMORY_MAX_BYTES_PER_REQUEST,
-  MYMEMORY_MAX_CHARS_PER_DAY,
   type LanguageCode,
 } from "@/lib/constants";
 import { SPEECH_LANG } from "@/lib/speech";
@@ -116,8 +113,6 @@ export function TranslatorPanel({
         ? "اكتب أو الصق النص هنا…"
         : "Escribe, pega o dicta tu texto aquí…";
 
-  const voiceHint = voiceInput.supported ? " · micrófono para dictar" : "";
-
   return (
     <div
       id={id}
@@ -164,7 +159,6 @@ export function TranslatorPanel({
             rows={isHero ? 6 : 8}
             placeholder={sourcePlaceholder}
             error={t.errorCode === "EMPTY_INPUT" ? (t.error ?? undefined) : undefined}
-            hint={`${t.charCount} / ${MAX_TRANSLATE_CHARS} caracteres · máx. ${MYMEMORY_MAX_BYTES_PER_REQUEST} bytes por solicitud · ~${MYMEMORY_MAX_CHARS_PER_DAY.toLocaleString("es-ES")} caracteres/día (plan gratuito) · Ctrl+Intro${voiceHint}`}
             action={
               voiceInput.supported ? (
                 <VoiceInputButton

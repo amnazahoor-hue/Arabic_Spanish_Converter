@@ -191,6 +191,12 @@
   [data-ai-features] .ai-features__split {
     top: 32%;
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-ai-features] .ai-features__card:hover {
+      transform: translateY(-4px);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

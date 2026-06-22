@@ -18,10 +18,10 @@
   opacity: 0.62;
 }
 
-[data-hero] .hero-people-bg--desktop {
-  background-image: url("/hero-people-bg.png");
+  [data-hero] .hero-people-bg--desktop {
+  background-image: url("/hero-people-bg.webp");
   background-size: cover;
-  background-position: center 55%;
+  background-position: center 58%;
   opacity: 0.72;
 }
 

@@ -1,13 +1,16 @@
 "use client";
 
+import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
 import { Section } from "@/components/ui/Section";
 import {
   MARROQUI_DARIJA_INFLUENCES,
   MARROQUI_DARIJA_INTRO,
   MARROQUI_SECTION_IDS,
 } from "@/content/marroqui-page";
+import { SITE_IMAGES } from "@/content/site-images";
 import { motion, useReducedMotion } from "framer-motion";
 import { Globe2, Landmark, Languages, Mountain, type LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 const CARD_ICONS: LucideIcon[] = [Languages, Globe2, Landmark, Mountain];
 
@@ -46,6 +49,11 @@ export function MarroquiDarijaSection() {
       className="marroqui-darija-section relative overflow-hidden"
       data-marroqui-darija-section
     >
+      <AccessibleImageMeta
+        src="/marroqui/marroqui-darija-section-bg.webp"
+        meta={SITE_IMAGES.marroquiDarijaBg}
+        visuallyHidden
+      />
       <div className="marroqui-darija">
         <div className="marroqui-darija__layout">
           <motion.div {...motionProps()} className="marroqui-darija__intro">
@@ -59,6 +67,16 @@ export function MarroquiDarijaSection() {
 
               <p className="marroqui-darija__lead">{MARROQUI_DARIJA_INTRO.lead}</p>
               <p className="marroqui-darija__body">{MARROQUI_DARIJA_INTRO.body}</p>
+              <p className="marroqui-darija__interlink">
+                Para árabe estándar moderno (MSA) y traducción general, utiliza nuestro{" "}
+                <Link
+                  href="/"
+                  className="interactive-link font-semibold text-link no-underline hover:text-link-hover"
+                >
+                  Traductor Árabe Español
+                </Link>
+                .
+              </p>
             </div>
           </motion.div>
 

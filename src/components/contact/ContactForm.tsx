@@ -48,7 +48,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="rounded-[var(--radius-lg)] border border-success/30 bg-section-primary-mist p-8 text-center"
+        className="rounded-[var(--radius-lg)] border border-success/30 bg-section-primary-mist p-8 text-center surface-panel"
       >
         <h2 className="type-h3-card text-success mb-2">¡Gracias por contactarnos!</h2>
         <p className="type-body">
@@ -64,7 +64,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-5 rounded-[var(--radius-lg)] border border-border/80 bg-section-primary-mist/40 p-6 md:p-8"
+      className="space-y-5 rounded-[var(--radius-lg)] border border-border/80 bg-section-primary-mist/40 p-6 md:p-8 surface-panel"
       noValidate
     >
       <div className="absolute -left-[9999px]" aria-hidden>
@@ -78,7 +78,7 @@ export function ContactForm() {
         </label>
         <input
           id="fullName"
-          className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body focus-visible:ring-2 focus-visible:ring-primary"
+          className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body form-field focus-visible:ring-2 focus-visible:ring-primary"
           {...register("fullName")}
         />
         {errors.fullName && (
@@ -93,7 +93,7 @@ export function ContactForm() {
         <input
           id="email"
           type="email"
-          className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body focus-visible:ring-2 focus-visible:ring-primary"
+          className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body form-field focus-visible:ring-2 focus-visible:ring-primary"
           {...register("email")}
         />
         {errors.email && <p className="mt-1 type-small text-error">{errors.email.message}</p>}
@@ -105,7 +105,7 @@ export function ContactForm() {
         </label>
         <input
           id="subject"
-          className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body focus-visible:ring-2 focus-visible:ring-primary"
+          className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body form-field focus-visible:ring-2 focus-visible:ring-primary"
           {...register("subject")}
         />
         {errors.subject && <p className="mt-1 type-small text-error">{errors.subject.message}</p>}

@@ -1,0 +1,106 @@
+/* iPad / compact desktop (1024–1279px, tall viewport) — stacked centered hero */
+
+@media (min-width: 1024px) and (max-width: 1279px) and (min-height: 701px) {
+  [data-hero] .hero-people-bg--mobile {
+    opacity: 0.58;
+    background-position: center 52%;
+  }
+
+  [data-hero] .hero-people-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-bg) 88%, transparent) 0%,
+        color-mix(in srgb, var(--color-bg) 72%, transparent) 30%,
+        color-mix(in srgb, var(--color-bg) 48%, transparent) 62%,
+        color-mix(in srgb, var(--color-bg) 36%, transparent) 100%
+      );
+  }
+
+  [data-hero] {
+    height: auto;
+    min-height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  [data-hero] .hero-shell {
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    padding-block: 2.75rem;
+    padding-inline: 1.25rem;
+  }
+
+  [data-hero] .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+    gap: 2.25rem;
+    align-items: center;
+    justify-items: center;
+  }
+
+  [data-hero] .hero-copy {
+    position: static !important;
+    top: auto !important;
+    width: 100%;
+    max-width: 40rem;
+    align-items: center !important;
+    justify-content: flex-start;
+    gap: 1rem !important;
+    text-align: center;
+  }
+
+  [data-hero] .hero-copy-main,
+  [data-hero] .hero-title-block {
+    align-items: center;
+    text-align: center;
+  }
+
+  [data-hero] #hero-heading {
+    font-size: clamp(1.875rem, 3.2vw, 2.375rem) !important;
+    line-height: 1.14;
+    max-width: 38rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  [data-hero] .hero-lead {
+    font-size: clamp(0.9375rem, 1.8vw, 1.125rem) !important;
+    line-height: 1.58;
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  [data-hero] .hero-trust {
+    justify-content: center;
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  [data-hero] .hero-translator {
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 1.25rem !important;
+  }
+
+  [data-hero] .hero-translator .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+
+  [data-hero] .hero-translator textarea {
+    min-height: 5.5rem;
+  }
+
+  [data-hero] .hero-translator .translator-output-panel {
+    min-height: 5.5rem;
+  }
+}

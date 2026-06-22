@@ -7,6 +7,7 @@ export const metadata = buildMetadata({
   description:
     "Aviso legal y limitaciones de la traducción automática del traductor árabe–español Traductor Árabe Español.",
   path: "/disclaimer",
+  noIndex: true,
 });
 
 export default function DisclaimerPage() {

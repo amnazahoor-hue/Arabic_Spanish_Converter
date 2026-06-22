@@ -1,7 +1,6 @@
 "use client";
 
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
-import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
@@ -14,23 +13,8 @@ import { ArrowRight } from "lucide-react";
 export function Faq() {
   const reduceMotion = useReducedMotion();
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQ_ITEMS.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
-
   return (
     <Section id={SECTION_IDS.faq} tone="grey" className="relative overflow-hidden">
-      <JsonLd data={faqSchema} />
-
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
         aria-hidden
@@ -65,7 +49,7 @@ export function Faq() {
         >
           <div
             className={cn(
-              "rounded-[var(--radius-lg)] p-[1px]",
+              "rounded-[var(--radius-lg)] p-[1px] faq-frame",
               "bg-gradient-to-br from-secondary/30 via-primary/20 to-secondary/15",
             )}
           >

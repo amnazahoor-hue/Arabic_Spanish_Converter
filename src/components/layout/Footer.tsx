@@ -8,12 +8,13 @@ import {
   FOOTER_LEGAL,
   FOOTER_PAGES,
   FOOTER_SOCIAL,
+  GOVERNMENT_EXTERNAL_LINK,
   HEADER_CONTAINER_CLASS,
   SECTION_IDS,
   SITE_CONFIG,
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { ArrowRight, FileText, Sparkles } from "lucide-react";
+import { ArrowRight, ExternalLink, FileText, Sparkles } from "lucide-react";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
@@ -63,7 +64,7 @@ export function Footer() {
       <div className={cn(HEADER_CONTAINER_CLASS, "relative py-14 lg:py-16")}>
         <div
           className={cn(
-            "mb-12 flex flex-col gap-6 rounded-[var(--radius-lg)] border border-footer-text/20",
+            "footer-promo-panel mb-12 flex flex-col gap-6 rounded-[var(--radius-lg)] border border-footer-text/20",
             "bg-footer-text/5 p-6 text-center sm:p-8 sm:text-start md:flex-row md:items-center md:justify-between",
           )}
         >
@@ -80,7 +81,7 @@ export function Footer() {
           <a
             href={`/#${SECTION_IDS.translator}`}
             className={cn(
-              "interactive-scale inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3",
+              "interactive-scale interactive-shine inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3",
               "bg-secondary font-semibold text-white shadow-md",
               "hover:bg-accent hover:text-white",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
@@ -101,13 +102,13 @@ export function Footer() {
             <p className="type-small text-footer-text/70">{SITE_CONFIG.tagline}</p>
             <div className="pt-2">
               <p className="type-small mb-3 font-medium text-footer-text/80">Síguenos</p>
-              <div className="flex flex-wrap justify-center gap-2.5 sm:justify-start">
+              <div className="footer-social-row">
                 {FOOTER_SOCIAL.map(({ id, href }) => {
                   const brand = SOCIAL_BRAND_ICONS[id];
                   const { Icon, label, brandColor } = brand;
                   const isPlaceholder = href === "#";
                   const iconButtonClass = cn(
-                    "footer-social-link group inline-flex h-10 w-10 items-center justify-center rounded-full",
+                    "footer-social-link group inline-flex shrink-0 items-center justify-center rounded-full",
                     "border border-footer-text/20 bg-footer-text/6",
                     isPlaceholder && "footer-social-link--placeholder cursor-default",
                   );
@@ -125,7 +126,7 @@ export function Footer() {
                         )}
                         style={{ "--social-brand": brandColor } as CSSProperties}
                       >
-                        <Icon className="h-[1.125rem] w-[1.125rem] shrink-0" aria-hidden />
+                        <Icon className="footer-social-link__icon shrink-0" aria-hidden />
                         <span className="sr-only">{label}</span>
                       </span>
                     );
@@ -142,7 +143,7 @@ export function Footer() {
                       className={cn(iconButtonClass, "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg")}
                       style={{ "--social-brand": brandColor } as CSSProperties}
                     >
-                      <Icon className="h-[1.125rem] w-[1.125rem] shrink-0" aria-hidden />
+                      <Icon className="footer-social-link__icon shrink-0" aria-hidden />
                     </a>
                   );
                 })}
@@ -192,6 +193,18 @@ export function Footer() {
         <div className="mt-12 border-t border-footer-text/20 pt-8 text-center">
           <p className="type-small text-footer-text/80">
             © {year} {SITE_CONFIG.name}. Todos los derechos reservados.
+          </p>
+          <p className="type-small mt-3">
+            <a
+              href={GOVERNMENT_EXTERNAL_LINK.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(footerLinkClass, "mx-auto")}
+            >
+              {GOVERNMENT_EXTERNAL_LINK.label}
+              <ExternalLink className="h-3.5 w-3.5 opacity-70" strokeWidth={1.75} aria-hidden />
+              <span className="sr-only"> (sitio externo oficial)</span>
+            </a>
           </p>
         </div>
       </div>

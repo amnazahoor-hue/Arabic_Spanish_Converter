@@ -37,7 +37,7 @@ export function TextArea({
           aria-invalid={error ? true : undefined}
           aria-describedby={errorId ?? (hint ? `${id}-hint` : undefined)}
           className={cn(
-            "w-full min-w-0 resize-y rounded-[var(--radius)] border border-border bg-surface px-4 py-3",
+            "w-full min-w-0 resize-y rounded-[var(--radius)] border border-border bg-surface px-4 py-3 form-field",
             "text-body-mobile md:text-body text-body placeholder:text-muted",
             "transition-[border-color,box-shadow] duration-200",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg",

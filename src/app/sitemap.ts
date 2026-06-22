@@ -5,10 +5,6 @@ const routes = [
   "",
   "/traductor-marroqui-espanol",
   "/about",
-  "/author",
-  "/disclaimer",
-  "/privacy-policy",
-  "/terms-and-conditions",
   "/contact",
 ];
 

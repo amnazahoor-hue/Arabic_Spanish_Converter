@@ -1,8 +1,8 @@
 import "@/styles/legal-document.css";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { HEADER_CONTAINER_CLASS, SITE_CONFIG } from "@/lib/constants";
+import { legalPageSchemas } from "@/lib/schema";
 import { cn } from "@/lib/utils";
-import { articleSchema, breadcrumbSchema } from "@/lib/seo";
 import { FileText } from "lucide-react";
 
 export type LegalSection = {
@@ -16,6 +16,7 @@ type LegalPageProps = {
   path: string;
   sections: LegalSection[];
   docLabel?: string;
+  pageSchemaType?: "WebPage" | "AboutPage" | "ContactPage";
   /** Rendered directly below the page header (e.g. contact form). */
   topChildren?: React.ReactNode;
   children?: React.ReactNode;
@@ -27,19 +28,19 @@ export function LegalPage({
   path,
   sections,
   docLabel = "Documento Legal",
+  pageSchemaType = "WebPage",
   topChildren,
   children,
 }: LegalPageProps) {
   return (
     <article data-legal-document className="py-12 md:py-16 lg:py-20">
       <JsonLd
-        data={[
-          breadcrumbSchema([
-            { name: "Inicio", path: "/" },
-            { name: title, path },
-          ]),
-          articleSchema({ title, description, path }),
-        ]}
+        data={legalPageSchemas({
+          title,
+          description,
+          path,
+          pageType: pageSchemaType,
+        })}
       />
 
       <div className={cn(HEADER_CONTAINER_CLASS, "legal-document-shell")}>

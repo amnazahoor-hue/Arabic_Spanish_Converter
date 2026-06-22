@@ -1,9 +1,11 @@
 "use client";
 
 import "@/styles/common-phrases.css";
+import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
+import { SITE_IMAGES } from "@/content/site-images";
 import { SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
@@ -93,6 +95,11 @@ export function CommonPhrases() {
       className="overflow-hidden"
       data-common-phrases-section
     >
+      <AccessibleImageMeta
+        src="/common-phrases-bg.webp"
+        meta={SITE_IMAGES.commonPhrasesBg}
+        visuallyHidden
+      />
       <div className="relative">
         <motion.header
           className="mx-auto mb-8 max-w-3xl lg:mb-10"

@@ -21,6 +21,20 @@
   box-shadow:
     0 4px 6px color-mix(in srgb, var(--color-heading) 4%, transparent),
     0 24px 48px color-mix(in srgb, var(--color-heading) 8%, transparent);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-legal-document] .legal-document-paper:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-primary) 32%, var(--color-border));
+    box-shadow:
+      0 8px 12px color-mix(in srgb, var(--color-heading) 6%, transparent),
+      0 28px 56px color-mix(in srgb, var(--color-heading) 12%, transparent);
+  }
 }
 
 [data-legal-document] .legal-document-paper::before {

@@ -54,25 +54,37 @@ export const MARROQUI_FEATURES = [
     id: "contexto-ia",
     title: "Traducción Contextual",
     text: "Nuestra herramienta proporciona traducción con inteligencia artificial que tiene en cuenta el contexto.",
-    image: "/marroqui/features/marroqui-feature-contexto-ia.png",
+    image: "/marroqui/features/marroqui-feature-contexto-ia.webp",
+    imageAlt: "Interfaz de traducción con indicadores de contexto e inteligencia artificial",
+    imageDescription:
+      "Ilustración de traducción contextual: pantalla del traductor marroquí-español mostrando cómo la IA interpreta el significado según el contexto del darija.",
   },
   {
     id: "voz-darija",
     title: "Traducción De Voz",
     text: "La función de traducción de voz procesa la pronunciación darija con precisión.",
-    image: "/marroqui/features/marroqui-feature-voz-darija.png",
+    image: "/marroqui/features/marroqui-feature-voz-darija.webp",
+    imageAlt: "Persona hablando al micrófono para traducir darija marroquí a español",
+    imageDescription:
+      "Ilustración de traducción por voz: usuario dictando en darija marroquí mientras el sistema captura la pronunciación y la convierte en español.",
   },
   {
     id: "rapidez",
     title: "Traducción Instantánea",
     text: "Obtén una traducción al español impecable en segundos. Es una herramienta rápida.",
-    image: "/marroqui/features/marroqui-feature-rapidez.png",
+    image: "/marroqui/features/marroqui-feature-rapidez.webp",
+    imageAlt: "Resultado de traducción instantánea mostrado en pantalla en segundos",
+    imageDescription:
+      "Ilustración de velocidad: traducción del darija al español completada al instante, destacando la rapidez del traductor marroquí.",
   },
   {
     id: "espanol-natural",
     title: "Español Natural",
     text: "El resultado está escrito en español natural, como si lo hubiera escrito un hablante nativo.",
-    image: "/marroqui/features/marroqui-feature-espanol-natural.png",
+    image: "/marroqui/features/marroqui-feature-espanol-natural.webp",
+    imageAlt: "Texto en español fluido y natural tras traducir expresiones marroquíes",
+    imageDescription:
+      "Ilustración de español natural: frases marroquíes convertidas en español coloquial y correcto, como lo escribiría un hablante nativo.",
   },
 ] as const;
 

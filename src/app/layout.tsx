@@ -1,36 +1,33 @@
 import { AnalyticsScripts } from "@/components/analytics/AnalyticsScripts";
-import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_CONFIG } from "@/lib/constants";
 import { buildMetadata, organizationSchema, webSiteSchema } from "@/lib/seo";
-import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
+
+const Footer = dynamic(() => import("@/components/layout/Footer").then((mod) => mod.Footer));
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
+  preload: true,
 });
 
 const display = Cormorant_Garamond({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
   style: ["normal", "italic"],
   display: "swap",
+  preload: true,
 });
 
 export const metadata = buildMetadata({
-  title: "Traductor Árabe Español: Traducción Instantánea De Texto Y Voz.",
+  title: `${SITE_CONFIG.name}: ${SITE_CONFIG.tagline}`,
   description: SITE_CONFIG.description,
   path: "/",
 });
@@ -44,7 +41,7 @@ export default function RootLayout({
     <html
       lang="es"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${display.variable} h-full`}
+      className={`${inter.variable} ${display.variable} h-full`}
       suppressHydrationWarning
     >
       <body

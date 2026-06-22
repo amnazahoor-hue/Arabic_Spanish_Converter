@@ -1,7 +1,9 @@
 "use client";
 
+import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
 import { ArabesqueMotif } from "@/components/brand/ArabesqueMotif";
 import { TranslatorPanel } from "@/components/sections/TranslatorPanel";
+import { SITE_IMAGES } from "@/content/site-images";
 import { HERO_CONTAINER_CLASS, SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
@@ -32,15 +34,25 @@ export function Hero() {
 
   return (
     <section
+      id={SECTION_IDS.hero}
       data-hero
       className={cn(
-        "relative isolate flex w-full max-w-[100vw] flex-col overflow-x-clip",
-        "min-h-[calc(100dvh-var(--header-height))] min-h-[calc(100svh-var(--header-height))]",
+        "relative isolate flex w-full max-w-[100vw] flex-col overflow-hidden scroll-mt-[var(--header-height)]",
       )}
       aria-labelledby="hero-heading"
     >
-      <div className="hero-people-bg hero-people-bg--mobile pointer-events-none absolute inset-0 lg:hidden" aria-hidden />
-      <div className="hero-people-bg hero-people-bg--desktop pointer-events-none absolute inset-0 hidden lg:block" aria-hidden />
+      <AccessibleImageMeta
+        src="/hero-mobile-bg.webp"
+        meta={SITE_IMAGES.heroPeopleMobile}
+        visuallyHidden
+      />
+      <AccessibleImageMeta
+        src="/hero-people-bg.webp"
+        meta={SITE_IMAGES.heroPeopleDesktop}
+        visuallyHidden
+      />
+      <div className="hero-people-bg hero-people-bg--mobile pointer-events-none absolute inset-0 xl:hidden" aria-hidden />
+      <div className="hero-people-bg hero-people-bg--desktop pointer-events-none absolute inset-0 hidden xl:block" aria-hidden />
       <div className="hero-people-overlay pointer-events-none absolute inset-0" aria-hidden />
       <div className="hero-mesh pointer-events-none absolute inset-0" aria-hidden />
 
@@ -72,20 +84,20 @@ export function Hero() {
       <div
         className={cn(
           HERO_CONTAINER_CLASS,
-          "hero-shell relative z-10 flex min-h-0 w-full flex-1 flex-col items-center justify-center py-8 sm:py-9 lg:items-stretch lg:py-5 xl:py-8",
+          "hero-shell site-hero-shell relative z-10 w-full py-10 sm:py-12 lg:py-16 xl:py-[4.5rem]",
         )}
       >
         <div
           className={cn(
             "hero-grid grid w-full min-w-0 max-w-none justify-items-center gap-8 sm:gap-10",
-            "lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start lg:justify-items-stretch lg:gap-8",
+            "lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:justify-items-stretch lg:gap-8",
             "xl:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] xl:gap-10",
           )}
         >
           <motion.div
             className={cn(
               "hero-copy order-1 flex min-w-0 max-w-full flex-col items-center gap-4 text-center sm:gap-5",
-              "lg:sticky lg:top-[calc(var(--header-height)+1.5rem)] lg:items-start lg:gap-5 lg:text-start",
+              "lg:items-start lg:justify-center lg:gap-5 lg:text-start 2xl:sticky 2xl:top-[calc(var(--header-height)+1.5rem)]",
             )}
             variants={stagger}
             initial="hidden"
@@ -139,7 +151,7 @@ export function Hero() {
           <motion.div
             className={cn(
               "hero-translator order-2 relative mx-auto flex min-h-0 min-w-0 w-full max-w-[28rem] interactive-lift",
-              "sm:max-w-[34rem] md:max-w-[40rem] lg:mx-0 lg:max-w-[38rem] lg:justify-self-end xl:max-w-[40rem]",
+              "sm:max-w-[34rem] md:max-w-[38rem] lg:mx-0 lg:max-w-none lg:justify-self-end",
               "rounded-[calc(var(--radius)+4px)] border border-border/80 bg-surface/95 p-4 shadow-lg backdrop-blur-sm",
               "sm:p-5 lg:p-6",
             )}

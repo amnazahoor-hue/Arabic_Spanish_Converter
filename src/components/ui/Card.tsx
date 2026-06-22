@@ -19,8 +19,7 @@ export function Card({
       className={cn(
         "relative h-full rounded-[var(--radius-lg)] bg-surface border border-border shadow-card",
         padded && "p-6",
-        hoverLift &&
-          "interactive-lift motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_8px_32px_rgba(26,26,46,0.1)]",
+        hoverLift && "interactive-lift cursor-default",
         className,
       )}
       {...props}

@@ -1,3 +1,5 @@
+import { SITE_IMAGES } from "@/content/site-images";
+
 export const PDF_LOGO_SRC = "/images/logo.webp";
 
 const LOGO_ASPECT = 580 / 324;
@@ -5,8 +7,10 @@ const LOGO_ASPECT = 580 / 324;
 export function buildPdfLogoHtml(logoDataUrl: string, siteName: string): string {
   const height = 52;
   const width = Math.round(height * LOGO_ASPECT);
+  const alt = SITE_IMAGES.logo.alt.replace(/"/g, "&quot;");
+  const title = SITE_IMAGES.logo.description.replace(/"/g, "&quot;");
 
-  return `<img src="${logoDataUrl}" alt="${siteName.replace(/"/g, "&quot;")}" width="${width}" height="${height}" style="display:block;object-fit:contain;object-position:right center;" />`;
+  return `<img src="${logoDataUrl}" alt="${alt}" title="${title}" width="${width}" height="${height}" style="display:block;object-fit:contain;object-position:right center;" />`;
 }
 
 export async function loadPdfLogoDataUrl(): Promise<string> {

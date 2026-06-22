@@ -41,12 +41,11 @@ export function Header() {
               <div className="site-header__brand-ring">
                 <Logo variant="full" theme="dark" size="header-desktop" className="hidden xl:flex" />
                 <Logo
-                  variant="icon"
+                  variant="full"
                   theme="dark"
-                  size="header-desktop"
-                  className="hidden lg:flex xl:hidden"
+                  size="header-mobile"
+                  className="site-header__logo-mobile flex min-w-0 max-w-[calc(100vw-3.75rem)] xl:hidden"
                 />
-                <Logo variant="icon" theme="dark" size="header-mobile" className="flex lg:hidden" />
               </div>
             </div>
 
@@ -57,7 +56,7 @@ export function Header() {
             </nav>
 
             <div className="site-header__actions">
-              <HeaderCta className="site-header__cta hidden lg:inline-flex" />
+              <HeaderCta className="site-header__cta hidden xl:inline-flex" />
               <MobileMenu headerTheme="dark" />
             </div>
           </div>

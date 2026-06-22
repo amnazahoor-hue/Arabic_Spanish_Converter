@@ -7,6 +7,7 @@ export const metadata = buildMetadata({
   description:
     "Condiciones de uso de Traductor Árabe Español y la herramienta de traducción árabe–español. Propiedad intelectual y normas de uso.",
   path: "/terms-and-conditions",
+  noIndex: true,
 });
 
 export default function TermsPage() {

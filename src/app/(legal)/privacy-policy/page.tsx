@@ -7,6 +7,7 @@ export const metadata = buildMetadata({
   description:
     "Cómo Traductor Árabe Español recopila, utiliza y protege sus datos. Cookies, analítica y derechos GDPR.",
   path: "/privacy-policy",
+  noIndex: true,
 });
 
 export default function PrivacyPolicyPage() {

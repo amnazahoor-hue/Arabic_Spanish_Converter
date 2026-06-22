@@ -1,0 +1,212 @@
+/* Compact desktop (1280–1535px) — balanced two-column hero + tighter translator */
+
+@media (min-width: 1280px) and (max-width: 1535px) {
+  [data-hero] .hero-shell {
+    padding-inline: 1rem;
+    padding-block: clamp(2.75rem, 5vh, 4rem);
+  }
+
+  [data-hero] .hero-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr) !important;
+    align-items: center !important;
+    column-gap: clamp(1rem, 1.8vw, 1.5rem) !important;
+    row-gap: 0 !important;
+  }
+
+  [data-hero] .hero-copy {
+    position: static !important;
+    top: auto !important;
+    justify-content: center;
+    gap: 0.75rem !important;
+    padding-block: 0;
+  }
+
+  [data-hero] #hero-heading {
+    font-size: clamp(1.5rem, 1.35vw + 0.85rem, 2.125rem) !important;
+    line-height: 1.1;
+    max-width: 26rem;
+  }
+
+  [data-hero] .hero-lead {
+    font-size: clamp(0.875rem, 0.45vw + 0.72rem, 1.0625rem) !important;
+    line-height: 1.45;
+    max-width: 26rem;
+  }
+
+  [data-hero] .hero-trust {
+    gap: 0.375rem !important;
+    max-width: 26rem;
+  }
+
+  [data-hero] .hero-trust-pill {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  [data-hero] .hero-translator {
+    max-width: min(100%, 34rem) !important;
+    padding: 0.875rem 1rem !important;
+    justify-self: end;
+    align-self: center;
+  }
+
+  [data-hero] .hero-deco-motif {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1535px) and (min-height: 701px) and (max-height: 860px) {
+  [data-hero] .hero-shell {
+    padding-block: 1.75rem;
+  }
+
+  [data-hero] .hero-copy {
+    gap: 0.5rem !important;
+  }
+
+  [data-hero] #hero-heading {
+    font-size: clamp(1.375rem, 2.6vh + 0.5rem, 1.875rem) !important;
+  }
+
+  [data-hero] .hero-lead {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    font-size: clamp(0.8125rem, 1.5vh + 0.4rem, 0.9375rem) !important;
+    line-height: 1.4;
+  }
+
+  [data-hero] .hero-trust-pill {
+    padding: 0.1875rem 0.4375rem;
+    font-size: 0.625rem;
+  }
+
+  [data-hero] .hero-trust-pill svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  [data-hero] .hero-translator {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.625rem !important;
+  }
+
+  [data-hero] .hero-translator > div {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.3125rem !important;
+    min-height: 0;
+  }
+
+  [data-hero] .hero-translator > div.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 0 !important;
+  }
+
+  [data-hero] .hero-translator > div > .flex.items-center.justify-end {
+    display: none !important;
+  }
+
+  [data-hero] .hero-translator .language-swap-bar {
+    flex-shrink: 0;
+    padding: 0.3125rem 0.5rem !important;
+    gap: 0.375rem !important;
+  }
+
+  [data-hero] .hero-translator .language-swap-bar .type-body {
+    font-size: 0.75rem !important;
+  }
+
+  [data-hero] .hero-translator .language-swap-btn {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+  }
+
+  [data-hero] .hero-translator .grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    gap: 0.5rem !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  [data-hero] .hero-translator .grid > div {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  [data-hero] .hero-translator .grid > div > .space-y-2 {
+    gap: 0.3125rem !important;
+    min-height: 0;
+    flex: 1;
+  }
+
+  [data-hero] .hero-translator label {
+    margin-bottom: 0.125rem !important;
+    font-size: 0.6875rem !important;
+  }
+
+  [data-hero] .hero-translator textarea {
+    height: 3rem !important;
+    min-height: 3rem !important;
+    max-height: 3rem !important;
+    resize: none !important;
+    padding: 0.375rem 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  [data-hero] .hero-translator textarea.pb-14 {
+    padding-bottom: 1.5rem !important;
+  }
+
+  [data-hero] .hero-translator p[id$="-hint"],
+  [data-hero] .hero-translator .grid > div > .space-y-2 > p.type-small {
+    display: none;
+  }
+
+  [data-hero] .hero-translator .grid > div > .space-y-2 > .flex.justify-center button,
+  [data-hero] .hero-translator .grid > div > .flex.justify-center button {
+    min-height: 1.875rem;
+    padding: 0.3125rem 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  [data-hero] .hero-translator .translator-output-panel {
+    min-height: 3rem !important;
+    max-height: 3.5rem;
+    padding: 0.375rem 0.5rem !important;
+    overflow-y: auto;
+  }
+
+  [data-hero] .hero-translator .translator-output-panel .type-body,
+  [data-hero] .hero-translator .translator-output-panel .type-small {
+    font-size: 0.75rem !important;
+    line-height: 1.3;
+  }
+
+  [data-hero] .hero-translator .translation-actions {
+    flex-shrink: 0;
+    margin-top: 0.25rem !important;
+    padding: 0.375rem 0.4375rem !important;
+  }
+
+  [data-hero] .hero-translator .translation-actions__label {
+    display: none;
+  }
+
+  [data-hero] .hero-translator .translation-actions__btn {
+    padding: 0.25rem 0.4375rem;
+    font-size: 0.625rem;
+  }
+
+  [data-hero] .hero-translator .translation-actions__btn svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  [data-hero] .hero-translator .translation-actions__row {
+    gap: 0.25rem;
+  }
+}

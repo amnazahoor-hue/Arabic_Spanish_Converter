@@ -4,11 +4,36 @@ import { HeaderCta, NavLinks } from "@/components/layout/NavLinks";
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 type MobileMenuProps = {
   headerTheme?: "light" | "dark";
 };
+
+function lockBodyScroll(): () => void {
+  const scrollY = window.scrollY;
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+
+  if (scrollbarWidth > 0) {
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+  }
+
+  return () => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    document.body.style.paddingRight = "";
+    window.scrollTo(0, scrollY);
+  };
+}
 
 export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
@@ -17,39 +42,44 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const isDark = headerTheme === "dark";
 
-  const close = () => setOpen(false);
+  const close = useCallback(() => setOpen(false), []);
+
+  const toggleMenu = useCallback(() => {
+    setOpen((current) => !current);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    const unlockScroll = lockBodyScroll();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
     document.addEventListener("keydown", onKey);
 
-    const focusable = panelRef.current?.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), textarea, input, select',
-    );
-    focusable?.[0]?.focus();
-
-    const menuTrigger = buttonRef.current;
+    const focusFrame = window.requestAnimationFrame(() => {
+      const focusable = panelRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select',
+      );
+      focusable?.[0]?.focus({ preventScroll: true });
+    });
 
     return () => {
-      document.body.style.overflow = prev;
+      window.cancelAnimationFrame(focusFrame);
       document.removeEventListener("keydown", onKey);
-      menuTrigger?.focus();
+      unlockScroll();
+      buttonRef.current?.focus({ preventScroll: true });
     };
-  }, [open]);
+  }, [open, close]);
 
   return (
-    <div className="lg:hidden flex items-center">
+    <div className="xl:hidden flex items-center">
       <button
         ref={buttonRef}
         type="button"
         className={cn(
-          "inline-flex h-9 w-9 items-center justify-center rounded-full border interactive-scale sm:h-10 sm:w-10",
+          "inline-flex h-9 w-9 items-center justify-center rounded-full border interactive-scale icon-btn-interactive sm:h-10 sm:w-10",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
           isDark
             ? "border-footer-text/30 bg-footer-text/10 text-footer-heading hover:border-secondary hover:text-secondary"
@@ -59,7 +89,7 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? "Cerrar menú" : "Abrir menú"}
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggleMenu}
       >
         {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
       </button>
@@ -86,7 +116,7 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
             <div className="h-[3px] bg-gradient-to-r from-primary via-secondary to-primary" aria-hidden />
 
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
-              <Logo variant="full" theme="light" size="header-mobile" />
+              <Logo variant="full" theme="light" size="header-mobile" onNavigate={close} />
               <button
                 type="button"
                 onClick={close}
@@ -97,7 +127,7 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-5 py-6">
+            <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-6">
               <NavLinks onNavigate={close} variant="mobile" />
             </div>
 

@@ -29,7 +29,7 @@ export function VoiceInputButton({
       aria-label={listening ? "Detener grabación de voz" : "Dictar con el micrófono"}
       title={listening ? "Detener" : "Hablar"}
       className={cn(
-        "interactive-scale inline-flex h-9 w-9 items-center justify-center rounded-full border",
+        "interactive-scale icon-btn-interactive inline-flex h-9 w-9 items-center justify-center rounded-full border",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
         "disabled:pointer-events-none disabled:opacity-50",
         listening
