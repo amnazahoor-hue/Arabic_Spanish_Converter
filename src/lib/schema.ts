@@ -66,8 +66,10 @@ export function organizationSchema() {
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
     description: SITE_CONFIG.description,
-    logo: absoluteUrl("/images/logo.webp"),
-    inLanguage: "es",
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl("/images/logo.webp"),
+    },
   };
 }
 
@@ -181,7 +183,6 @@ export function authorPageSchemas() {
       description: bio,
       url: absoluteUrl("/author"),
       inLanguage: "es",
-      isPartOf: websiteReference(),
       mainEntity: {
         "@type": "Person",
         name,
@@ -205,7 +206,6 @@ export function authorPageSchemas() {
               },
             }
           : {}),
-        worksFor: publisherReference(),
       },
     },
   ];
@@ -213,6 +213,8 @@ export function authorPageSchemas() {
 
 export function homePageSchemas() {
   return [
+    organizationSchema(),
+    webSiteSchema(),
     webPageSchema({
       name: "Traductor Árabe Español",
       description: SITE_CONFIG.description,

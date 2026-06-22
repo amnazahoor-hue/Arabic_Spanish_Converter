@@ -1,8 +1,7 @@
 import { AnalyticsScripts } from "@/components/analytics/AnalyticsScripts";
 import { Header } from "@/components/layout/Header";
-import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_CONFIG } from "@/lib/constants";
-import { buildMetadata, organizationSchema, webSiteSchema } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import dynamic from "next/dynamic";
 import "./globals.css";
@@ -48,7 +47,6 @@ export default function RootLayout({
         className="min-h-full flex flex-col font-sans antialiased"
         suppressHydrationWarning
       >
-        <JsonLd data={[organizationSchema(), webSiteSchema()]} />
         <Header />
         <main className="flex-1 min-w-0 overflow-x-clip">{children}</main>
         <Footer />
