@@ -1,4 +1,4 @@
-import { SITE_CONFIG } from "@/lib/constants";
+import { absoluteSiteUrl } from "@/lib/siteUrl";
 import type { MetadataRoute } from "next";
 
 const routes = [
@@ -9,7 +9,7 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = SITE_CONFIG.url.replace(/\/$/, "");
+  const base = absoluteSiteUrl("/").replace(/\/$/, "");
   return routes.map((path) => ({
     url: `${base}${path}`,
     lastModified: new Date("2026-05-01"),

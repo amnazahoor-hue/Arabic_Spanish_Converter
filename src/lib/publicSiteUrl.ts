@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from "@/lib/constants";
+import { toUnicodeOrigin } from "@/lib/siteUrl";
 
 function isLocalOrPrivateHost(hostname: string): boolean {
   const h = hostname.toLowerCase();
@@ -19,9 +20,9 @@ function isPlaceholderHost(hostname: string): boolean {
 function originFromUrlString(raw: string): string | null {
   try {
     const normalized = raw.startsWith("http") ? raw : `https://${raw}`;
-    const { origin, hostname } = new URL(normalized);
+    const { hostname } = new URL(normalized);
     if (isLocalOrPrivateHost(hostname) || isPlaceholderHost(hostname)) return null;
-    return origin;
+    return toUnicodeOrigin(normalized);
   } catch {
     return null;
   }

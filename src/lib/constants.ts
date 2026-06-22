@@ -1,9 +1,11 @@
+import { CANONICAL_SITE_ORIGIN } from "@/lib/siteUrl";
+
 export const SITE_CONFIG = {
   name: "Traductor Árabe Español",
   tagline: "Traducción Instantánea de Texto y Voz",
   description:
     "¿Necesitas un traductor árabe español preciso? Nuestro servicio de traducción ofrece traducciones rápidas y fiables para superar las barreras lingüísticas.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://traductorarabeespañol.es",
+  url: CANONICAL_SITE_ORIGIN,
   locale: "es",
   lastUpdated: "Mayo 2026",
 } as const;

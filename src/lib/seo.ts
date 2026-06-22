@@ -1,5 +1,6 @@
 import { SITE_CONFIG } from "@/lib/constants";
 import { SITE_IMAGES } from "@/content/site-images";
+import { absoluteSiteUrl, getSiteOrigin } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 
 export {
@@ -28,7 +29,7 @@ type PageSeo = {
 
 function resolveMetadataBase(): URL {
   try {
-    return new URL(SITE_CONFIG.url);
+    return new URL(getSiteOrigin());
   } catch {
     return new URL("https://example.com");
   }
@@ -42,7 +43,7 @@ export function buildMetadata({
   index = true,
 }: PageSeo): Metadata {
   const metadataBase = resolveMetadataBase();
-  const url = new URL(path, metadataBase).toString();
+  const url = absoluteSiteUrl(path);
 
   return {
     metadataBase,

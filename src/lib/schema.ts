@@ -2,6 +2,7 @@ import { AUTHOR_PROFILE } from "@/content/legal/author";
 import { FAQ_ITEMS } from "@/content/faq";
 import { MARROQUI_FAQ_ITEMS, MARROQUI_PAGE_PATH } from "@/content/marroqui-page";
 import { SITE_CONFIG } from "@/lib/constants";
+import { absoluteSiteUrl, getSiteOrigin } from "@/lib/siteUrl";
 
 type FaqItem = {
   question: string;
@@ -22,18 +23,15 @@ type TranslatorApplicationInput = {
   languages?: string[];
 };
 
-function absoluteUrl(path = ""): string {
-  return new URL(path, SITE_CONFIG.url).toString();
-}
-
 function publisherReference() {
+  const siteOrigin = getSiteOrigin();
   return {
     "@type": "Organization" as const,
     name: SITE_CONFIG.name,
-    url: SITE_CONFIG.url,
+    url: siteOrigin,
     logo: {
       "@type": "ImageObject" as const,
-      url: absoluteUrl("/images/logo.webp"),
+      url: absoluteSiteUrl("/images/logo.webp"),
     },
   };
 }
@@ -42,7 +40,7 @@ function websiteReference() {
   return {
     "@type": "WebSite" as const,
     name: SITE_CONFIG.name,
-    url: SITE_CONFIG.url,
+    url: getSiteOrigin(),
   };
 }
 
@@ -54,7 +52,7 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: absoluteUrl(item.path),
+      item: absoluteSiteUrl(item.path),
     })),
   };
 }
@@ -64,11 +62,11 @@ export function organizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE_CONFIG.name,
-    url: SITE_CONFIG.url,
+    url: getSiteOrigin(),
     description: SITE_CONFIG.description,
     logo: {
       "@type": "ImageObject",
-      url: absoluteUrl("/images/logo.webp"),
+      url: absoluteSiteUrl("/images/logo.webp"),
     },
   };
 }
@@ -78,7 +76,7 @@ export function webSiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_CONFIG.name,
-    url: SITE_CONFIG.url,
+    url: getSiteOrigin(),
     description: SITE_CONFIG.description,
     inLanguage: ["es", "ar"],
     publisher: publisherReference(),
@@ -96,7 +94,7 @@ export function webPageSchema({
     "@type": pageType,
     name,
     description,
-    url: absoluteUrl(path),
+    url: absoluteSiteUrl(path),
     inLanguage: "es",
     isPartOf: websiteReference(),
     publisher: publisherReference(),
@@ -117,7 +115,7 @@ export function articleSchema({
     "@type": "Article",
     headline: title,
     description,
-    url: absoluteUrl(path),
+    url: absoluteSiteUrl(path),
     inLanguage: "es",
     author: publisherReference(),
     publisher: publisherReference(),
@@ -151,7 +149,7 @@ export function translatorWebApplicationSchema({
     "@type": "WebApplication",
     name,
     description,
-    url: absoluteUrl(path),
+    url: absoluteSiteUrl(path),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript",
@@ -181,14 +179,14 @@ export function authorPageSchemas() {
       "@type": "ProfilePage",
       name: `${name} — Autora`,
       description: bio,
-      url: absoluteUrl("/author"),
+      url: absoluteSiteUrl("/author"),
       inLanguage: "es",
       mainEntity: {
         "@type": "Person",
         name,
         jobTitle: role,
         description: bio,
-        image: absoluteUrl(imageSrc),
+        image: absoluteSiteUrl(imageSrc),
         knowsAbout: [...expertise],
         ...(location
           ? {
