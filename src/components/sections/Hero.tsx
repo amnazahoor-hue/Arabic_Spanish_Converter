@@ -1,6 +1,7 @@
 "use client";
 
 import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
+import { LazyBackgroundLayer } from "@/components/media/LazyBackgroundLayer";
 import { ArabesqueMotif } from "@/components/brand/ArabesqueMotif";
 import { TranslatorPanel } from "@/components/sections/TranslatorPanel";
 import { SITE_IMAGES } from "@/content/site-images";
@@ -51,8 +52,16 @@ export function Hero() {
         meta={SITE_IMAGES.heroPeopleDesktop}
         visuallyHidden
       />
-      <div className="hero-people-bg hero-people-bg--mobile pointer-events-none absolute inset-0 xl:hidden" aria-hidden />
-      <div className="hero-people-bg hero-people-bg--desktop pointer-events-none absolute inset-0 hidden xl:block" aria-hidden />
+      <LazyBackgroundLayer
+        src="/hero-mobile-bg.webp"
+        priority
+        className="hero-people-bg hero-people-bg--mobile pointer-events-none absolute inset-0 xl:hidden"
+      />
+      <LazyBackgroundLayer
+        src="/hero-people-bg.webp"
+        priority
+        className="hero-people-bg hero-people-bg--desktop pointer-events-none absolute inset-0 hidden xl:block"
+      />
       <div className="hero-people-overlay pointer-events-none absolute inset-0" aria-hidden />
       <div className="hero-mesh pointer-events-none absolute inset-0" aria-hidden />
 
@@ -90,8 +99,8 @@ export function Hero() {
         <div
           className={cn(
             "hero-grid grid w-full min-w-0 max-w-none justify-items-center gap-8 sm:gap-10",
-            "lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:justify-items-stretch lg:gap-8",
-            "xl:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] xl:gap-10",
+            "lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center lg:justify-items-stretch lg:gap-8",
+            "xl:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] xl:gap-10",
           )}
         >
           <motion.div
@@ -150,8 +159,8 @@ export function Hero() {
 
           <motion.div
             className={cn(
-              "hero-translator order-2 relative mx-auto flex min-h-0 min-w-0 w-full max-w-[28rem] interactive-lift",
-              "sm:max-w-[34rem] md:max-w-[38rem] lg:mx-0 lg:max-w-none lg:justify-self-end",
+              "hero-translator order-2 relative mx-auto flex min-h-0 min-w-0 w-full max-w-[26rem] interactive-lift",
+              "sm:max-w-[30rem] md:max-w-[34rem] lg:mx-0 lg:max-w-[36rem] lg:justify-self-end xl:max-w-[38rem]",
               "rounded-[calc(var(--radius)+4px)] border border-border/80 bg-surface/95 p-4 shadow-lg backdrop-blur-sm",
               "sm:p-5 lg:p-6",
             )}

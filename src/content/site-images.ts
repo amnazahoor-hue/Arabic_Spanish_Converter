@@ -1,5 +1,6 @@
 export type ImageAccessibility = {
   alt: string;
+  /** Longer description; also used as the image `title` tooltip. */
   description: string;
 };
 

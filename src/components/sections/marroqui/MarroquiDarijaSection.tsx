@@ -1,6 +1,7 @@
 "use client";
 
 import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
+import { LazyBackgroundLayer } from "@/components/media/LazyBackgroundLayer";
 import { Section } from "@/components/ui/Section";
 import {
   MARROQUI_DARIJA_INFLUENCES,
@@ -53,6 +54,10 @@ export function MarroquiDarijaSection() {
         src="/marroqui/marroqui-darija-section-bg.webp"
         meta={SITE_IMAGES.marroquiDarijaBg}
         visuallyHidden
+      />
+      <LazyBackgroundLayer
+        src="/marroqui/marroqui-darija-section-bg.webp"
+        className="marroqui-darija-section-bg pointer-events-none absolute inset-0"
       />
       <div className="marroqui-darija">
         <div className="marroqui-darija__layout">

@@ -32,10 +32,10 @@ function FooterColumn({
 }) {
   return (
     <div className={cn("text-center sm:text-start", className)}>
-      <h2 className="mb-4 flex items-center justify-center gap-2 text-footer-heading font-semibold text-nav sm:justify-start">
+      <div className="mb-4 flex items-center justify-center gap-2 text-footer-heading font-semibold text-nav sm:justify-start">
         <span className="h-1 w-6 rounded-full bg-secondary" aria-hidden />
         {title}
-      </h2>
+      </div>
       {children}
     </div>
   );

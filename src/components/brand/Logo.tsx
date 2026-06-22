@@ -33,25 +33,19 @@ type LogoProps = {
   onNavigate?: () => void;
 };
 
-function LogoMark({
-  size,
-  className,
-  decorative,
-}: {
-  size: LogoSize;
-  className?: string;
-  decorative?: boolean;
-}) {
+function LogoMark({ size, className }: { size: LogoSize; className?: string }) {
+  const isHeaderLogo = size === "header-desktop" || size === "header-mobile";
+
   return (
     <Image
       src={LOGO_SRC}
-      alt={decorative ? "" : SITE_IMAGES.logo.alt}
+      alt={SITE_IMAGES.logo.alt}
       title={SITE_IMAGES.logo.description}
       width={LOGO_WIDTH}
       height={LOGO_HEIGHT}
-      priority={size === "header-desktop" || size === "header-mobile"}
+      priority={isHeaderLogo}
+      loading={isHeaderLogo ? "eager" : "lazy"}
       className={cn("w-auto shrink-0 object-contain logo-interactive", iconHeightMap[size], className)}
-      aria-hidden={decorative ? true : undefined}
     />
   );
 }
@@ -119,7 +113,7 @@ export function Logo({
       className={cn(wrapperClass, "gap-2.5 group logo-interactive-wrap")}
       aria-label="Traductor Árabe Español — inicio"
     >
-      <LogoMark size={size} decorative />
+      <LogoMark size={size} />
       <span
         className={cn(
           "min-w-0 font-semibold tracking-tight transition-colors group-hover:text-link",

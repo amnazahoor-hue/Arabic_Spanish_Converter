@@ -6,17 +6,12 @@
   background-color: var(--color-bg);
 }
 
-[data-common-phrases-section]::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+[data-common-phrases-section] .common-phrases-section-bg {
   z-index: 0;
-  background-image: url("/common-phrases-bg.webp");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   opacity: 0.44;
-  pointer-events: none;
 }
 
 [data-common-phrases-section]::after {

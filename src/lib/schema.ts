@@ -1,7 +1,7 @@
 import { AUTHOR_PROFILE } from "@/content/legal/author";
 import { FAQ_ITEMS } from "@/content/faq";
 import { MARROQUI_FAQ_ITEMS, MARROQUI_PAGE_PATH } from "@/content/marroqui-page";
-import { SITE_CONFIG } from "@/lib/constants";
+import { SITE_CONFIG, organizationSameAs } from "@/lib/constants";
 import { absoluteSiteUrl, getSiteOrigin } from "@/lib/siteUrl";
 
 type FaqItem = {
@@ -58,6 +58,8 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
 }
 
 export function organizationSchema() {
+  const sameAs = organizationSameAs();
+
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -68,6 +70,7 @@ export function organizationSchema() {
       "@type": "ImageObject",
       url: absoluteSiteUrl("/images/logo.webp"),
     },
+    ...(sameAs.length > 0 ? { sameAs } : {}),
   };
 }
 
@@ -211,6 +214,7 @@ export function authorPageSchemas() {
 
 export function homePageSchemas() {
   return [
+    breadcrumbSchema([{ name: "Inicio", path: "/" }]),
     organizationSchema(),
     webSiteSchema(),
     webPageSchema({

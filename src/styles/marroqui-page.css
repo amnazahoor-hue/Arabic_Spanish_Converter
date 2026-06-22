@@ -82,13 +82,8 @@
   isolation: isolate;
 }
 
-[data-marroqui-darija-section]::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
+[data-marroqui-darija-section] .marroqui-darija-section-bg {
   z-index: 0;
-  background-image: url("/marroqui/marroqui-darija-section-bg.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left bottom;
@@ -128,14 +123,14 @@
 }
 
 @media (min-width: 768px) {
-  [data-marroqui-darija-section]::before {
+  [data-marroqui-darija-section] .marroqui-darija-section-bg {
     background-position: 4% bottom;
     opacity: 0.46;
   }
 }
 
 @media (min-width: 1024px) {
-  [data-marroqui-darija-section]::before {
+  [data-marroqui-darija-section] .marroqui-darija-section-bg {
     background-position: left bottom;
     opacity: 0.48;
   }

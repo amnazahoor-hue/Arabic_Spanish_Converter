@@ -72,11 +72,12 @@ export function MarroquiFeaturesSection() {
                 <Image
                   src={feature.image}
                   alt={feature.imageAlt}
+                  title={feature.imageDescription}
                   aria-describedby={descriptionId}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="marroqui-features__image object-contain object-center p-4 sm:p-6"
-                  priority={index === 0}
+                  loading="lazy"
                 />
                 <span id={descriptionId} className="sr-only">
                   {feature.imageDescription}

@@ -2,6 +2,7 @@
 
 import "@/styles/common-phrases.css";
 import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
+import { LazyBackgroundLayer } from "@/components/media/LazyBackgroundLayer";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
@@ -99,6 +100,10 @@ export function CommonPhrases() {
         src="/common-phrases-bg.webp"
         meta={SITE_IMAGES.commonPhrasesBg}
         visuallyHidden
+      />
+      <LazyBackgroundLayer
+        src="/common-phrases-bg.webp"
+        className="common-phrases-section-bg pointer-events-none absolute inset-0"
       />
       <div className="relative">
         <motion.header

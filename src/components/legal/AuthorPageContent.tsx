@@ -32,11 +32,12 @@ export function AuthorPageContent() {
             <Image
               src={imageSrc}
               alt={imageAlt}
+              title={imageDescription}
               aria-describedby={imageDescriptionId}
               fill
               sizes="(max-width: 640px) 176px, 208px"
               className="object-cover object-[center_18%]"
-              priority
+              loading="lazy"
             />
             <span id={imageDescriptionId} className="sr-only">
               {imageDescription}

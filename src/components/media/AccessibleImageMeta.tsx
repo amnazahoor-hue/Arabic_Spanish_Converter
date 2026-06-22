@@ -4,7 +4,7 @@ import { useId } from "react";
 type AccessibleImageMetaProps = {
   src: string;
   meta: ImageAccessibility;
-  /** When true, exposes alt text without downloading a duplicate decorative image. */
+  /** When true, keeps a screen-reader-only img with alt/title (no visible duplicate). */
   visuallyHidden?: boolean;
   priority?: boolean;
 };
@@ -20,7 +20,17 @@ export function AccessibleImageMeta({
   if (visuallyHidden) {
     return (
       <>
-        <span role="img" aria-label={meta.alt} aria-describedby={descriptionId} className="sr-only" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={meta.alt}
+          title={meta.description}
+          aria-describedby={descriptionId}
+          decoding="async"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
+          className="sr-only"
+        />
         <span id={descriptionId} className="sr-only">
           {meta.description}
         </span>
@@ -34,6 +44,7 @@ export function AccessibleImageMeta({
       <img
         src={src}
         alt={meta.alt}
+        title={meta.description}
         aria-describedby={descriptionId}
         decoding="async"
         loading={priority ? "eager" : "lazy"}

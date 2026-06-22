@@ -222,16 +222,25 @@ export function TranslatorPanel({
             aria-live="polite"
             aria-busy={t.loading}
           >
-            {t.loading ? (
-              <div className="flex flex-col items-center justify-center gap-4 py-8">
-                <Spinner size="lg" label="Traduciendo" />
-                <Skeleton lines={4} className="w-full" />
+            <div className="flex min-h-full flex-col gap-2">
+              <div className="flex-1">
+                {t.loading ? (
+                  <div className="flex flex-col items-center justify-center gap-4 py-8">
+                    <Spinner size="lg" label="Traduciendo" />
+                    <Skeleton lines={4} className="w-full" />
+                  </div>
+                ) : t.output ? (
+                  <p className="type-body break-words whitespace-pre-wrap">{t.output}</p>
+                ) : (
+                  <p className="type-small text-muted">Tu traducción aparecerá aquí.</p>
+                )}
               </div>
-            ) : t.output ? (
-              <p className="type-body break-words whitespace-pre-wrap">{t.output}</p>
-            ) : (
-              <p className="type-small text-muted">Tu traducción aparecerá aquí.</p>
-            )}
+              {!t.loading ? (
+                <p className="type-small text-muted border-t border-border/60 pt-2">
+                  Traducción instantánea de IA
+                </p>
+              ) : null}
+            </div>
           </div>
 
           <TranslationActions className="mt-4" payload={sharePayload} disabled={t.loading} />

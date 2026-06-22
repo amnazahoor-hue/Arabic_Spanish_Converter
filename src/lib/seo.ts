@@ -1,5 +1,5 @@
 import { SITE_CONFIG } from "@/lib/constants";
-import { SITE_IMAGES } from "@/content/site-images";
+import { OG_IMAGE } from "@/lib/og-image";
 import { absoluteSiteUrl, getSiteOrigin } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 
@@ -45,8 +45,8 @@ export function buildMetadata({
       canonical: url,
       languages: {
         en: url,
-        ar: `${url}?lang=ar`,
-        es: `${url}?lang=es`,
+        ar: url,
+        es: url,
       },
     },
     openGraph: {
@@ -56,18 +56,18 @@ export function buildMetadata({
       siteName: SITE_CONFIG.name,
       locale: "es_ES",
       type: "website",
-      images: [{ url: "/images/logo.webp", alt: SITE_IMAGES.logo.alt }],
+      images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [{ url: "/images/logo.webp", alt: SITE_IMAGES.logo.alt }],
+      images: [{ url: OG_IMAGE.url, alt: OG_IMAGE.alt }],
     },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
-        { url: "/icon.png", type: "image/png", sizes: "512x512" },
+        { url: "/icon.svg", type: "image/svg+xml" },
       ],
       apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
       shortcut: ["/favicon.ico"],

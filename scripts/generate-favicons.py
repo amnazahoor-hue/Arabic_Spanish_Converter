@@ -1,14 +1,17 @@
-"""Generate crisp favicons from public/images/logo.webp (square brand mark on teal)."""
+"""Generate lightweight favicons: SVG site icon, compressed ICO, small Apple PNG."""
 
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 from PIL import Image, ImageEnhance, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "public" / "images" / "logo.webp"
+ICON_SVG = ROOT / "src" / "app" / "icon.svg"
 BRAND_BG = (18, 63, 63)  # #123f3f — matches site footer teal
+MAX_APPLE_BYTES = 8 * 1024
 
 
 def content_bbox(image: Image.Image, tolerance: int = 30) -> tuple[int, int, int, int]:
@@ -48,14 +51,6 @@ def build_master(source: Image.Image, padding_ratio: float = 0.12) -> Image.Imag
     return master
 
 
-def save_png(image: Image.Image, path: Path, size: int) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    out = image.resize((size, size), Image.Resampling.LANCZOS)
-    if size <= 32:
-        out = out.filter(ImageFilter.SHARPEN)
-    out.save(path, format="PNG", optimize=True)
-
-
 def save_ico(image: Image.Image, path: Path, sizes: tuple[int, ...]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     frames = []
@@ -72,6 +67,28 @@ def save_ico(image: Image.Image, path: Path, sizes: tuple[int, ...]) -> None:
     )
 
 
+def save_apple_png(image: Image.Image, path: Path, size: int = 180) -> int:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    resized = image.resize((size, size), Image.Resampling.LANCZOS).convert("RGBA")
+    flat = Image.new("RGB", resized.size, BRAND_BG)
+    flat.paste(resized, mask=resized.split()[3])
+
+    for palette_colors in (128, 64, 32):
+        quantized = flat.quantize(colors=palette_colors, method=Image.Quantize.MEDIANCUT)
+        for compress_level in (9, 6, 3):
+            quantized.save(path, format="PNG", optimize=True, compress_level=compress_level)
+            file_size = path.stat().st_size
+            if file_size <= MAX_APPLE_BYTES:
+                return file_size
+
+    return path.stat().st_size
+
+
+def sync_icon_svg(dest: Path) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ICON_SVG, dest)
+
+
 def main() -> None:
     source = Image.open(SOURCE)
     master = build_master(source)
@@ -81,17 +98,28 @@ def main() -> None:
 
     save_ico(master, app_dir / "favicon.ico", (16, 32, 48))
     save_ico(master, public_dir / "favicon.ico", (16, 32, 48))
-    save_png(master, app_dir / "icon.png", 512)
-    save_png(master, app_dir / "apple-icon.png", 180)
-    save_png(master, public_dir / "icon.png", 512)
-    save_png(master, public_dir / "apple-icon.png", 180)
 
-    # Remove stale webp icons that were low-contrast on light tabs
-    for stale in (app_dir / "icon.webp", app_dir / "apple-icon.webp"):
+    sync_icon_svg(public_dir / "icon.svg")
+
+    apple_targets = (app_dir / "apple-icon.png", public_dir / "apple-icon.png")
+    for path in apple_targets:
+        size = save_apple_png(master, path)
+        print(f"OK {path.relative_to(ROOT)} ({size // 1024} KB)")
+
+    print(f"OK {ICON_SVG.relative_to(ROOT)} ({ICON_SVG.stat().st_size} bytes)")
+    print(f"OK {public_dir.relative_to(ROOT)}/icon.svg")
+
+    for stale in (
+        app_dir / "icon.png",
+        app_dir / "icon.webp",
+        app_dir / "apple-icon.webp",
+        public_dir / "icon.png",
+        public_dir / "icon.webp",
+        public_dir / "apple-icon.webp",
+    ):
         if stale.exists():
             stale.unlink()
-
-    print("Favicons generated:", app_dir / "favicon.ico", app_dir / "icon.png")
+            print(f"REMOVED {stale.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

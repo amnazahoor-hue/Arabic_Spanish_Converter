@@ -69,6 +69,10 @@ function socialHref(envValue: string | undefined): string {
   return url && url !== "#" ? url : "#";
 }
 
+function isRealSocialUrl(href: string): boolean {
+  return href !== "#" && /^https?:\/\//i.test(href);
+}
+
 export const FOOTER_SOCIAL = [
   { id: "x" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_X) },
   { id: "facebook" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK) },
@@ -79,6 +83,11 @@ export const FOOTER_SOCIAL = [
   { id: "quora" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_QUORA) },
   { id: "reddit" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_REDDIT) },
 ];
+
+/** Profile URLs for Organization `sameAs` JSON-LD (only configured links, never `#`). */
+export function organizationSameAs(): string[] {
+  return FOOTER_SOCIAL.map(({ href }) => href).filter(isRealSocialUrl);
+}
 
 export const FOOTER_PAGES = [
   { href: "/", label: "Traductor Árabe Español" },
