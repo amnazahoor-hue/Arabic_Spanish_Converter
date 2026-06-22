@@ -17,6 +17,7 @@ export default function DisclaimerPage() {
       description="Información jurídica sobre el uso del traductor árabe–español y los límites de la traducción automática."
       path="/disclaimer"
       sections={DISCLAIMER_SECTIONS}
+      showToc
     />
   );
 }

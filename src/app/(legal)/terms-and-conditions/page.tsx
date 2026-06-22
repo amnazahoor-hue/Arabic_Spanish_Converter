@@ -17,6 +17,7 @@ export default function TermsPage() {
       description="Normas de uso del sitio web y la herramienta de traducción de Traductor Árabe Español."
       path="/terms-and-conditions"
       sections={TERMS_SECTIONS}
+      showToc
     />
   );
 }

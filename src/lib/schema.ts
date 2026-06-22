@@ -74,18 +74,6 @@ export function organizationSchema() {
   };
 }
 
-export function webSiteSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_CONFIG.name,
-    url: getSiteOrigin(),
-    description: SITE_CONFIG.description,
-    inLanguage: ["es", "ar"],
-    publisher: publisherReference(),
-  };
-}
-
 export function webPageSchema({
   name,
   description,
@@ -216,7 +204,6 @@ export function homePageSchemas() {
   return [
     breadcrumbSchema([{ name: "Inicio", path: "/" }]),
     organizationSchema(),
-    webSiteSchema(),
     webPageSchema({
       name: "Traductor Árabe Español",
       description: SITE_CONFIG.description,

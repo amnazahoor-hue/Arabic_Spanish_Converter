@@ -73,7 +73,7 @@ export function Footer() {
               <Sparkles className="h-4 w-4" strokeWidth={1.75} aria-hidden />
               Gratis · Instantáneo · Bidireccional
             </p>
-            <h2 className="type-h3-card text-footer-heading">¿Listo Para Traducir?</h2>
+            <p className="type-h3-card text-footer-heading">¿Listo Para Traducir?</p>
             <p className="type-small text-footer-text/90">
               Abre el traductor y cambia entre árabe y español con un clic — no necesitas cuenta.
             </p>

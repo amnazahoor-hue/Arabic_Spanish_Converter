@@ -2,7 +2,6 @@ import type { IconType } from "react-icons";
 import {
   FaFacebook,
   FaInstagram,
-  FaLinkedin,
   FaPinterest,
   FaQuora,
   FaReddit,
@@ -14,7 +13,6 @@ export type SocialBrandId =
   | "x"
   | "facebook"
   | "instagram"
-  | "linkedin"
   | "youtube"
   | "pinterest"
   | "quora"
@@ -42,11 +40,6 @@ export const SOCIAL_BRAND_ICONS: Record<
     Icon: FaInstagram,
     label: "Síguenos en Instagram",
     brandColor: "#E4405F",
-  },
-  linkedin: {
-    Icon: FaLinkedin,
-    label: "Síguenos en LinkedIn",
-    brandColor: "#0A66C2",
   },
   youtube: {
     Icon: FaYoutube,

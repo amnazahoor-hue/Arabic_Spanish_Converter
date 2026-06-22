@@ -5,9 +5,8 @@ import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
 import { LazyBackgroundLayer } from "@/components/media/LazyBackgroundLayer";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
-import { Section } from "@/components/ui/Section";
 import { SITE_IMAGES } from "@/content/site-images";
-import { SECTION_IDS } from "@/lib/constants";
+import { PAGE_CONTAINER_CLASS, SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { AlertTriangle, ArrowRight, Hand, HeartPulse, ShoppingCart } from "lucide-react";
@@ -90,10 +89,13 @@ export function CommonPhrases() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <Section
+    <section
       id={SECTION_IDS.commonPhrases}
-      tone="surface"
-      className="overflow-hidden"
+      className={cn(
+        "relative isolate overflow-hidden bg-section-surface",
+        "scroll-mt-[calc(var(--header-height)+0.75rem)]",
+        "pt-10 pb-12 md:pt-14 md:pb-18",
+      )}
       data-common-phrases-section
     >
       <AccessibleImageMeta
@@ -105,7 +107,7 @@ export function CommonPhrases() {
         src="/common-phrases-bg.webp"
         className="common-phrases-section-bg pointer-events-none absolute inset-0"
       />
-      <div className="relative">
+      <div className={cn(PAGE_CONTAINER_CLASS, "common-phrases-section__content relative")}>
         <motion.header
           className="mx-auto mb-8 max-w-3xl lg:mb-10"
           initial={reduceMotion ? {} : { opacity: 0, y: 18 }}
@@ -145,6 +147,6 @@ export function CommonPhrases() {
           </Button>
         </motion.div>
       </div>
-    </Section>
+    </section>
   );
 }

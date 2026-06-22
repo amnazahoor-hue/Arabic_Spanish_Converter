@@ -77,7 +77,6 @@ export const FOOTER_SOCIAL = [
   { id: "x" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_X) },
   { id: "facebook" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK) },
   { id: "instagram" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM) },
-  { id: "linkedin" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN) },
   { id: "youtube" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_YOUTUBE) },
   { id: "pinterest" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_PINTEREST) },
   { id: "quora" as const, href: socialHref(process.env.NEXT_PUBLIC_SOCIAL_QUORA) },

@@ -19,6 +19,7 @@ export default function AboutPage() {
       docLabel="Información institucional"
       pageSchemaType="AboutPage"
       sections={ABOUT_SECTIONS}
+      showToc
     />
   );
 }

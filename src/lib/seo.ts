@@ -14,7 +14,6 @@ export {
   organizationSchema,
   translatorWebApplicationSchema,
   webPageSchema,
-  webSiteSchema,
 } from "@/lib/schema";
 
 type PageSeo = {

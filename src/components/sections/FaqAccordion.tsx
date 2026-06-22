@@ -116,9 +116,9 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                 <span className="mb-2 block type-small font-medium tabular-nums text-muted">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="block text-[0.9375rem] font-semibold leading-snug md:text-base">
+                <h3 className="m-0 block text-[0.9375rem] font-semibold leading-snug md:text-base">
                   {item.question}
-                </span>
+                </h3>
               </span>
               <span className="mt-2 h-5 w-5 shrink-0" />
             </div>
@@ -174,7 +174,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                   : "border-border/80 bg-surface/95 shadow-sm hover:border-primary/25 hover:shadow-card",
               )}
             >
-              <h4 className="m-0">
+              <h3 className="m-0">
                 <button
                   id={buttonId}
                   type="button"
@@ -220,7 +220,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                     aria-hidden
                   />
                 </button>
-              </h4>
+              </h3>
 
               <div
                 id={panelId}

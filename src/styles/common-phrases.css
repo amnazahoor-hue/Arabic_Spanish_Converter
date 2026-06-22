@@ -8,6 +8,8 @@
 
 [data-common-phrases-section] .common-phrases-section-bg {
   z-index: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -46,7 +48,7 @@
     );
 }
 
-[data-common-phrases-section] > div {
+[data-common-phrases-section] .common-phrases-section__content {
   position: relative;
   z-index: 2;
 }

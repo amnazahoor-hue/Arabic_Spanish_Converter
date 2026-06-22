@@ -1,6 +1,8 @@
 import "@/styles/legal-document.css";
+import { LegalTableOfContents } from "@/components/legal/LegalTableOfContents";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { HEADER_CONTAINER_CLASS, SITE_CONFIG } from "@/lib/constants";
+import { buildLegalSectionIds } from "@/lib/legal-section-id";
 import { legalPageSchemas } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import { FileText } from "lucide-react";
@@ -20,6 +22,8 @@ type LegalPageProps = {
   /** Rendered directly below the page header (e.g. contact form). */
   topChildren?: React.ReactNode;
   children?: React.ReactNode;
+  /** Jump-link table of contents for long documents (about, privacy, etc.). */
+  showToc?: boolean;
 };
 
 export function LegalPage({
@@ -31,7 +35,15 @@ export function LegalPage({
   pageSchemaType = "WebPage",
   topChildren,
   children,
+  showToc = false,
 }: LegalPageProps) {
+  const sectionIds = buildLegalSectionIds(sections);
+  const tocItems = sections.map((section, index) => ({
+    id: sectionIds[index],
+    label: section.heading,
+    index,
+  }));
+
   return (
     <article data-legal-document className="py-12 md:py-16 lg:py-20">
       <JsonLd
@@ -59,13 +71,19 @@ export function LegalPage({
             <p className="legal-document-intro">{description}</p>
           </header>
 
+          {showToc ? <LegalTableOfContents items={tocItems} /> : null}
+
           {topChildren ? (
             <div className="legal-document-contact-top">{topChildren}</div>
           ) : null}
 
           <div className="legal-document-body">
             {sections.map((section, index) => (
-              <section key={section.heading} className="legal-document-section">
+              <section
+                key={section.heading}
+                id={sectionIds[index]}
+                className="legal-document-section scroll-mt-[calc(var(--header-height)+0.75rem)]"
+              >
                 <h2 className="legal-document-section__heading">
                   <span className="legal-document-section__num">
                     {String(index + 1).padStart(2, "0")}.

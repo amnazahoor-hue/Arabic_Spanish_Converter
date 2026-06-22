@@ -18,6 +18,7 @@ export default function PrivacyPolicyPage() {
       path="/privacy-policy"
       docLabel="Política de privacidad"
       sections={PRIVACY_SECTIONS}
+      showToc
     />
   );
 }
