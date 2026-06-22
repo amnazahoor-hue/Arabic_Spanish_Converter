@@ -1,8 +1,8 @@
+import { ensureUnicodeSiteUrls } from "@/lib/siteUrl";
+
 type JsonLdProps = {
   data: Record<string, unknown> | Record<string, unknown>[];
 };
-
-import { ensureUnicodeSiteUrls } from "@/lib/siteUrl";
 
 export function JsonLd({ data }: JsonLdProps) {
   const payload = Array.isArray(data) ? data : [data];

@@ -27,14 +27,6 @@ type PageSeo = {
   index?: boolean;
 };
 
-function resolveMetadataBase(): URL {
-  try {
-    return new URL(getSiteOrigin());
-  } catch {
-    return new URL("https://example.com");
-  }
-}
-
 export function buildMetadata({
   title,
   description,
@@ -42,11 +34,11 @@ export function buildMetadata({
   noIndex = false,
   index = true,
 }: PageSeo): Metadata {
-  const metadataBase = resolveMetadataBase();
   const url = absoluteSiteUrl(path);
+  const siteOrigin = getSiteOrigin();
 
   return {
-    metadataBase,
+    metadataBase: siteOrigin,
     title,
     description,
     alternates: {

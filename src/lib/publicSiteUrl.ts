@@ -1,5 +1,5 @@
 import { SITE_CONFIG } from "@/lib/constants";
-import { toUnicodeOrigin } from "@/lib/siteUrl";
+import { absoluteSiteUrl, getSiteOrigin } from "@/lib/siteUrl";
 
 function isLocalOrPrivateHost(hostname: string): boolean {
   const h = hostname.toLowerCase();
@@ -22,7 +22,7 @@ function originFromUrlString(raw: string): string | null {
     const normalized = raw.startsWith("http") ? raw : `https://${raw}`;
     const { hostname } = new URL(normalized);
     if (isLocalOrPrivateHost(hostname) || isPlaceholderHost(hostname)) return null;
-    return toUnicodeOrigin(normalized);
+    return getSiteOrigin();
   } catch {
     return null;
   }
@@ -36,9 +36,12 @@ export function getPublicSiteUrl(): string | null {
   }
 
   if (typeof window !== "undefined") {
-    return originFromUrlString(window.location.origin);
+    const fromWindow = originFromUrlString(window.location.origin);
+    if (fromWindow) return fromWindow;
+    if (isLocalOrPrivateHost(window.location.hostname)) {
+      return window.location.origin;
+    }
   }
 
-  const fallback = originFromUrlString(SITE_CONFIG.url);
-  return fallback;
+  return absoluteSiteUrl("/").replace(/\/$/, "");
 }

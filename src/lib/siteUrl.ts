@@ -1,6 +1,6 @@
-import { domainToUnicode } from "node:url";
-
 export const CANONICAL_SITE_ORIGIN = "https://traductorarabeespañol.es";
+const CANONICAL_HOST = "traductorarabeespañol.es";
+const CANONICAL_HOST_PUNYCODE = "xn--traductorarabeespaol-l7b.es";
 
 function isLocalOrPrivateHost(hostname: string): boolean {
   const host = hostname.toLowerCase();
@@ -13,38 +13,26 @@ function isLocalOrPrivateHost(hostname: string): boolean {
   return false;
 }
 
-/** Public site origin with Unicode hostname (never punycode/xn--). */
-export function getSiteOrigin(raw?: string): string {
-  const input = (raw ?? process.env.NEXT_PUBLIC_SITE_URL ?? CANONICAL_SITE_ORIGIN).trim();
-  const withProtocol = /^https?:\/\//i.test(input) ? input : `https://${input}`;
+/** Public site origin — always Unicode hostname on production (never xn-- punycode). */
+export function getSiteOrigin(): string {
+  const env = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 
-  try {
-    const parsed = new URL(withProtocol);
-
-    if (isLocalOrPrivateHost(parsed.hostname)) {
-      return `${parsed.protocol}//${parsed.host}`;
+  if (env) {
+    try {
+      const withProtocol = /^https?:\/\//i.test(env) ? env : `https://${env}`;
+      const { hostname, protocol, host } = new URL(withProtocol);
+      if (isLocalOrPrivateHost(hostname)) {
+        return `${protocol}//${host}`;
+      }
+    } catch {
+      // fall through to canonical
     }
-
-    return CANONICAL_SITE_ORIGIN;
-  } catch {
-    return CANONICAL_SITE_ORIGIN;
   }
+
+  return CANONICAL_SITE_ORIGIN;
 }
 
-/** Decode punycode hostnames when building URLs from arbitrary input. */
-export function toUnicodeOrigin(raw: string): string {
-  const withProtocol = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
-
-  try {
-    const parsed = new URL(withProtocol);
-    const unicodeHost = domainToUnicode(parsed.hostname);
-    return `${parsed.protocol}//${unicodeHost}`;
-  } catch {
-    return CANONICAL_SITE_ORIGIN;
-  }
-}
-
-/** Absolute URL for SEO/schema output — preserves ñ in the hostname. */
+/** Absolute URL for SEO/schema — string concat only (never URL.href). */
 export function absoluteSiteUrl(path = ""): string {
   const origin = getSiteOrigin();
 
@@ -54,4 +42,11 @@ export function absoluteSiteUrl(path = ""): string {
 
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   return `${origin}${normalizedPath}`;
+}
+
+/** Force Unicode marketing domain in serialized JSON-LD / HTML output. */
+export function ensureUnicodeSiteUrls(value: string): string {
+  return value
+    .replaceAll(`https://${CANONICAL_HOST_PUNYCODE}`, `https://${CANONICAL_HOST}`)
+    .replaceAll(`http://${CANONICAL_HOST_PUNYCODE}`, `http://${CANONICAL_HOST}`);
 }
