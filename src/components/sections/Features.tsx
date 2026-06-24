@@ -3,11 +3,14 @@
 import "@/styles/features-infographic.css";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
+import { MARROQUI_PAGE_PATH } from "@/content/marroqui-page";
 import { PAGE_CONTAINER_CLASS, SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Globe2, Languages, Mic, RefreshCw, Sparkles } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 type FeatureAccent = "primary" | "hover" | "secondary" | "terracotta" | "accent";
 
@@ -15,10 +18,13 @@ type FeatureTheme = {
   accent: FeatureAccent;
   lightVisual?: boolean;
   title: string;
-  description: string;
+  description: ReactNode;
   bullets?: readonly string[];
   Icon: LucideIcon;
 };
+
+const contentLinkClass =
+  "interactive-link font-semibold text-link no-underline hover:text-link-hover";
 
 const featureThemes: readonly FeatureTheme[] = [
   {
@@ -31,8 +37,15 @@ const featureThemes: readonly FeatureTheme[] = [
   {
     accent: "hover",
     title: "Dialectos Árabes",
-    description:
-      "Dominamos el árabe estándar moderno y dialectos como Darija Marroquí, Árabe Del Golfo y Árabe Levantino.",
+    description: (
+      <>
+        Dominamos el árabe estándar moderno y dialectos como{" "}
+        <Link href={MARROQUI_PAGE_PATH} className={contentLinkClass}>
+          Darija Marroquí
+        </Link>
+        , Árabe Del Golfo y Árabe Levantino.
+      </>
+    ),
     Icon: Globe2,
   },
   {

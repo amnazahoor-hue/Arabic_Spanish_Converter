@@ -3,9 +3,14 @@
 import "@/styles/arabic-dialects.css";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
+import { MARROQUI_PAGE_PATH } from "@/content/marroqui-page";
 import { SECTION_IDS } from "@/lib/constants";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, BookOpen, Building2, MapPin, MessagesSquare } from "lucide-react";
+import Link from "next/link";
+
+const dialectLinkClass =
+  "interactive-link text-inherit no-underline hover:text-link focus-visible:text-link";
 
 const dialects = [
   {
@@ -18,6 +23,7 @@ const dialects = [
   },
   {
     title: "Darija Marroquí",
+    href: MARROQUI_PAGE_PATH,
     description:
       "Un dialecto de Marruecos influenciado por bereber o francés. Es diferente de la MSA y suena más rápido.",
     Icon: MapPin,
@@ -41,6 +47,28 @@ const dialects = [
     arabic: "الشام",
   },
 ] as const;
+
+function DialectTitle({
+  title,
+  href,
+  className,
+}: {
+  title: string;
+  href?: string;
+  className: string;
+}) {
+  return (
+    <h3 className={className}>
+      {href ? (
+        <Link href={href} className={dialectLinkClass}>
+          {title}
+        </Link>
+      ) : (
+        title
+      )}
+    </h3>
+  );
+}
 
 function DialectCollage({ reduceMotion }: { reduceMotion: boolean }) {
   const [msa, darija, gulf, levant] = dialects;
@@ -193,7 +221,11 @@ export function ArabicDialects() {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="dialects-about__item-body">
-                    <h3 className="dialects-about__item-title">{dialect.title}</h3>
+                    <DialectTitle
+                      title={dialect.title}
+                      href={"href" in dialect ? dialect.href : undefined}
+                      className="dialects-about__item-title"
+                    />
                     <p className="dialects-about__item-text">{dialect.description}</p>
                   </div>
                 </motion.article>
