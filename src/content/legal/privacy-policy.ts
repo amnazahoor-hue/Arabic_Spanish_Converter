@@ -73,14 +73,14 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
   {
     heading: "Modificaciones de esta política",
     paragraphs: [
-      "Actualizaremos esta Política cuando incorporemos nuevas herramientas de medición, cambiemos de proveedor de traducción, modifiquemos el formulario de contacto o respondamos a requisitos legales (por ejemplo, el Reglamento de Servicios Digitales). La versión vigente se publicará en /privacy-policy con la fecha indicada en la cabecera (Mayo 2026).",
+      "Actualizaremos esta Política cuando incorporemos nuevas herramientas de medición, cambiemos de proveedor de traducción, modifiquemos el formulario de contacto o respondamos a requisitos legales (por ejemplo, el Reglamento de Servicios Digitales). La versión vigente se publicará en la página de política de privacidad con la fecha indicada en la cabecera (Mayo 2026).",
       "Si los cambios son sustanciales y afectan al consentimiento previamente otorgado, le solicitaremos de nuevo su elección de cookies o le informaremos mediante medios visibles en el Sitio.",
     ],
   },
   {
     heading: "Contacto",
     paragraphs: [
-      "Para ejercer derechos de protección de datos, solicitar información sobre encargados del tratamiento (alojamiento, traducción, correo transaccional, analítica) o para cualquier consulta sobre esta Política, utilice el formulario en /contact con el asunto «Privacidad» o «Protección de datos».",
+      "Para ejercer derechos de protección de datos, solicitar información sobre encargados del tratamiento (alojamiento, traducción, correo transaccional, analítica) o para cualquier consulta sobre esta Política, utilice el formulario de contacto con el asunto «Privacidad» o «Protección de datos».",
       "Incluya la información suficiente para identificar su solicitud sin exponer más datos sensibles de los necesarios. Responderemos en español o inglés según proceda; puede utilizar nuestro traductor como apoyo orientativo para términos jurídicos en árabe o inglés, entendiendo que no constituye asesoramiento legal.",
     ],
   },

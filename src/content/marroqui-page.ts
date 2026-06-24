@@ -2,6 +2,11 @@ import type { FaqCategory } from "@/content/faq";
 
 export const MARROQUI_PAGE_PATH = "/traductor-marroqui-espanol";
 
+export const MARROQUI_PAGE_TITLE = "Traductor Marroquí Español: Pruébalo Gratis En Línea";
+export const MARROQUI_PAGE_DESCRIPTION =
+  "Obtenga una traducción precisa de nuestro traductor marroquí español. Le ayuda a conectar y a comunicarte eficazmente.";
+export const MARROQUI_PAGE_HERO_ACCENT = "Pruébalo Gratis En Línea";
+
 export const MARROQUI_SECTION_IDS = {
   translator: "translator",
   darija: "darija",

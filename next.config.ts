@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { LEGACY_ROUTE_REDIRECTS } from "./src/lib/routes";
 
 const nextConfig: NextConfig = {
   compiler: {
@@ -20,12 +21,20 @@ const nextConfig: NextConfig = {
       "xn--traductorarabeespaol-l7b.es",
     ];
 
-    return aliasHosts.map((host) => ({
+    const hostRedirects = aliasHosts.map((host) => ({
       source: "/:path*",
-      has: [{ type: "host", value: host }],
+      has: [{ type: "host" as const, value: host }],
       destination: `${canonical}/:path*`,
       permanent: true,
     }));
+
+    const slugRedirects = LEGACY_ROUTE_REDIRECTS.map(({ source, destination }) => ({
+      source,
+      destination,
+      permanent: true,
+    }));
+
+    return [...hostRedirects, ...slugRedirects];
   },
   async headers() {
     return [

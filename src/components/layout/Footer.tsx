@@ -163,7 +163,7 @@ export function Footer() {
             </ul>
           </FooterColumn>
 
-          <FooterColumn title="Legal" className="lg:col-span-2">
+          <FooterColumn title="Información legal" className="lg:col-span-2">
             <ul className="space-y-2.5 type-small">
               {FOOTER_LEGAL.map((item) => (
                 <li key={item.href}>

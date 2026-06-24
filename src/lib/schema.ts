@@ -1,6 +1,7 @@
 import { AUTHOR_PROFILE } from "@/content/legal/author";
+import { SITE_ROUTES } from "@/lib/routes";
 import { FAQ_ITEMS } from "@/content/faq";
-import { MARROQUI_FAQ_ITEMS, MARROQUI_PAGE_PATH } from "@/content/marroqui-page";
+import { MARROQUI_FAQ_ITEMS, MARROQUI_PAGE_DESCRIPTION, MARROQUI_PAGE_PATH, MARROQUI_PAGE_TITLE } from "@/content/marroqui-page";
 import { SITE_CONFIG, organizationSameAs } from "@/lib/constants";
 import { schemaSiteUrl } from "@/lib/siteUrl";
 
@@ -162,14 +163,14 @@ export function authorPageSchemas() {
   return [
     breadcrumbSchema([
       { name: "Inicio", path: "/" },
-      { name: "Autora", path: "/author" },
+      { name: "Autora", path: SITE_ROUTES.author },
     ]),
     {
       "@context": "https://schema.org",
       "@type": "ProfilePage",
       name: `${name} — Autora`,
       description: bio,
-      url: schemaSiteUrl("/author"),
+      url: schemaSiteUrl(SITE_ROUTES.author),
       inLanguage: "es",
       mainEntity: {
         "@type": "Person",
@@ -219,23 +220,19 @@ export function homePageSchemas() {
 }
 
 export function marroquiPageSchemas() {
-  const title = "Traductor Marroquí Español";
-  const description =
-    "Obtenga una traducción precisa de nuestro traductor marroquí español. Le ayuda a conectar y a comunicarte eficazmente.";
-
   return [
     breadcrumbSchema([
       { name: "Inicio", path: "/" },
-      { name: title, path: MARROQUI_PAGE_PATH },
+      { name: MARROQUI_PAGE_TITLE, path: MARROQUI_PAGE_PATH },
     ]),
     webPageSchema({
-      name: title,
-      description,
+      name: MARROQUI_PAGE_TITLE,
+      description: MARROQUI_PAGE_DESCRIPTION,
       path: MARROQUI_PAGE_PATH,
     }),
     translatorWebApplicationSchema({
-      name: title,
-      description,
+      name: MARROQUI_PAGE_TITLE,
+      description: MARROQUI_PAGE_DESCRIPTION,
       path: MARROQUI_PAGE_PATH,
       languages: ["ar-MA", "es"],
     }),

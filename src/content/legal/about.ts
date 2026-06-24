@@ -38,7 +38,7 @@ export const ABOUT_SECTIONS: LegalSection[] = [
     heading: "Cómo sostenemos el proyecto",
     paragraphs: [
       "El acceso gratuito se financia con publicidad responsable y, eventualmente, enlaces de afiliación a materiales de estudio de árabe o español, siempre informados cuando exista una relación comercial. No vendemos contenido de traducciones ni perfiles de usuarios.",
-      "Las mejoras previstas en la hoja de ruta (mejor soporte de dialectos, glosarios comunitarios, modo de lectura lenta para aprendices) se anunciarán en esta página y en una sección de noticias cuando esté disponible. Los comentarios constructivos a través de /contact son bienvenidos, especialmente si detecta traducciones sistemáticamente incorrectas en un dominio concreto (por ejemplo, términos eléctricos o agrícolas).",
+      "Las mejoras previstas en la hoja de ruta (mejor soporte de dialectos, glosarios comunitarios, modo de lectura lenta para aprendices) se anunciarán en esta página y en una sección de noticias cuando esté disponible. Los comentarios constructivos a través del formulario de contacto son bienvenidos, especialmente si detecta traducciones sistemáticamente incorrectas en un dominio concreto (por ejemplo, términos eléctricos o agrícolas).",
     ],
   },
   {

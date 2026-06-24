@@ -1,4 +1,5 @@
 import { AUTHOR_PROFILE, AUTHOR_SECTIONS } from "@/content/legal/author";
+import { SITE_ROUTES } from "@/lib/routes";
 import { PAGE_CONTAINER_CLASS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { GraduationCap, Languages, MapPin, Sparkles, Timer } from "lucide-react";
@@ -102,7 +103,7 @@ export function AuthorPageContent() {
         </p>
 
         <Link
-          href="/contact"
+          href={SITE_ROUTES.contact}
           className="type-body interactive-link mt-4 inline-flex text-link hover:text-link-hover"
         >
           Contactar al equipo →

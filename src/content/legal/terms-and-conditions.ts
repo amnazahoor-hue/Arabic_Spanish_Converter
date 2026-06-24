@@ -61,7 +61,7 @@ export const TERMS_SECTIONS: LegalSection[] = [
   {
     heading: "Modificaciones",
     paragraphs: [
-      "Nos reservamos el derecho de modificar estos Términos, las funcionalidades del traductor, los límites de uso o los modelos de monetización (publicidad, donaciones, futuros planes de pago) publicando la versión actualizada en /terms-and-conditions.",
+      "Nos reservamos el derecho de modificar estos Términos, las funcionalidades del traductor, los límites de uso o los modelos de monetización (publicidad, donaciones, futuros planes de pago) publicando la versión actualizada en la página de términos y condiciones.",
       "Si los cambios son sustanciales, proporcionaremos un aviso visible en el Sitio. El uso continuado tras la entrada en vigor de la nueva versión implica aceptación, sin perjuicio de sus derechos como consumidor cuando resulte aplicable la legislación de protección de usuarios.",
     ],
   },
@@ -81,7 +81,7 @@ export const TERMS_SECTIONS: LegalSection[] = [
   {
     heading: "Contacto",
     paragraphs: [
-      "Para consultas sobre estos Términos, solicitudes de uso empresarial de la API o denuncias de abuso, utilice /contact con el asunto «Términos y condiciones». Procuraremos responder en un plazo razonable en español o inglés.",
+      "Para consultas sobre estos Términos, solicitudes de uso empresarial de la API o denuncias de abuso, utilice el formulario de contacto con el asunto «Términos y condiciones». Procuraremos responder en un plazo razonable en español o inglés.",
       "Antes de iniciar procedimientos judiciales, le invitamos a contactarnos de buena fe para buscar una solución amistosa, especialmente en controversias sobre restricciones de acceso por uso automatizado indebido.",
     ],
   },

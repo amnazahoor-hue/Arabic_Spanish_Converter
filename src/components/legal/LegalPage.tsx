@@ -1,11 +1,13 @@
 import "@/styles/legal-document.css";
 import { LegalTableOfContents } from "@/components/legal/LegalTableOfContents";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { HEADER_CONTAINER_CLASS, SITE_CONFIG } from "@/lib/constants";
+import { HEADER_CONTAINER_CLASS, FOOTER_LEGAL, SITE_CONFIG } from "@/lib/constants";
+import { SITE_ROUTES } from "@/lib/routes";
 import { buildLegalSectionIds } from "@/lib/legal-section-id";
 import { legalPageSchemas } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import { FileText } from "lucide-react";
+import Link from "next/link";
 
 export type LegalSection = {
   heading: string;
@@ -101,8 +103,25 @@ export function LegalPage({
           </div>
 
           <footer className="legal-document-footer">
-            Este documento forma parte de la información legal de {SITE_CONFIG.name}. Para
-            consultas, utilice la página de contacto.
+            <p>
+              Este documento forma parte de la información legal de {SITE_CONFIG.name}. Para
+              consultas, utilice la{" "}
+              <Link href={SITE_ROUTES.contact} className="legal-document-footer__link">
+                página de contacto
+              </Link>
+              .
+            </p>
+            <nav className="legal-document-footer__nav" aria-label="Documentos legales relacionados">
+              <ul className="legal-document-footer__list">
+                {FOOTER_LEGAL.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="legal-document-footer__link">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </footer>
         </div>
       </div>

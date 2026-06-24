@@ -12,6 +12,8 @@ import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import {
   MARROQUI_FAQ_ITEMS,
+  MARROQUI_PAGE_DESCRIPTION,
+  MARROQUI_PAGE_HERO_ACCENT,
   MARROQUI_SECTION_IDS,
 } from "@/content/marroqui-page";
 import { HERO_CONTAINER_CLASS } from "@/lib/constants";
@@ -47,12 +49,11 @@ export function MarroquiLanding() {
               <h1 className="type-h1-hero text-balance text-white">
                 Traductor Marroquí Español:{" "}
                 <span className="heading-accent heading-accent--on-dark">
-                  Llena La Brecha Lingüística Al Instante
+                  {MARROQUI_PAGE_HERO_ACCENT}
                 </span>
               </h1>
               <p className="marroqui-hero__lead hero-lead type-body mx-auto mt-4 max-w-xl text-pretty lg:mx-0">
-                Nuestro traductor descifra una conversación de mercado en Marrakech. Además, te
-                conecta directamente con la rica cultura marroquí. ¡Solo escribe y traduce ahora!
+                {MARROQUI_PAGE_DESCRIPTION}
               </p>
               <div className="marroqui-hero__cta mt-6 flex justify-center lg:justify-start">
                 <Button href={`#${MARROQUI_SECTION_IDS.translator}-panel`} size="lg" className="bg-secondary hover:bg-accent">

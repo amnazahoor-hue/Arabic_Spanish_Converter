@@ -257,6 +257,31 @@
   text-align: center;
 }
 
+[data-legal-document] .legal-document-footer__link {
+  color: var(--color-link);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+[data-legal-document] .legal-document-footer__link:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+}
+
+[data-legal-document] .legal-document-footer__nav {
+  margin-top: 1rem;
+}
+
+[data-legal-document] .legal-document-footer__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 @media (min-width: 768px) {
   [data-legal-document] .legal-document-header,
   [data-legal-document] .legal-document-toc,

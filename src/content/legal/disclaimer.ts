@@ -70,7 +70,7 @@ export const DISCLAIMER_SECTIONS: LegalSection[] = [
   {
     heading: "Contacto",
     paragraphs: [
-      "Para consultas sobre este Aviso Legal, para informar de enlaces defectuosos o para preguntar sobre el alcance de la traducción automática frente a servicios profesionales, escríbanos mediante el formulario de contacto del Sitio (ruta /contact). Indique en el asunto «Aviso legal» para facilitar la clasificación de su mensaje.",
+      "Para consultas sobre este Aviso Legal, para informar de enlaces defectuosos o para preguntar sobre el alcance de la traducción automática frente a servicios profesionales, escríbanos mediante el formulario de contacto del Sitio. Indique en el asunto «Aviso legal» para facilitar la clasificación de su mensaje.",
       "Responderemos en un plazo razonable. El español es el idioma principal de este aviso y de la correspondencia de gestión del proyecto; los usuarios hispanohablantes y arabófonos en España y América Latina pueden escribir en cualquiera de esos idiomas. Puede utilizar nuestro traductor como apoyo orientativo para comprender este documento, pero en situaciones con consecuencias jurídicas recomendamos asistencia humana bilingüe o traducción jurada de cualquier texto que deba presentar ante las autoridades.",
     ],
   },

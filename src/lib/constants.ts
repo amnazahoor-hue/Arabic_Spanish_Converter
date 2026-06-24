@@ -1,4 +1,5 @@
 import { CANONICAL_SITE_ORIGIN } from "@/lib/siteUrl";
+import { SITE_ROUTES } from "@/lib/routes";
 
 export const SITE_CONFIG = {
   name: "Traductor Árabe Español",
@@ -58,10 +59,10 @@ export const SECTION_IDS = {
 } as const;
 
 export const NAV_HEADER_LINKS = [
-  { href: "/traductor-marroqui-espanol", label: "Traductor Marroquí Español" },
-  { href: "/about", label: "Sobre Nosotros" },
-  { href: "/contact", label: "Contáctanos" },
-  { href: "/privacy-policy", label: "Política De Privacidad" },
+  { href: SITE_ROUTES.marroqui, label: "Traductor Marroquí Español" },
+  { href: SITE_ROUTES.about, label: "Sobre nosotros" },
+  { href: SITE_ROUTES.contact, label: "Contáctanos" },
+  { href: SITE_ROUTES.privacy, label: "Política de privacidad" },
 ] as const;
 
 function socialHref(envValue: string | undefined): string {
@@ -89,20 +90,20 @@ export function organizationSameAs(): string[] {
 }
 
 export const FOOTER_PAGES = [
-  { href: "/", label: "Traductor Árabe Español" },
-  { href: "/traductor-marroqui-espanol", label: "Traductor Marroquí Español" },
+  { href: SITE_ROUTES.home, label: "Traductor Árabe Español" },
+  { href: SITE_ROUTES.marroqui, label: "Traductor Marroquí Español" },
 ] as const;
 
 export const FOOTER_LEGAL = [
-  { href: "/privacy-policy", label: "Política De Privacidad" },
-  { href: "/terms-and-conditions", label: "Términos Y Condiciones" },
-  { href: "/disclaimer", label: "Aviso Legal" },
+  { href: SITE_ROUTES.privacy, label: "Política de privacidad" },
+  { href: SITE_ROUTES.terms, label: "Términos y condiciones" },
+  { href: SITE_ROUTES.disclaimer, label: "Aviso legal" },
 ] as const;
 
 export const FOOTER_INFO = [
-  { href: "/contact", label: "Contáctanos" },
-  { href: "/about", label: "Sobre Nosotros" },
-  { href: "/author", label: "Autor" },
+  { href: SITE_ROUTES.contact, label: "Contáctanos" },
+  { href: SITE_ROUTES.about, label: "Sobre nosotros" },
+  { href: SITE_ROUTES.author, label: "Autor" },
 ] as const;
 
 /** Single official external resource (government / public institution). */
