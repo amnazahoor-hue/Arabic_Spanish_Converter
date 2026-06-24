@@ -1,7 +1,7 @@
-export const CANONICAL_SITE_ORIGIN = "https://traductorarabeespanol.es";
-export const CANONICAL_HOST = "traductorarabeespanol.es";
+export const CANONICAL_SITE_ORIGIN = "https://traductorarabeespañol.es";
+export const CANONICAL_HOST = "traductorarabeespañol.es";
 const CANONICAL_HOST_PUNYCODE = "xn--traductorarabeespaol-l7b.es";
-const LEGACY_UNICODE_HOST = "traductorarabeespañol.es";
+const ASCII_HOST_WITHOUT_N = "traductorarabeespanol.es";
 const VERCEL_DEPLOYMENT_HOST = "arabic-spanish-converter.vercel.app";
 
 function isLocalOrPrivateHost(hostname: string): boolean {
@@ -50,9 +50,9 @@ export function absoluteSiteUrl(path = ""): string {
 export function ensureUnicodeSiteUrls(value: string): string {
   const aliases = [
     CANONICAL_HOST_PUNYCODE,
-    LEGACY_UNICODE_HOST,
+    ASCII_HOST_WITHOUT_N,
     `www.${CANONICAL_HOST}`,
-    `www.${LEGACY_UNICODE_HOST}`,
+    `www.${ASCII_HOST_WITHOUT_N}`,
     VERCEL_DEPLOYMENT_HOST,
   ];
 

@@ -12,13 +12,12 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
-    const canonical = "https://traductorarabeespanol.es";
+    const canonical = "https://traductorarabeespañol.es";
     const aliasHosts = [
-      "arabic-spanish-converter.vercel.app",
-      "www.traductorarabeespanol.es",
-      "xn--traductorarabeespaol-l7b.es",
-      "traductorarabeespañol.es",
       "www.traductorarabeespañol.es",
+      "xn--traductorarabeespaol-l7b.es",
+      "traductorarabeespanol.es",
+      "www.traductorarabeespanol.es",
     ];
 
     return aliasHosts.map((host) => ({
