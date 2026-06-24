@@ -189,19 +189,6 @@
     transform 0.22s ease;
 }
 
-[data-site-header] .site-header-nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0.25rem;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
-  transform: translateX(-50%);
-  transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 [data-site-header] .site-header-nav-link:hover {
   background: color-mix(in srgb, var(--color-footer-text) 10%, transparent);
   border-color: color-mix(in srgb, var(--color-footer-text) 12%, transparent);
@@ -210,11 +197,6 @@
 @media (prefers-reduced-motion: no-preference) {
   [data-site-header] .site-header-nav-link:hover {
     transform: translateY(-1px);
-  }
-
-  [data-site-header] .site-header-nav-link:hover::after,
-  [data-site-header] .site-header-nav-link[data-active="true"]::after {
-    width: 55%;
   }
 }
 

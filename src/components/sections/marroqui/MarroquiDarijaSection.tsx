@@ -1,14 +1,14 @@
 "use client";
 
 import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
-import { LazyBackgroundLayer } from "@/components/media/LazyBackgroundLayer";
-import { Section } from "@/components/ui/Section";
 import {
   MARROQUI_DARIJA_INFLUENCES,
   MARROQUI_DARIJA_INTRO,
   MARROQUI_SECTION_IDS,
 } from "@/content/marroqui-page";
 import { SITE_IMAGES } from "@/content/site-images";
+import { PAGE_CONTAINER_CLASS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { Globe2, Landmark, Languages, Mountain, type LucideIcon } from "lucide-react";
 import Link from "next/link";
@@ -44,10 +44,13 @@ export function MarroquiDarijaSection() {
   const motionProps = (delay = 0) => fadeUp(!!reduceMotion, delay);
 
   return (
-    <Section
+    <section
       id={MARROQUI_SECTION_IDS.darija}
-      tone="grey"
-      className="marroqui-darija-section relative overflow-hidden"
+      className={cn(
+        "marroqui-darija-section relative isolate overflow-hidden bg-section-grey",
+        "scroll-mt-[calc(var(--header-height)+0.75rem)]",
+        "pt-10 pb-12 md:pt-14 md:pb-18",
+      )}
       data-marroqui-darija-section
     >
       <AccessibleImageMeta
@@ -55,60 +58,67 @@ export function MarroquiDarijaSection() {
         meta={SITE_IMAGES.marroquiDarijaBg}
         visuallyHidden
       />
-      <LazyBackgroundLayer
-        src="/marroqui/marroqui-darija-section-bg.webp"
-        className="marroqui-darija-section-bg pointer-events-none absolute inset-0"
-      />
-      <div className="marroqui-darija">
-        <div className="marroqui-darija__layout">
-          <motion.div {...motionProps()} className="marroqui-darija__intro">
-            <div className="marroqui-darija__intro-content">
-              <h2 className="marroqui-darija__title">
-                {MARROQUI_DARIJA_INTRO.title}{" "}
-                <span className="heading-accent motion-safe:animate-[hero-shimmer_8s_ease-in-out_infinite] motion-reduce:animate-none">
-                  {MARROQUI_DARIJA_INTRO.accent}
-                </span>
-              </h2>
+      <div className="marroqui-darija-section-bg" aria-hidden>
+        <img
+          src="/marroqui/marroqui-darija-section-bg.webp"
+          alt=""
+          className="marroqui-darija-section-bg__image"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div className={cn(PAGE_CONTAINER_CLASS, "marroqui-darija-section__content relative")}>
+        <div className="marroqui-darija">
+          <div className="marroqui-darija__layout">
+            <motion.div {...motionProps()} className="marroqui-darija__intro">
+              <div className="marroqui-darija__intro-content">
+                <h2 className="marroqui-darija__title">
+                  {MARROQUI_DARIJA_INTRO.title}{" "}
+                  <span className="heading-accent motion-safe:animate-[hero-shimmer_8s_ease-in-out_infinite] motion-reduce:animate-none">
+                    {MARROQUI_DARIJA_INTRO.accent}
+                  </span>
+                </h2>
 
-              <p className="marroqui-darija__lead">{MARROQUI_DARIJA_INTRO.lead}</p>
-              <p className="marroqui-darija__body">{MARROQUI_DARIJA_INTRO.body}</p>
-              <p className="marroqui-darija__interlink">
-                Para árabe estándar moderno (MSA) y traducción general, utiliza nuestro{" "}
-                <Link
-                  href="/"
-                  className="interactive-link font-semibold text-link no-underline hover:text-link-hover"
-                >
-                  Traductor Árabe Español
-                </Link>
-                .
-              </p>
-            </div>
-          </motion.div>
-
-          <div className="marroqui-darija__cards-panel">
-            <div className="marroqui-darija__dot-grid" aria-hidden />
-            <div className="marroqui-darija__cards">
-              {MARROQUI_DARIJA_INFLUENCES.map((item, index) => {
-                const Icon = CARD_ICONS[index] ?? Languages;
-
-                return (
-                  <motion.article
-                    key={item.title}
-                    {...cardMotion(!!reduceMotion, index)}
-                    className="marroqui-darija-card"
+                <p className="marroqui-darija__lead">{MARROQUI_DARIJA_INTRO.lead}</p>
+                <p className="marroqui-darija__body">{MARROQUI_DARIJA_INTRO.body}</p>
+                <p className="marroqui-darija__interlink">
+                  Para árabe estándar moderno (MSA) y traducción general, utiliza nuestro{" "}
+                  <Link
+                    href="/"
+                    className="interactive-link font-semibold text-link no-underline hover:text-link-hover"
                   >
-                    <span className="marroqui-darija-card__icon-wrap">
-                      <Icon className="marroqui-darija-card__icon" strokeWidth={1.65} aria-hidden />
-                    </span>
-                    <h3 className="marroqui-darija-card__title">{item.title}</h3>
-                    <p className="marroqui-darija-card__text">{item.text}</p>
-                  </motion.article>
-                );
-              })}
+                    Traductor Árabe Español
+                  </Link>
+                  .
+                </p>
+              </div>
+            </motion.div>
+
+            <div className="marroqui-darija__cards-panel">
+              <div className="marroqui-darija__dot-grid" aria-hidden />
+              <div className="marroqui-darija__cards">
+                {MARROQUI_DARIJA_INFLUENCES.map((item, index) => {
+                  const Icon = CARD_ICONS[index] ?? Languages;
+
+                  return (
+                    <motion.article
+                      key={item.title}
+                      {...cardMotion(!!reduceMotion, index)}
+                      className="marroqui-darija-card"
+                    >
+                      <span className="marroqui-darija-card__icon-wrap">
+                        <Icon className="marroqui-darija-card__icon" strokeWidth={1.65} aria-hidden />
+                      </span>
+                      <h3 className="marroqui-darija-card__title">{item.title}</h3>
+                      <p className="marroqui-darija-card__text">{item.text}</p>
+                    </motion.article>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }
