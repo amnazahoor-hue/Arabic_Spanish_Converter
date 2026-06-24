@@ -2,7 +2,7 @@ import { AUTHOR_PROFILE } from "@/content/legal/author";
 import { FAQ_ITEMS } from "@/content/faq";
 import { MARROQUI_FAQ_ITEMS, MARROQUI_PAGE_PATH } from "@/content/marroqui-page";
 import { SITE_CONFIG, organizationSameAs } from "@/lib/constants";
-import { absoluteSiteUrl, CANONICAL_SITE_ORIGIN } from "@/lib/siteUrl";
+import { schemaSiteUrl } from "@/lib/siteUrl";
 
 type FaqItem = {
   question: string;
@@ -23,19 +23,14 @@ type TranslatorApplicationInput = {
   languages?: string[];
 };
 
-function schemaId(fragment: string): string {
-  return `${CANONICAL_SITE_ORIGIN}/#${fragment}`;
-}
-
 function publisherReference() {
   return {
     "@type": "Organization" as const,
-    "@id": schemaId("organization"),
     name: SITE_CONFIG.name,
-    url: CANONICAL_SITE_ORIGIN,
+    url: schemaSiteUrl("/"),
     logo: {
       "@type": "ImageObject" as const,
-      url: absoluteSiteUrl("/images/logo.webp"),
+      url: schemaSiteUrl("/images/logo.webp"),
     },
   };
 }
@@ -43,9 +38,8 @@ function publisherReference() {
 function websiteReference() {
   return {
     "@type": "WebSite" as const,
-    "@id": schemaId("website"),
     name: SITE_CONFIG.name,
-    url: CANONICAL_SITE_ORIGIN,
+    url: schemaSiteUrl("/"),
   };
 }
 
@@ -57,7 +51,7 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: absoluteSiteUrl(item.path),
+      item: schemaSiteUrl(item.path),
     })),
   };
 }
@@ -68,13 +62,12 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": schemaId("organization"),
     name: SITE_CONFIG.name,
-    url: CANONICAL_SITE_ORIGIN,
+    url: schemaSiteUrl("/"),
     description: SITE_CONFIG.description,
     logo: {
       "@type": "ImageObject",
-      url: absoluteSiteUrl("/images/logo.webp"),
+      url: schemaSiteUrl("/images/logo.webp"),
     },
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };
@@ -86,15 +79,12 @@ export function webPageSchema({
   path,
   pageType = "WebPage",
 }: WebPageSchemaInput) {
-  const url = absoluteSiteUrl(path);
-
   return {
     "@context": "https://schema.org",
     "@type": pageType,
-    "@id": url,
     name,
     description,
-    url,
+    url: schemaSiteUrl(path),
     inLanguage: "es",
     isPartOf: websiteReference(),
     publisher: publisherReference(),
@@ -110,15 +100,12 @@ export function articleSchema({
   description: string;
   path: string;
 }) {
-  const url = absoluteSiteUrl(path);
-
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    "@id": url,
     headline: title,
     description,
-    url,
+    url: schemaSiteUrl(path),
     inLanguage: "es",
     author: publisherReference(),
     publisher: publisherReference(),
@@ -147,15 +134,12 @@ export function translatorWebApplicationSchema({
   path,
   languages = ["ar", "es"],
 }: TranslatorApplicationInput) {
-  const url = absoluteSiteUrl(path);
-
   return {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "@id": url,
     name,
     description,
-    url,
+    url: schemaSiteUrl(path),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript",
@@ -183,17 +167,16 @@ export function authorPageSchemas() {
     {
       "@context": "https://schema.org",
       "@type": "ProfilePage",
-      "@id": absoluteSiteUrl("/author"),
       name: `${name} — Autora`,
       description: bio,
-      url: absoluteSiteUrl("/author"),
+      url: schemaSiteUrl("/author"),
       inLanguage: "es",
       mainEntity: {
         "@type": "Person",
         name,
         jobTitle: role,
         description: bio,
-        image: absoluteSiteUrl(imageSrc),
+        image: schemaSiteUrl(imageSrc),
         knowsAbout: [...expertise],
         ...(location
           ? {

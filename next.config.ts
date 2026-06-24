@@ -12,12 +12,12 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
-    const canonical = "https://traductorarabeespañol.es";
+    const canonical = "http://traductorarabeespanol.es";
     const aliasHosts = [
+      "www.traductorarabeespanol.es",
+      "traductorarabeespañol.es",
       "www.traductorarabeespañol.es",
       "xn--traductorarabeespaol-l7b.es",
-      "traductorarabeespanol.es",
-      "www.traductorarabeespanol.es",
     ];
 
     return aliasHosts.map((host) => ({

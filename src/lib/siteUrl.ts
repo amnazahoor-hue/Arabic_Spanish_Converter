@@ -1,7 +1,7 @@
-export const CANONICAL_SITE_ORIGIN = "https://traductorarabeespañol.es";
-export const CANONICAL_HOST = "traductorarabeespañol.es";
+export const CANONICAL_SITE_ORIGIN = "http://traductorarabeespanol.es";
+export const CANONICAL_HOST = "traductorarabeespanol.es";
+const UNICODE_HOST_WITH_N = "traductorarabeespañol.es";
 const CANONICAL_HOST_PUNYCODE = "xn--traductorarabeespaol-l7b.es";
-const ASCII_HOST_WITHOUT_N = "traductorarabeespanol.es";
 const VERCEL_DEPLOYMENT_HOST = "arabic-spanish-converter.vercel.app";
 
 function isLocalOrPrivateHost(hostname: string): boolean {
@@ -21,7 +21,7 @@ export function getSiteOrigin(): string {
 
   if (env) {
     try {
-      const withProtocol = /^https?:\/\//i.test(env) ? env : `https://${env}`;
+      const withProtocol = /^https?:\/\//i.test(env) ? env : `http://${env}`;
       const { hostname, protocol, host } = new URL(withProtocol);
       if (isLocalOrPrivateHost(hostname)) {
         return `${protocol}//${host}`;
@@ -32,6 +32,11 @@ export function getSiteOrigin(): string {
   }
 
   return CANONICAL_SITE_ORIGIN;
+}
+
+/** Absolute URL for JSON-LD schema. */
+export function schemaSiteUrl(path = ""): string {
+  return absoluteSiteUrl(path);
 }
 
 /** Absolute URL for SEO/schema — string concat only (never URL.href). */
@@ -49,10 +54,10 @@ export function absoluteSiteUrl(path = ""): string {
 /** Force canonical marketing domain in serialized JSON-LD / HTML output. */
 export function ensureUnicodeSiteUrls(value: string): string {
   const aliases = [
+    UNICODE_HOST_WITH_N,
     CANONICAL_HOST_PUNYCODE,
-    ASCII_HOST_WITHOUT_N,
     `www.${CANONICAL_HOST}`,
-    `www.${ASCII_HOST_WITHOUT_N}`,
+    `www.${UNICODE_HOST_WITH_N}`,
     VERCEL_DEPLOYMENT_HOST,
   ];
 
