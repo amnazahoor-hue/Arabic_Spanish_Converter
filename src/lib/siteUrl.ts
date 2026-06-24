@@ -1,6 +1,8 @@
-export const CANONICAL_SITE_ORIGIN = "https://traductorarabeespañol.es";
-const CANONICAL_HOST = "traductorarabeespañol.es";
+export const CANONICAL_SITE_ORIGIN = "https://traductorarabeespanol.es";
+export const CANONICAL_HOST = "traductorarabeespanol.es";
 const CANONICAL_HOST_PUNYCODE = "xn--traductorarabeespaol-l7b.es";
+const LEGACY_UNICODE_HOST = "traductorarabeespañol.es";
+const VERCEL_DEPLOYMENT_HOST = "arabic-spanish-converter.vercel.app";
 
 function isLocalOrPrivateHost(hostname: string): boolean {
   const host = hostname.toLowerCase();
@@ -13,7 +15,7 @@ function isLocalOrPrivateHost(hostname: string): boolean {
   return false;
 }
 
-/** Public site origin — always Unicode hostname on production (never xn-- punycode). */
+/** Public site origin — always the marketing domain on production (never punycode or vercel.app). */
 export function getSiteOrigin(): string {
   const env = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 
@@ -44,9 +46,21 @@ export function absoluteSiteUrl(path = ""): string {
   return `${origin}${normalizedPath}`;
 }
 
-/** Force Unicode marketing domain in serialized JSON-LD / HTML output. */
+/** Force canonical marketing domain in serialized JSON-LD / HTML output. */
 export function ensureUnicodeSiteUrls(value: string): string {
-  return value
-    .replaceAll(`https://${CANONICAL_HOST_PUNYCODE}`, `https://${CANONICAL_HOST}`)
-    .replaceAll(`http://${CANONICAL_HOST_PUNYCODE}`, `http://${CANONICAL_HOST}`);
+  const aliases = [
+    CANONICAL_HOST_PUNYCODE,
+    LEGACY_UNICODE_HOST,
+    `www.${CANONICAL_HOST}`,
+    `www.${LEGACY_UNICODE_HOST}`,
+    VERCEL_DEPLOYMENT_HOST,
+  ];
+
+  let out = value;
+  for (const host of aliases) {
+    out = out
+      .replaceAll(`https://${host}`, CANONICAL_SITE_ORIGIN)
+      .replaceAll(`http://${host}`, CANONICAL_SITE_ORIGIN);
+  }
+  return out;
 }
