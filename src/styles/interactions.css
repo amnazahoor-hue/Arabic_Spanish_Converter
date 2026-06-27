@@ -163,20 +163,6 @@
   }
 }
 
-[data-testimonials-section] .testimonial-card {
-  transition:
-    transform 0.32s ease,
-    box-shadow 0.32s ease,
-    border-color 0.25s ease;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  [data-testimonials-section] .testimonial-card:hover {
-    transform: translateY(-4px) scale(1.01);
-    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
-  }
-}
-
 /* —— Shine sweep (CTAs, buttons) —— */
 
 .interactive-shine {
@@ -419,7 +405,6 @@
   [data-common-phrases] .phrase-row__content:hover,
   [data-common-phrases] .phrase-pill:hover,
   [data-conversation-section] .conversation-banner:hover,
-  [data-testimonials-section] .testimonial-card:hover,
   .surface-panel:hover,
   .footer-promo-panel:hover,
   .faq-accordion-item:hover,

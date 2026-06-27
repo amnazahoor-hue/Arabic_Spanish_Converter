@@ -54,7 +54,6 @@ export const SECTION_IDS = {
   commonPhrases: "common-phrases",
   dialects: "dialects",
   aiFeatures: "ai-features",
-  testimonials: "testimonials",
   faq: "faq",
 } as const;
 

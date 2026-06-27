@@ -25,11 +25,16 @@ const display = Cormorant_Garamond({
   preload: true,
 });
 
-export const metadata = buildMetadata({
-  title: `${SITE_CONFIG.name}: ${SITE_CONFIG.tagline}`,
-  description: SITE_CONFIG.description,
-  path: "/",
-});
+export const metadata = {
+  ...buildMetadata({
+    title: `${SITE_CONFIG.name}: ${SITE_CONFIG.tagline}`,
+    description: SITE_CONFIG.description,
+    path: "/",
+  }),
+  verification: {
+    google: "gSgmHgbsquzjhiTFTUMQRXWJri0xtZQFLU7iI3MTYsk",
+  },
+};
 
 export default function RootLayout({
   children,

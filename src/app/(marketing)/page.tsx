@@ -28,11 +28,6 @@ const AiTranslatorFeatures = dynamic(
   { loading: () => null },
 );
 
-const UserTestimonials = dynamic(
-  () => import("@/components/sections/UserTestimonials").then((mod) => mod.UserTestimonials),
-  { loading: () => null },
-);
-
 const Faq = dynamic(() => import("@/components/sections/Faq").then((mod) => mod.Faq), {
   loading: () => null,
 });
@@ -47,7 +42,6 @@ export default function HomePage() {
       <CommonPhrases />
       <ArabicDialects />
       <AiTranslatorFeatures />
-      <UserTestimonials />
       <Faq />
     </>
   );
