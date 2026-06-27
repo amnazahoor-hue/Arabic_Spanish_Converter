@@ -11,6 +11,9 @@ export const SITE_CONFIG = {
   lastUpdated: "Mayo 2026",
 } as const;
 
+/** Google Analytics 4 — public measurement ID for traductorarabeespanol.es */
+export const GA_MEASUREMENT_ID = "G-GQTVDHRWZL";
+
 export type LanguageCode = "ar" | "ar-ma" | "es";
 
 export const LANGUAGES: Record<

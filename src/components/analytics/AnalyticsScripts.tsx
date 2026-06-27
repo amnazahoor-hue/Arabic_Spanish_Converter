@@ -1,18 +1,27 @@
+import { GA_MEASUREMENT_ID } from "@/lib/constants";
 import Script from "next/script";
 
+function resolveGaId(): string | null {
+  const fromEnv = process.env.NEXT_PUBLIC_GA_ID?.trim();
+  if (fromEnv) return fromEnv;
+  if (process.env.NODE_ENV === "production") return GA_MEASUREMENT_ID;
+  return null;
+}
+
 export function AnalyticsScripts() {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+  const gaId = resolveGaId();
+  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID?.trim();
 
   return (
     <>
-      {gaId && (
+      {gaId ? (
         <>
           <Script
+            async
             src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
-          <Script id="ga-init" strategy="lazyOnload">
+          <Script id="ga-init" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -21,9 +30,9 @@ export function AnalyticsScripts() {
             `}
           </Script>
         </>
-      )}
-      {clarityId && (
-        <Script id="clarity-init" strategy="lazyOnload">
+      ) : null}
+      {clarityId ? (
+        <Script id="clarity-init" strategy="afterInteractive">
           {`
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -32,7 +41,7 @@ export function AnalyticsScripts() {
             })(window, document, "clarity", "script", "${clarityId}");
           `}
         </Script>
-      )}
+      ) : null}
     </>
   );
 }
