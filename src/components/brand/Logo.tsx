@@ -9,13 +9,25 @@ import { usePathname } from "next/navigation";
 import { useEffect, type MouseEvent } from "react";
 
 const LOGO_SRC = "/images/logo.webp";
-const LOGO_WIDTH = 580;
-const LOGO_HEIGHT = 324;
 const HOME_HREF = "/";
 
 type LogoVariant = "full" | "icon";
 type LogoTheme = "light" | "dark";
 type LogoSize = "header-desktop" | "header-mobile" | "footer" | "favicon";
+
+const logoDimensions: Record<LogoSize, { width: number; height: number }> = {
+  "header-desktop": { width: 64, height: 36 },
+  "header-mobile": { width: 57, height: 32 },
+  footer: { width: 57, height: 32 },
+  favicon: { width: 32, height: 18 },
+};
+
+const logoSizes: Record<LogoSize, string> = {
+  "header-desktop": "(min-width: 1280px) 64px, 57px",
+  "header-mobile": "57px",
+  footer: "57px",
+  favicon: "32px",
+};
 
 const iconHeightMap: Record<LogoSize, string> = {
   "header-desktop": "h-9",
@@ -35,14 +47,16 @@ type LogoProps = {
 
 function LogoMark({ size, className }: { size: LogoSize; className?: string }) {
   const isHeaderLogo = size === "header-desktop" || size === "header-mobile";
+  const { width, height } = logoDimensions[size];
 
   return (
     <Image
       src={LOGO_SRC}
       alt={SITE_IMAGES.logo.alt}
       title={SITE_IMAGES.logo.description}
-      width={LOGO_WIDTH}
-      height={LOGO_HEIGHT}
+      width={width}
+      height={height}
+      sizes={logoSizes[size]}
       priority={isHeaderLogo}
       loading={isHeaderLogo ? "eager" : "lazy"}
       className={cn("w-auto shrink-0 object-contain logo-interactive", iconHeightMap[size], className)}

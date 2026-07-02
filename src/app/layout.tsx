@@ -1,12 +1,15 @@
-import { AnalyticsScripts } from "@/components/analytics/AnalyticsScripts";
+import { AnalyticsScripts, resolveGaMeasurementId } from "@/components/analytics/AnalyticsScripts";
 import { Header } from "@/components/layout/Header";
 import { SITE_CONFIG } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import dynamic from "next/dynamic";
 import "./globals.css";
 
 const Footer = dynamic(() => import("@/components/layout/Footer").then((mod) => mod.Footer));
+
+const gaMeasurementId = resolveGaMeasurementId();
 
 const inter = Inter({
   variable: "--font-inter",
@@ -68,8 +71,6 @@ export default function RootLayout({
             fetchPriority="high"
           />
         ))}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link
           rel="preload"
           as="image"
@@ -92,6 +93,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1 min-w-0 overflow-x-clip">{children}</main>
         <Footer />
+        {gaMeasurementId ? <GoogleAnalytics gaId={gaMeasurementId} /> : null}
         <AnalyticsScripts />
       </body>
     </html>

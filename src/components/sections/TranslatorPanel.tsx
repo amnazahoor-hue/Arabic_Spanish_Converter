@@ -118,6 +118,7 @@ export function TranslatorPanel({
   return (
     <div
       id={id}
+      data-agentic="translator-tool"
       className={cn(
         "mx-auto min-w-0 space-y-6",
         isHero ? "w-full max-w-none" : "max-w-5xl",
@@ -153,6 +154,9 @@ export function TranslatorPanel({
       <div className={cn("grid min-w-0 gap-6", isHero ? "grid-cols-1 lg:grid-cols-2" : "md:grid-cols-2")}>
         <div className="min-w-0 space-y-2">
           <TextArea
+            id="translator-input"
+            data-agentic="translator-input"
+            aria-label="Texto a traducir"
             label={`Texto en ${LANGUAGES[t.sourceLang].nativeLabel}`}
             dir={sourceDir}
             value={t.input}
@@ -194,6 +198,7 @@ export function TranslatorPanel({
               className="w-full sm:w-auto"
               disabled={t.loading || voiceInput.listening}
               onClick={() => void t.translateText()}
+              aria-label={t.loading ? "Traduciendo texto" : "Traducir texto aquí"}
             >
               {t.loading ? "Traduciendo…" : "Traducir aquí"}
             </Button>
@@ -219,7 +224,9 @@ export function TranslatorPanel({
           </div>
           <div
             id={outputRegionId}
+            data-agentic="translator-output"
             role="region"
+            aria-label="Texto traducido"
             aria-labelledby={outputLabelId}
             className={cn(
               "min-h-[12rem] w-full min-w-0 flex-1 rounded-[var(--radius)] border border-border bg-surface px-4 py-3 translator-output-panel",

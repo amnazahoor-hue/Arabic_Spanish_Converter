@@ -14,18 +14,27 @@ type LanguageSwapProps = {
 export function LanguageSwap({ source, target, onSwap, className }: LanguageSwapProps) {
   return (
     <div
+      id="translator-language-controls"
       role="group"
+      data-agentic="language-swap"
       aria-label={`Idiomas de traducción: ${LANGUAGES[source].label} a ${LANGUAGES[target].label}`}
       className={cn(
         "flex flex-wrap items-center justify-center gap-3 rounded-[var(--radius)] border border-border bg-surface-alt px-4 py-3 language-swap-bar",
         className,
       )}
     >
-      <span className="type-body font-medium text-heading">
+      <span
+        id="translator-source-language"
+        data-agentic="translator-source-language"
+        aria-label={`Idioma de origen: ${LANGUAGES[source].label}`}
+        className="type-body font-medium text-heading"
+      >
         {LANGUAGES[source].nativeLabel} ({LANGUAGES[source].label})
       </span>
       <button
         type="button"
+        id="translator-language-swap"
+        data-agentic="language-swap-button"
         onClick={onSwap}
         className={cn(
           "language-swap-btn inline-flex h-10 w-10 items-center justify-center rounded-full",
@@ -36,7 +45,12 @@ export function LanguageSwap({ source, target, onSwap, className }: LanguageSwap
       >
         <ArrowLeftRight className="h-5 w-5" strokeWidth={1.75} aria-hidden />
       </button>
-      <span className="type-body font-medium text-heading">
+      <span
+        id="translator-target-language"
+        data-agentic="translator-target-language"
+        aria-label={`Idioma de destino: ${LANGUAGES[target].label}`}
+        className="type-body font-medium text-heading"
+      >
         {LANGUAGES[target].nativeLabel} ({LANGUAGES[target].label})
       </span>
     </div>

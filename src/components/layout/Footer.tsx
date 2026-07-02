@@ -1,13 +1,10 @@
 "use client";
 
-import "@/styles/footer-social.css";
 import { Logo } from "@/components/brand/Logo";
-import { SOCIAL_BRAND_ICONS } from "@/components/icons/SocialBrandIcons";
 import {
   FOOTER_INFO,
   FOOTER_LEGAL,
   FOOTER_PAGES,
-  FOOTER_SOCIAL,
   GOVERNMENT_EXTERNAL_LINK,
   HEADER_CONTAINER_CLASS,
   SECTION_IDS,
@@ -15,8 +12,13 @@ import {
 } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ArrowRight, ExternalLink, FileText, Sparkles } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+
+const FooterSocialLinks = dynamic(
+  () => import("@/components/layout/FooterSocialLinks").then((mod) => mod.FooterSocialLinks),
+  { loading: () => null },
+);
 
 const footerLinkClass =
   "interactive-link inline-flex items-center justify-center gap-2 text-footer-text transition-colors hover:text-secondary sm:justify-start";
@@ -102,52 +104,7 @@ export function Footer() {
             <p className="type-small text-footer-text">{SITE_CONFIG.tagline}</p>
             <div className="pt-2">
               <p className="type-small mb-3 font-medium text-footer-text">Síguenos</p>
-              <div className="footer-social-row">
-                {FOOTER_SOCIAL.map(({ id, href }) => {
-                  const brand = SOCIAL_BRAND_ICONS[id];
-                  const { Icon, label, brandColor } = brand;
-                  const isPlaceholder = href === "#";
-                  const iconButtonClass = cn(
-                    "footer-social-link group inline-flex shrink-0 items-center justify-center rounded-full",
-                    "border border-footer-text/20 bg-footer-text/6",
-                    isPlaceholder && "footer-social-link--placeholder cursor-default",
-                  );
-
-                  if (isPlaceholder) {
-                    return (
-                      <span
-                        key={id}
-                        data-social={id}
-                        aria-label={label}
-                        tabIndex={0}
-                        title={`${label} — add URL in .env`}
-                        className={cn(
-                          iconButtonClass,
-                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg",
-                        )}
-                        style={{ "--social-brand": brandColor } as CSSProperties}
-                      >
-                        <Icon className="footer-social-link__icon shrink-0" aria-hidden />
-                      </span>
-                    );
-                  }
-
-                  return (
-                    <a
-                      key={id}
-                      href={href}
-                      data-social={id}
-                      aria-label={label}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(iconButtonClass, "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg")}
-                      style={{ "--social-brand": brandColor } as CSSProperties}
-                    >
-                      <Icon className="footer-social-link__icon shrink-0" aria-hidden />
-                    </a>
-                  );
-                })}
-              </div>
+              <FooterSocialLinks />
             </div>
           </div>
 
