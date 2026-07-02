@@ -27,6 +27,12 @@ const display = Cormorant_Garamond({
   adjustFontFallback: true,
 });
 
+/** Latin subset files for Cormorant 600 (normal + italic) — preloaded for LCP hero accent text. */
+const CRITICAL_DISPLAY_FONT_PRELOADS = [
+  "/_next/static/media/01e4147cff8141ee-s.3huc2loe0ie8a.woff2",
+  "/_next/static/media/8bd76523131fa0fc-s.1pvupmngxrt5z.woff2",
+] as const;
+
 export const metadata = {
   ...buildMetadata({
     title: `${SITE_CONFIG.name}: ${SITE_CONFIG.tagline}`,
@@ -51,6 +57,17 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {CRITICAL_DISPLAY_FONT_PRELOADS.map((href) => (
+          <link
+            key={href}
+            rel="preload"
+            href={href}
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+            fetchPriority="high"
+          />
+        ))}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link
