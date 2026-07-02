@@ -68,8 +68,14 @@ export function ContactForm() {
       noValidate
     >
       <div className="absolute -left-[9999px]" aria-hidden>
-        <label htmlFor="website">No rellenar</label>
-        <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
+        <input
+          id="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+          {...register("website")}
+        />
       </div>
 
       <div>
@@ -78,11 +84,15 @@ export function ContactForm() {
         </label>
         <input
           id="fullName"
+          aria-invalid={errors.fullName ? true : undefined}
+          aria-describedby={errors.fullName ? "fullName-error" : undefined}
           className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body form-field focus-visible:ring-2 focus-visible:ring-primary"
           {...register("fullName")}
         />
         {errors.fullName && (
-          <p className="mt-1 type-small text-error">{errors.fullName.message}</p>
+          <p id="fullName-error" className="mt-1 type-small text-error">
+            {errors.fullName.message}
+          </p>
         )}
       </div>
 
@@ -93,10 +103,16 @@ export function ContactForm() {
         <input
           id="email"
           type="email"
+          aria-invalid={errors.email ? true : undefined}
+          aria-describedby={errors.email ? "email-error" : undefined}
           className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body form-field focus-visible:ring-2 focus-visible:ring-primary"
           {...register("email")}
         />
-        {errors.email && <p className="mt-1 type-small text-error">{errors.email.message}</p>}
+        {errors.email && (
+          <p id="email-error" className="mt-1 type-small text-error">
+            {errors.email.message}
+          </p>
+        )}
       </div>
 
       <div>
@@ -105,13 +121,20 @@ export function ContactForm() {
         </label>
         <input
           id="subject"
+          aria-invalid={errors.subject ? true : undefined}
+          aria-describedby={errors.subject ? "subject-error" : undefined}
           className="w-full rounded-[var(--radius)] border border-border bg-surface px-4 py-3 text-body form-field focus-visible:ring-2 focus-visible:ring-primary"
           {...register("subject")}
         />
-        {errors.subject && <p className="mt-1 type-small text-error">{errors.subject.message}</p>}
+        {errors.subject && (
+          <p id="subject-error" className="mt-1 type-small text-error">
+            {errors.subject.message}
+          </p>
+        )}
       </div>
 
       <TextArea
+        id="contact-message"
         label="Mensaje *"
         rows={6}
         error={errors.message?.message}

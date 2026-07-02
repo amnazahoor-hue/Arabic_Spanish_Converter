@@ -14,6 +14,8 @@ type LanguageSwapProps = {
 export function LanguageSwap({ source, target, onSwap, className }: LanguageSwapProps) {
   return (
     <div
+      role="group"
+      aria-label={`Idiomas de traducción: ${LANGUAGES[source].label} a ${LANGUAGES[target].label}`}
       className={cn(
         "flex flex-wrap items-center justify-center gap-3 rounded-[var(--radius)] border border-border bg-surface-alt px-4 py-3 language-swap-bar",
         className,
@@ -30,7 +32,7 @@ export function LanguageSwap({ source, target, onSwap, className }: LanguageSwap
           "bg-primary text-white hover:bg-hover hover:text-white [&_svg]:text-white",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
         )}
-        aria-label={`Swap languages: ${LANGUAGES[source].label} and ${LANGUAGES[target].label}`}
+        aria-label={`Intercambiar idiomas: ${LANGUAGES[source].label} y ${LANGUAGES[target].label}`}
       >
         <ArrowLeftRight className="h-5 w-5" strokeWidth={1.75} aria-hidden />
       </button>

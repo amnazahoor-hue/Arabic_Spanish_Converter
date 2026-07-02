@@ -118,6 +118,7 @@ export function Footer() {
                       <span
                         key={id}
                         data-social={id}
+                        aria-label={label}
                         tabIndex={0}
                         title={`${label} — add URL in .env`}
                         className={cn(
@@ -127,7 +128,6 @@ export function Footer() {
                         style={{ "--social-brand": brandColor } as CSSProperties}
                       >
                         <Icon className="footer-social-link__icon shrink-0" aria-hidden />
-                        <span className="sr-only">{label}</span>
                       </span>
                     );
                   }

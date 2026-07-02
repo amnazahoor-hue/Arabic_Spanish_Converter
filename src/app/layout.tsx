@@ -51,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es"
+      lang={SITE_CONFIG.locale}
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${display.variable} h-full`}
       suppressHydrationWarning

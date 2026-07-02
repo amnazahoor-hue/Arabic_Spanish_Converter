@@ -111,7 +111,6 @@ export function Logo({
       href={targetHref}
       onClick={handleClick}
       className={cn(wrapperClass, "gap-2.5 group logo-interactive-wrap")}
-      aria-label="Traductor Árabe Español — inicio"
     >
       <LogoMark size={size} />
       <span

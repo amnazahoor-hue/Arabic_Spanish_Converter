@@ -92,6 +92,7 @@ export function MarroquiFeaturesSection() {
           {MARROQUI_FEATURES.map((feature, index) => {
             const Icon = FEATURE_ICONS[index] ?? BrainCircuit;
             const isActive = index === activeIndex;
+            const titleId = `marroqui-feature-title-${feature.id}`;
 
             return (
               <motion.article
@@ -101,6 +102,15 @@ export function MarroquiFeaturesSection() {
                 onMouseEnter={() => handleActivate(index)}
                 onFocus={() => handleActivate(index)}
                 tabIndex={0}
+                role="button"
+                aria-pressed={isActive}
+                aria-labelledby={titleId}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    handleActivate(index);
+                  }
+                }}
               >
                 <span
                   className={cn(
@@ -112,7 +122,9 @@ export function MarroquiFeaturesSection() {
                   <Icon className="marroqui-features-card__icon" strokeWidth={1.75} />
                 </span>
                 <div className="marroqui-features-card__body">
-                  <h3 className="marroqui-features-card__title">{feature.title}</h3>
+                  <h3 id={titleId} className="marroqui-features-card__title">
+                    {feature.title}
+                  </h3>
                   <p className="marroqui-features-card__text">{feature.text}</p>
                 </div>
               </motion.article>

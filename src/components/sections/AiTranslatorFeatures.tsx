@@ -63,7 +63,11 @@ function AiFeatureCard({
       <h3 className="ai-features__title">{title}</h3>
       <p className="ai-features__text">{description}</p>
 
-      <Link href={`#${SECTION_IDS.translator}`} className="ai-features__link">
+      <Link
+        href={`#${SECTION_IDS.translator}`}
+        className="ai-features__link"
+        aria-label="Ir al traductor para traducir aquí"
+      >
         Traducir aquí
         <span className="ai-features__link-line" aria-hidden />
       </Link>

@@ -19,7 +19,7 @@ import {
 import { SPEECH_LANG } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 import { RotateCcw } from "lucide-react";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useId, useRef } from "react";
 
 type TranslatorPanelProps = {
   variant?: "default" | "hero";
@@ -36,6 +36,8 @@ export function TranslatorPanel({
   const t = useTranslator(initialFrom);
   const isHero = variant === "hero";
   const baseInputRef = useRef("");
+  const outputRegionId = useId();
+  const outputLabelId = `${outputRegionId}-label`;
 
   const voiceInput = useSpeechRecognition(SPEECH_LANG[t.sourceLang]);
   const voiceOutput = useSpeechSynthesis(SPEECH_LANG[t.targetLang]);
@@ -200,9 +202,12 @@ export function TranslatorPanel({
 
         <div className="flex min-w-0 flex-col">
           <div className="mb-2 flex items-center justify-between gap-3">
-            <label className="block text-nav-mobile font-medium text-heading md:text-nav">
+            <p
+              id={outputLabelId}
+              className="block text-nav-mobile font-medium text-heading md:text-nav"
+            >
               Resultado ({LANGUAGES[t.targetLang].nativeLabel})
-            </label>
+            </p>
             {voiceOutput.supported ? (
               <VoiceOutputButton
                 speaking={voiceOutput.speaking}
@@ -213,6 +218,9 @@ export function TranslatorPanel({
             ) : null}
           </div>
           <div
+            id={outputRegionId}
+            role="region"
+            aria-labelledby={outputLabelId}
             className={cn(
               "min-h-[12rem] w-full min-w-0 flex-1 rounded-[var(--radius)] border border-border bg-surface px-4 py-3 translator-output-panel",
               isHero && "min-h-[10rem]",

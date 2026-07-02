@@ -71,6 +71,7 @@ export function TranslationActions({ payload, disabled, className }: Translation
           disabled={isDisabled}
           onClick={() => void onCopy()}
           className="translation-actions__btn interactive-scale"
+          aria-label={feedback === "copy" ? "Texto copiado al portapapeles" : "Copiar traducción"}
         >
           {feedback === "copy" ? (
             <>
@@ -101,6 +102,13 @@ export function TranslationActions({ payload, disabled, className }: Translation
           disabled={isDisabled || pdfLoading}
           onClick={() => void onPdf()}
           className="translation-actions__btn interactive-scale"
+          aria-label={
+            pdfLoading
+              ? "Generando PDF de la traducción"
+              : feedback === "pdf"
+                ? "PDF de la traducción descargado"
+                : "Exportar traducción a PDF"
+          }
         >
           {pdfLoading ? (
             <>
@@ -125,6 +133,7 @@ export function TranslationActions({ payload, disabled, className }: Translation
           disabled={isDisabled}
           onClick={onEmail}
           className="translation-actions__btn interactive-scale"
+          aria-label="Compartir traducción por correo electrónico"
         >
           <Mail className="h-4 w-4" aria-hidden />
           Correo
