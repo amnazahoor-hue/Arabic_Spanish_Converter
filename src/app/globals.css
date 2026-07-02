@@ -8,6 +8,12 @@
 @import "../styles/section-heading.css";
 @import "../styles/interactions.css";
 @import "../styles/translation-actions.css";
+@import "../styles/features-infographic.css";
+@import "../styles/conversation-cards.css";
+@import "../styles/common-phrases.css";
+@import "../styles/arabic-dialects.css";
+@import "../styles/ai-features-stagger.css";
+@import "../styles/footer-social.css";
 
 :root {
   --color-primary: #1a6b6b;

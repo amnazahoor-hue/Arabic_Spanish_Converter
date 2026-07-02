@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/arabic-dialects.css";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { MARROQUI_PAGE_PATH } from "@/content/marroqui-page";

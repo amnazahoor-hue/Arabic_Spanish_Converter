@@ -17,7 +17,7 @@ import Link from "next/link";
 
 const FooterSocialLinks = dynamic(
   () => import("@/components/layout/FooterSocialLinks").then((mod) => mod.FooterSocialLinks),
-  { loading: () => null },
+  { loading: () => null, ssr: false },
 );
 
 const footerLinkClass =

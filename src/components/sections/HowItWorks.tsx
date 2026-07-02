@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/conversation-cards.css";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";

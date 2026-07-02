@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/ai-features-stagger.css";
 import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import { SECTION_IDS } from "@/lib/constants";

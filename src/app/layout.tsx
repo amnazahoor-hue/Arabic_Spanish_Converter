@@ -1,13 +1,10 @@
-import { AnalyticsScripts, resolveGaMeasurementId } from "@/components/analytics/AnalyticsScripts";
+import { resolveGaMeasurementId } from "@/lib/analytics";
+import { DeferredLayoutExtras } from "@/components/layout/DeferredLayoutExtras";
 import { Header } from "@/components/layout/Header";
 import { SITE_CONFIG } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Cormorant_Garamond, Inter } from "next/font/google";
-import dynamic from "next/dynamic";
 import "./globals.css";
-
-const Footer = dynamic(() => import("@/components/layout/Footer").then((mod) => mod.Footer));
 
 const gaMeasurementId = resolveGaMeasurementId();
 
@@ -92,9 +89,7 @@ export default function RootLayout({
       >
         <Header />
         <main className="flex-1 min-w-0 overflow-x-clip">{children}</main>
-        <Footer />
-        {gaMeasurementId ? <GoogleAnalytics gaId={gaMeasurementId} /> : null}
-        <AnalyticsScripts />
+        <DeferredLayoutExtras gaMeasurementId={gaMeasurementId} />
       </body>
     </html>
   );

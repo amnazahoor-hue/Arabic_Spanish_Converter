@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/features-infographic.css";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
 import { MARROQUI_PAGE_PATH } from "@/content/marroqui-page";

@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/footer-social.css";
 import { SOCIAL_BRAND_ICONS } from "@/components/icons/SocialBrandIcons";
 import { FOOTER_SOCIAL } from "@/lib/constants";
 import { cn } from "@/lib/utils";

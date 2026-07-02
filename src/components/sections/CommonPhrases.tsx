@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/common-phrases.css";
 import { AccessibleImageMeta } from "@/components/media/AccessibleImageMeta";
 import { LazyBackgroundLayer } from "@/components/media/LazyBackgroundLayer";
 import { Button } from "@/components/ui/Button";
