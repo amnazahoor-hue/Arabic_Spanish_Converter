@@ -1,10 +1,9 @@
 "use client";
 
 import type { FaqCategory } from "@/content/faq";
-import { LazyMotionLi } from "@/components/motion/LazyMotion";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { scheduleLayoutRead } from "@/lib/scheduleLayoutRead";
 import { cn } from "@/lib/utils";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ChevronDown,
   HelpCircle,
@@ -39,7 +38,7 @@ type FaqAccordionProps = {
 };
 
 export function FaqAccordion({ items, className }: FaqAccordionProps) {
-  const reduceMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
   const measureRef = useRef<HTMLDivElement>(null);
   const [answerMinHeight, setAnswerMinHeight] = useState(0);
@@ -181,15 +180,12 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
           const CategoryIcon = categoryIcons[item.category];
 
           return (
-            <LazyMotionLi
+            <motion.li
               key={item.id}
-              reduceMotion={reduceMotion}
-              motion={{
-                initial: reduceMotion ? {} : { opacity: 0, y: 12 },
-                whileInView: reduceMotion ? {} : { opacity: 1, y: 0 },
-                viewport: { once: true, margin: "-24px" },
-                transition: { duration: 0.4, delay: index * 0.05 },
-              }}
+              initial={reduceMotion ? {} : { opacity: 0, y: 12 }}
+              whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-24px" }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
               className={cn(
                 "faq-accordion-item overflow-hidden rounded-[var(--radius-lg)] border transition-[border-color,box-shadow] duration-300",
                 isOpen
@@ -264,7 +260,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
                   </p>
                 </div>
               </div>
-            </LazyMotionLi>
+            </motion.li>
           );
         })}
       </ul>

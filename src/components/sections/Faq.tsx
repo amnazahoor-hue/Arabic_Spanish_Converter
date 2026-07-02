@@ -3,11 +3,10 @@
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
-import { LazyMotionDiv, LazyMotionHeader } from "@/components/motion/LazyMotion";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { FAQ_ITEMS } from "@/content/faq";
 import { SITE_CONFIG, SECTION_IDS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { motion, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ArrowRight } from "lucide-react";
 
@@ -17,7 +16,7 @@ const FaqAccordion = dynamic(
 );
 
 export function Faq() {
-  const reduceMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
 
   return (
     <Section id={SECTION_IDS.faq} tone="grey" className="relative overflow-hidden">
@@ -31,15 +30,12 @@ export function Faq() {
       />
 
       <div className="relative">
-        <LazyMotionHeader
+        <motion.header
           className="mx-auto mb-8 max-w-2xl lg:mb-10"
-          reduceMotion={reduceMotion}
-          motion={{
-            initial: reduceMotion ? {} : { opacity: 0, y: 18 },
-            whileInView: reduceMotion ? {} : { opacity: 1, y: 0 },
-            viewport: { once: true },
-            transition: { duration: 0.5 },
-          }}
+          initial={reduceMotion ? {} : { opacity: 0, y: 18 }}
+          whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
           <SectionHeader
             title="Respuestas Rápidas Sobre Nuestro"
@@ -47,17 +43,14 @@ export function Faq() {
             className="max-w-2xl"
             lineVariant="default"
           />
-        </LazyMotionHeader>
+        </motion.header>
 
-        <LazyMotionDiv
+        <motion.div
           className="mx-auto max-w-3xl min-w-0"
-          reduceMotion={reduceMotion}
-          motion={{
-            initial: reduceMotion ? {} : { opacity: 0, y: 20 },
-            whileInView: reduceMotion ? {} : { opacity: 1, y: 0 },
-            viewport: { once: true },
-            transition: { duration: 0.5, delay: 0.1 },
-          }}
+          initial={reduceMotion ? {} : { opacity: 0, y: 20 }}
+          whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div
             className={cn(
@@ -70,15 +63,12 @@ export function Faq() {
             </div>
           </div>
 
-          <LazyMotionDiv
+          <motion.div
             className="mt-8 flex flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-start"
-            reduceMotion={reduceMotion}
-            motion={{
-              initial: reduceMotion ? {} : { opacity: 0 },
-              whileInView: reduceMotion ? {} : { opacity: 1 },
-              viewport: { once: true },
-              transition: { delay: 0.15, duration: 0.4 },
-            }}
+            initial={reduceMotion ? {} : { opacity: 0 }}
+            whileInView={reduceMotion ? {} : { opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15, duration: 0.4 }}
           >
             <p className="type-small text-muted">
               Traducción automática para uso cotidiano — no sustituye asesoramiento legal certificado.
@@ -87,8 +77,8 @@ export function Faq() {
               Volver al traductor
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Button>
-          </LazyMotionDiv>
-        </LazyMotionDiv>
+          </motion.div>
+        </motion.div>
       </div>
 
       <p className="sr-only">{SITE_CONFIG.name} FAQ</p>
