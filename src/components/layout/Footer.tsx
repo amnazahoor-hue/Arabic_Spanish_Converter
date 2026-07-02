@@ -69,12 +69,12 @@ export function Footer() {
           )}
         >
           <div className="mx-auto space-y-2 max-w-lg sm:mx-0">
-            <p className="inline-flex items-center gap-2 type-small font-semibold uppercase tracking-wider text-secondary">
+            <p className="inline-flex items-center gap-2 type-small font-semibold uppercase tracking-wider text-accent">
               <Sparkles className="h-4 w-4" strokeWidth={1.75} aria-hidden />
               Gratis · Instantáneo · Bidireccional
             </p>
             <p className="type-h3-card text-footer-heading">¿Listo Para Traducir?</p>
-            <p className="type-small text-footer-text/90">
+            <p className="type-small text-footer-text">
               Abre el traductor y cambia entre árabe y español con un clic — no necesitas cuenta.
             </p>
           </div>
@@ -99,9 +99,9 @@ export function Footer() {
             <p className="type-small mx-auto max-w-sm leading-relaxed text-footer-text sm:mx-0">
               {SITE_CONFIG.description}
             </p>
-            <p className="type-small text-footer-text/70">{SITE_CONFIG.tagline}</p>
+            <p className="type-small text-footer-text">{SITE_CONFIG.tagline}</p>
             <div className="pt-2">
-              <p className="type-small mb-3 font-medium text-footer-text/80">Síguenos</p>
+              <p className="type-small mb-3 font-medium text-footer-text">Síguenos</p>
               <div className="footer-social-row">
                 {FOOTER_SOCIAL.map(({ id, href }) => {
                   const brand = SOCIAL_BRAND_ICONS[id];
@@ -191,7 +191,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-footer-text/20 pt-8 text-center">
-          <p className="type-small text-footer-text/80">
+          <p className="type-small text-footer-text">
             © {year} {SITE_CONFIG.name}. Todos los derechos reservados.
           </p>
           <p className="type-small mt-3">

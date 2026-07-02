@@ -48,6 +48,22 @@ export default function RootLayout({
       className={`${inter.variable} ${display.variable} h-full`}
       suppressHydrationWarning
     >
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/hero-mobile-bg.webp"
+          fetchPriority="high"
+          media="(max-width: 1279px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/hero-people-bg.webp"
+          fetchPriority="high"
+          media="(min-width: 1280px)"
+        />
+      </head>
       <body
         className="min-h-full flex flex-col font-sans antialiased"
         suppressHydrationWarning
