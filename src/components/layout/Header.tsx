@@ -1,11 +1,16 @@
 "use client";
 
 import { HeaderCta, NavLinks } from "@/components/layout/NavLinks";
-import { MobileMenu } from "@/components/layout/MobileMenu";
 import { Logo } from "@/components/brand/Logo";
 import { HEADER_CONTAINER_CLASS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+
+const MobileMenu = dynamic(
+  () => import("@/components/layout/MobileMenu").then((mod) => mod.MobileMenu),
+  { ssr: false, loading: () => null },
+);
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);

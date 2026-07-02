@@ -6,7 +6,6 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { Spinner } from "@/components/ui/Spinner";
 import { TextArea } from "@/components/ui/TextArea";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { TranslationActions } from "@/components/translator/TranslationActions";
 import { VoiceInputButton } from "@/components/translator/VoiceInputButton";
 import { VoiceOutputButton } from "@/components/translator/VoiceOutputButton";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
@@ -18,8 +17,14 @@ import {
 } from "@/lib/constants";
 import { SPEECH_LANG } from "@/lib/speech";
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
 import { RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useId, useRef } from "react";
+
+const TranslationActions = dynamic(
+  () => import("@/components/translator/TranslationActions").then((mod) => mod.TranslationActions),
+  { ssr: false, loading: () => null },
+);
 
 type TranslatorPanelProps = {
   variant?: "default" | "hero";

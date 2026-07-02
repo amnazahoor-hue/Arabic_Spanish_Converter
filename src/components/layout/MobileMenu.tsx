@@ -10,29 +10,14 @@ type MobileMenuProps = {
   headerTheme?: "light" | "dark";
 };
 
-function lockBodyScroll(): () => void {
-  const scrollY = window.scrollY;
-  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-  document.body.style.position = "fixed";
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.left = "0";
-  document.body.style.right = "0";
-  document.body.style.width = "100%";
-
-  if (scrollbarWidth > 0) {
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
-  }
-
-  return () => {
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-    document.body.style.paddingRight = "";
-    window.scrollTo(0, scrollY);
-  };
+function unlockBodyScroll(scrollY: number) {
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  document.body.style.paddingRight = "";
+  window.scrollTo(0, scrollY);
 }
 
 export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
@@ -51,12 +36,31 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
   useEffect(() => {
     if (!open) return;
 
-    const unlockScroll = lockBodyScroll();
+    let scrollY = 0;
+    let scrollLocked = false;
+    let lockFrameId = 0;
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
     document.addEventListener("keydown", onKey);
+
+    lockFrameId = window.requestAnimationFrame(() => {
+      scrollY = window.scrollY;
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
+
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      scrollLocked = true;
+    });
 
     const focusFrame = window.requestAnimationFrame(() => {
       const focusable = panelRef.current?.querySelectorAll<HTMLElement>(
@@ -66,9 +70,12 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
     });
 
     return () => {
+      window.cancelAnimationFrame(lockFrameId);
       window.cancelAnimationFrame(focusFrame);
       document.removeEventListener("keydown", onKey);
-      unlockScroll();
+      if (scrollLocked) {
+        unlockBodyScroll(scrollY);
+      }
       buttonRef.current?.focus({ preventScroll: true });
     };
   }, [open, close]);

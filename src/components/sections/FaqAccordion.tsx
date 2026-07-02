@@ -12,7 +12,7 @@ import {
   Type,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type FaqAccordionEntry = {
   id: string;
@@ -58,41 +58,53 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const measureRoot = measureRef.current;
     if (!measureRoot) return;
 
+    let rafId = 0;
+    let cancelled = false;
+
     const measureHeights = () => {
-      const headerEls = measureRoot.querySelectorAll<HTMLElement>("[data-faq-header-measure]");
-      const answerEls = measureRoot.querySelectorAll<HTMLElement>("[data-faq-answer-measure]");
+      if (cancelled) return;
 
-      let headersTotal = 0;
-      headerEls.forEach((el) => {
-        headersTotal += el.offsetHeight;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (cancelled) return;
+
+        const headerEls = measureRoot.querySelectorAll<HTMLElement>("[data-faq-header-measure]");
+        const answerEls = measureRoot.querySelectorAll<HTMLElement>("[data-faq-answer-measure]");
+
+        let headersTotal = 0;
+        headerEls.forEach((el) => {
+          headersTotal += el.offsetHeight;
+        });
+
+        let maxAnswerHeight = 0;
+        answerEls.forEach((el) => {
+          maxAnswerHeight = Math.max(maxAnswerHeight, el.offsetHeight);
+        });
+
+        if (headersTotal > 0 && maxAnswerHeight > 0) {
+          const gaps = Math.max(0, items.length - 1) * ROW_GAP_PX;
+          const buffer = 8;
+          setAnswerMinHeight(maxAnswerHeight);
+          setListHeight(headersTotal + gaps + maxAnswerHeight + buffer);
+        }
       });
-
-      let maxAnswerHeight = 0;
-      answerEls.forEach((el) => {
-        maxAnswerHeight = Math.max(maxAnswerHeight, el.offsetHeight);
-      });
-
-      if (headersTotal > 0 && maxAnswerHeight > 0) {
-        const gaps = Math.max(0, items.length - 1) * ROW_GAP_PX;
-        const buffer = 8;
-        setAnswerMinHeight(maxAnswerHeight);
-        setListHeight(headersTotal + gaps + maxAnswerHeight + buffer);
-      }
     };
 
-    measureHeights();
+    rafId = requestAnimationFrame(measureHeights);
 
-    const observer = new ResizeObserver(measureHeights);
+    const observer = new ResizeObserver(() => measureHeights());
     observer.observe(measureRoot);
 
     void document.fonts?.ready?.then(measureHeights);
     window.addEventListener("resize", measureHeights);
 
     return () => {
+      cancelled = true;
+      cancelAnimationFrame(rafId);
       observer.disconnect();
       window.removeEventListener("resize", measureHeights);
     };
