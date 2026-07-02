@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/translation-actions.css";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { downloadTranslationPdf } from "@/lib/exportTranslationPdf";
 import { openEmailShare, openWhatsAppShare, type SharePayload } from "@/lib/shareTranslation";

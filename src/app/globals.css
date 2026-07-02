@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../styles/header.css";
 @import "../styles/hero.css";
 @import "../styles/hero-nest-hub.css";
 @import "../styles/hero-large.css";
@@ -6,6 +7,7 @@
 @import "../styles/hero-compact-desktop.css";
 @import "../styles/section-heading.css";
 @import "../styles/interactions.css";
+@import "../styles/translation-actions.css";
 
 :root {
   --color-primary: #1a6b6b;

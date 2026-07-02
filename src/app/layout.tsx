@@ -14,6 +14,7 @@ const inter = Inter({
   weight: ["400", "600", "700"],
   display: "swap",
   preload: true,
+  adjustFontFallback: true,
 });
 
 const display = Cormorant_Garamond({
@@ -22,7 +23,8 @@ const display = Cormorant_Garamond({
   weight: ["600", "700"],
   style: ["normal", "italic"],
   display: "swap",
-  preload: true,
+  preload: false,
+  adjustFontFallback: true,
 });
 
 export const metadata = {
@@ -49,6 +51,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link
           rel="preload"
           as="image"

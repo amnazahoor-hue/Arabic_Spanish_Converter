@@ -1,6 +1,5 @@
 "use client";
 
-import "@/styles/header.css";
 import { HeaderCta, NavLinks } from "@/components/layout/NavLinks";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { Logo } from "@/components/brand/Logo";

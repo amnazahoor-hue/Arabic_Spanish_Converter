@@ -1,13 +1,39 @@
 import type { NextConfig } from "next";
 import { LEGACY_ROUTE_REDIRECTS } from "./src/lib/routes";
 
+const polyfillStub = "./src/lib/next-polyfill-stub.js";
+
 const nextConfig: NextConfig = {
   compiler: {
     removeConsole:
       process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
   },
   experimental: {
+    inlineCss: true,
+    cssChunking: true,
     optimizePackageImports: ["lucide-react", "framer-motion", "react-icons"],
+  },
+  turbopack: {
+    resolveAlias: {
+      "../build/polyfills/polyfill-module": polyfillStub,
+      "next/dist/build/polyfills/polyfill-module": polyfillStub,
+    },
+  },
+  webpack(config, { isServer }) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "../build/polyfills/polyfill-module": polyfillStub,
+      "next/dist/build/polyfills/polyfill-module": polyfillStub,
+    };
+
+    if (!isServer && config.optimization?.splitChunks) {
+      const splitChunks = config.optimization.splitChunks;
+      splitChunks.maxAsyncRequests = 12;
+      splitChunks.maxInitialRequests = 8;
+      splitChunks.minSize = 20_000;
+    }
+
+    return config;
   },
   images: {
     formats: ["image/avif", "image/webp"],
