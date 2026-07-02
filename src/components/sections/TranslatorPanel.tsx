@@ -2,8 +2,6 @@
 
 import { Button } from "@/components/ui/Button";
 import { LanguageSwap } from "@/components/ui/LanguageSwap";
-import { Skeleton } from "@/components/ui/Skeleton";
-import { Spinner } from "@/components/ui/Spinner";
 import { TextArea } from "@/components/ui/TextArea";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useTranslator } from "@/hooks/useTranslator";
@@ -34,6 +32,14 @@ const TranslatorVoiceOutputButton = dynamic(
   () =>
     import("@/components/translator/TranslatorVoiceOutputButton").then(
       (mod) => mod.TranslatorVoiceOutputButton,
+    ),
+  { ssr: false, loading: () => null },
+);
+
+const TranslatorLoadingState = dynamic(
+  () =>
+    import("@/components/translator/TranslatorLoadingState").then(
+      (mod) => mod.TranslatorLoadingState,
     ),
   { ssr: false, loading: () => null },
 );
@@ -235,10 +241,7 @@ export function TranslatorPanel({
             <div className="flex min-h-full flex-col gap-2">
               <div className="flex-1">
                 {t.loading ? (
-                  <div className="flex flex-col items-center justify-center gap-4 py-8">
-                    <Spinner size="lg" label="Traduciendo" />
-                    <Skeleton lines={4} className="w-full" />
-                  </div>
+                  <TranslatorLoadingState />
                 ) : t.output ? (
                   <p className="type-body break-words whitespace-pre-wrap">{t.output}</p>
                 ) : (

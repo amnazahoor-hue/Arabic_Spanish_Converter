@@ -11,3 +11,17 @@ export function scheduleLayoutRead(callback: () => void): () => void {
     cancelAnimationFrame(innerId);
   };
 }
+
+/** Runs DOM writes in the frame after a deferred layout read. */
+export function scheduleLayoutWrite(callback: () => void): () => void {
+  let writeId = 0;
+
+  const cancelRead = scheduleLayoutRead(() => {
+    writeId = requestAnimationFrame(callback);
+  });
+
+  return () => {
+    cancelRead();
+    cancelAnimationFrame(writeId);
+  };
+}
