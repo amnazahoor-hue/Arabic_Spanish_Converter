@@ -2,6 +2,7 @@
 
 import { HeaderCta, NavLinks } from "@/components/layout/NavLinks";
 import { Logo } from "@/components/brand/Logo";
+import { scheduleLayoutRead } from "@/lib/scheduleLayoutRead";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -38,14 +39,14 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
 
     let scrollY = 0;
     let scrollLocked = false;
-    let lockFrameId = 0;
+    let cancelLock = () => {};
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
     document.addEventListener("keydown", onKey);
 
-    lockFrameId = window.requestAnimationFrame(() => {
+    cancelLock = scheduleLayoutRead(() => {
       scrollY = window.scrollY;
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
@@ -70,7 +71,7 @@ export function MobileMenu({ headerTheme = "light" }: MobileMenuProps) {
     });
 
     return () => {
-      window.cancelAnimationFrame(lockFrameId);
+      cancelLock();
       window.cancelAnimationFrame(focusFrame);
       document.removeEventListener("keydown", onKey);
       if (scrollLocked) {

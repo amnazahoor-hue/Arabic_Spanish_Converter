@@ -6,25 +6,43 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { Spinner } from "@/components/ui/Spinner";
 import { TextArea } from "@/components/ui/TextArea";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { VoiceInputButton } from "@/components/translator/VoiceInputButton";
-import { VoiceOutputButton } from "@/components/translator/VoiceOutputButton";
-import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
-import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 import { useTranslator } from "@/hooks/useTranslator";
 import {
   LANGUAGES,
   type LanguageCode,
 } from "@/lib/constants";
-import { SPEECH_LANG } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 import { RotateCcw } from "lucide-react";
-import { useCallback, useEffect, useId, useRef } from "react";
+import { useCallback, useId, useState } from "react";
+import type { TranslatorVoiceInputState } from "@/components/translator/TranslatorVoiceInputAction";
 
 const TranslationActions = dynamic(
   () => import("@/components/translator/TranslationActions").then((mod) => mod.TranslationActions),
   { ssr: false, loading: () => null },
 );
+
+const TranslatorVoiceInputAction = dynamic(
+  () =>
+    import("@/components/translator/TranslatorVoiceInputAction").then(
+      (mod) => mod.TranslatorVoiceInputAction,
+    ),
+  { ssr: false, loading: () => null },
+);
+
+const TranslatorVoiceOutputButton = dynamic(
+  () =>
+    import("@/components/translator/TranslatorVoiceOutputButton").then(
+      (mod) => mod.TranslatorVoiceOutputButton,
+    ),
+  { ssr: false, loading: () => null },
+);
+
+const EMPTY_VOICE_STATE: TranslatorVoiceInputState = {
+  listening: false,
+  error: null,
+  supported: false,
+};
 
 type TranslatorPanelProps = {
   variant?: "default" | "hero";
@@ -40,24 +58,13 @@ export function TranslatorPanel({
 }: TranslatorPanelProps) {
   const t = useTranslator(initialFrom);
   const isHero = variant === "hero";
-  const baseInputRef = useRef("");
   const outputRegionId = useId();
   const outputLabelId = `${outputRegionId}-label`;
-
-  const voiceInput = useSpeechRecognition(SPEECH_LANG[t.sourceLang]);
-  const voiceOutput = useSpeechSynthesis(SPEECH_LANG[t.targetLang]);
+  const [voiceState, setVoiceState] = useState<TranslatorVoiceInputState>(EMPTY_VOICE_STATE);
+  const [voiceResetKey, setVoiceResetKey] = useState(0);
 
   const sourceDir = LANGUAGES[t.sourceLang].dir;
   const targetDir = LANGUAGES[t.targetLang].dir;
-
-  useEffect(() => {
-    voiceInput.stop();
-    voiceInput.clearError();
-  }, [t.sourceLang]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    voiceOutput.stop();
-  }, [t.targetLang]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sharePayload =
     t.output.trim().length > 0
@@ -76,40 +83,24 @@ export function TranslatorPanel({
     }
   };
 
-  const handleVoiceResult = useCallback(
-    (transcript: string, isFinal: boolean) => {
-      if (isFinal) {
-        const combined = baseInputRef.current.trim()
-          ? `${baseInputRef.current.trim()} ${transcript}`
-          : transcript;
-        void t.translateFromText(combined);
-        baseInputRef.current = "";
-        return;
-      }
-
-      const preview = baseInputRef.current.trim()
-        ? `${baseInputRef.current.trim()} ${transcript}`
-        : transcript;
-      t.setInput(preview);
+  const handleVoicePreview = useCallback(
+    (text: string) => {
+      t.setInput(text);
     },
     [t],
   );
 
-  const onVoiceInputClick = useCallback(() => {
-    voiceInput.clearError();
-    if (!voiceInput.listening) {
-      baseInputRef.current = t.input;
-    }
-    voiceInput.toggle(handleVoiceResult);
-  }, [voiceInput, handleVoiceResult, t.input]);
+  const handleVoiceFinal = useCallback(
+    (text: string) => {
+      void t.translateFromText(text);
+    },
+    [t],
+  );
 
   const handleRestore = useCallback(() => {
-    voiceInput.stop();
-    voiceInput.clearError();
-    voiceOutput.stop();
-    baseInputRef.current = "";
+    setVoiceResetKey((key) => key + 1);
     t.reset();
-  }, [t, voiceInput, voiceOutput]);
+  }, [t]);
 
   const isDefaultState = t.isDefault;
 
@@ -134,7 +125,7 @@ export function TranslatorPanel({
           <h2 className="type-h2-section">Traductor Árabe ↔ Español</h2>
           <p className="type-body prose-width mx-auto">
             Traducción instantánea en ambas direcciones. Usa el botón central para intercambiar idiomas
-            {voiceInput.supported || voiceOutput.supported ? " o el micrófono para dictar." : "."}
+            {voiceState.supported ? " o el micrófono para dictar." : "."}
           </p>
         </div>
       )}
@@ -145,7 +136,7 @@ export function TranslatorPanel({
           variant="ghost"
           size="sm"
           className="gap-1.5"
-          disabled={t.loading || voiceInput.listening || isDefaultState}
+          disabled={t.loading || voiceState.listening || isDefaultState}
           onClick={handleRestore}
           aria-label="Restaurar traductor"
         >
@@ -171,24 +162,25 @@ export function TranslatorPanel({
             placeholder={sourcePlaceholder}
             error={t.errorCode === "EMPTY_INPUT" ? (t.error ?? undefined) : undefined}
             action={
-              voiceInput.supported ? (
-                <VoiceInputButton
-                  listening={voiceInput.listening}
-                  supported={voiceInput.supported}
-                  disabled={t.loading}
-                  onClick={onVoiceInputClick}
-                />
-              ) : undefined
+              <TranslatorVoiceInputAction
+                sourceLang={t.sourceLang}
+                input={t.input}
+                loading={t.loading}
+                resetKey={voiceResetKey}
+                onPreview={handleVoicePreview}
+                onFinal={handleVoiceFinal}
+                onStateChange={setVoiceState}
+              />
             }
           />
-          {voiceInput.listening && (
+          {voiceState.listening && (
             <p className="type-small text-primary" role="status">
               Escuchando… habla ahora.
             </p>
           )}
-          {voiceInput.error && (
+          {voiceState.error && (
             <p role="alert" className="type-small text-error">
-              {voiceInput.error}
+              {voiceState.error}
             </p>
           )}
           {t.error && t.errorCode !== "EMPTY_INPUT" && (
@@ -201,7 +193,7 @@ export function TranslatorPanel({
               type="button"
               size="lg"
               className="w-full sm:w-auto"
-              disabled={t.loading || voiceInput.listening}
+              disabled={t.loading || voiceState.listening}
               onClick={() => void t.translateText()}
               aria-label={t.loading ? "Traduciendo texto" : "Traducir texto aquí"}
             >
@@ -218,14 +210,12 @@ export function TranslatorPanel({
             >
               Resultado ({LANGUAGES[t.targetLang].nativeLabel})
             </p>
-            {voiceOutput.supported ? (
-              <VoiceOutputButton
-                speaking={voiceOutput.speaking}
-                supported={voiceOutput.supported}
-                disabled={t.loading || !t.output.trim()}
-                onClick={() => voiceOutput.toggle(t.output)}
-              />
-            ) : null}
+            <TranslatorVoiceOutputButton
+              targetLang={t.targetLang}
+              output={t.output}
+              loading={t.loading}
+              resetKey={voiceResetKey}
+            />
           </div>
           <div
             id={outputRegionId}

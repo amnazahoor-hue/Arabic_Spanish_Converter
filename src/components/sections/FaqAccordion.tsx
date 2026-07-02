@@ -1,6 +1,7 @@
 "use client";
 
 import type { FaqCategory } from "@/content/faq";
+import { scheduleLayoutRead } from "@/lib/scheduleLayoutRead";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -62,14 +63,14 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
     const measureRoot = measureRef.current;
     if (!measureRoot) return;
 
-    let rafId = 0;
+    let cancelScheduled = () => {};
     let cancelled = false;
 
     const measureHeights = () => {
       if (cancelled) return;
 
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
+      cancelScheduled();
+      cancelScheduled = scheduleLayoutRead(() => {
         if (cancelled) return;
 
         const headerEls = measureRoot.querySelectorAll<HTMLElement>("[data-faq-header-measure]");
@@ -94,7 +95,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
       });
     };
 
-    rafId = requestAnimationFrame(measureHeights);
+    measureHeights();
 
     const observer = new ResizeObserver(() => measureHeights());
     observer.observe(measureRoot);
@@ -104,7 +105,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
 
     return () => {
       cancelled = true;
-      cancelAnimationFrame(rafId);
+      cancelScheduled();
       observer.disconnect();
       window.removeEventListener("resize", measureHeights);
     };
